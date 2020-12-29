@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, StyleSheet, StatusBar, Text, Image} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { View, StyleSheet, StatusBar, Text, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign';
 import SearchBar from '../../components/SearchBar';
 import color from '../../common/color';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 const Recent: React.FC<{}> = () => {
   const navigation = useNavigation();
@@ -34,6 +35,11 @@ const Recent: React.FC<{}> = () => {
       },
     },
   ];
+
+  const chat2user = (id: number) => {
+    navigation.navigate('Chat', { id });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
@@ -50,27 +56,29 @@ const Recent: React.FC<{}> = () => {
         <View style={styles.list}>
           {list.map((item) => {
             return (
-              <View style={styles.listItem} key={item.id}>
-                <View style={styles.avatar}>
-                  <Image source={{uri: item.friend_info.avatar}} style={styles.avatarImage} />
-                  {/* <u-badge type="error" :count="item.unread_number" :offset="[-10, -10]" /> */}
-                </View>
-                <View style={styles.wrap}>
-                  <View style={styles.content}>
-                    <View>
-                      <Text style={styles.userName}>{item.friend_info.nickname}</Text>
+              <TouchableWithoutFeedback onPress={() => chat2user(item.id)} key={item.id}>
+                <View style={styles.listItem}>
+                  <View style={styles.avatar}>
+                    <Image source={{ uri: item.friend_info.avatar }} style={styles.avatarImage} />
+                    {/* <u-badge type="error" :count="item.unread_number" :offset="[-10, -10]" /> */}
+                  </View>
+                  <View style={styles.wrap}>
+                    <View style={styles.content}>
+                      <View>
+                        <Text style={styles.userName}>{item.friend_info.nickname}</Text>
+                      </View>
+                      <View>
+                        <Text style={styles.message} numberOfLines={1}>
+                          {item.last_message.content}
+                        </Text>
+                      </View>
                     </View>
                     <View>
-                      <Text style={styles.message} numberOfLines={1}>
-                        {item.last_message.content}
-                      </Text>
+                      <Text style={styles.time}>{item.last_message.time}</Text>
                     </View>
                   </View>
-                  <View>
-                    <Text style={styles.time}>{item.last_message.time}</Text>
-                  </View>
                 </View>
-              </View>
+              </TouchableWithoutFeedback>
             );
           })}
         </View>
@@ -132,7 +140,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomColor: color.borderColor,
+    borderBottomColor: color.borderLightColor,
     borderBottomWidth: 1,
     paddingTop: 10,
     paddingBottom: 10,

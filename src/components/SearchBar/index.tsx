@@ -9,7 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
   onPress?: ((event: GestureResponderEvent) => void) | undefined;
 }
 const SearchBar: React.FC<Props> = (props) => {
-  const {placeholder, style, disabled = false, onPress} = props;
+  const { placeholder, style, disabled = false, onPress } = props;
   const color = '#909399';
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -27,9 +27,9 @@ const SearchBar: React.FC<Props> = (props) => {
         <View style={[styles.container, style]}>
           <Icon name="search1" size={16} color={color} />
           <TextInput
-            style={[styles.input, {color}]}
+            style={[styles.input, { color }]}
             placeholder={placeholder}
-            editable={disabled}
+            editable={!disabled}
             enablesReturnKeyAutomatically={true}
             returnKeyType="search"
             autoCapitalize="none"

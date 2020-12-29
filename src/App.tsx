@@ -1,13 +1,14 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createStackNavigator} from '@react-navigation/stack';
-import {TransitionPresets} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import { TransitionPresets } from '@react-navigation/stack';
 import TabIcon from './components/TabIcon';
 import Recent from './pages/chat/recent';
 import Profile from './pages/user/profile';
 import AddressBook from './pages/address-book';
 import Login from './pages/user/login';
+import Chat from './pages/chat/chat';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -16,16 +17,16 @@ export default function App() {
   const TabScreen = () => {
     return (
       <Tab.Navigator
-        screenOptions={({route}) => ({
+        screenOptions={({ route }) => ({
           tabBarIcon: (props) => {
-            const {focused, color, size} = props;
+            const { focused, color, size } = props;
             return <TabIcon route={route} focused={focused} color={color} size={size} />;
           },
         })}
         tabBarOptions={{
           activeTintColor: '#1441B8',
           inactiveTintColor: '#666666',
-          labelStyle: {marginBottom: 4},
+          labelStyle: { marginBottom: 4 },
         }}>
         <Tab.Screen
           name="Home"
@@ -57,6 +58,9 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
+          headerStyle: {
+            height: 48,
+          },
           gestureEnabled: true,
           ...TransitionPresets.SlideFromRightIOS,
         }}>
@@ -67,6 +71,7 @@ export default function App() {
             headerShown: false,
           }}
         />
+        <Stack.Screen name="Chat" component={Chat} options={{ title: '对话' }} />
         <Stack.Screen
           name="Login"
           component={Login}

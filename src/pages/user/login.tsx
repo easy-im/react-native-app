@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, Image, Text, TextInput, StyleSheet, StatusBar, TouchableOpacity} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import Colors from '../../common/color';
+import { View, Image, Text, TextInput, StyleSheet, StatusBar, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import color from '../../common/color';
 
 const Login: React.FC<{}> = () => {
   const navigation = useNavigation();
@@ -42,7 +42,7 @@ const Login: React.FC<{}> = () => {
           </View>
         </View>
         <View style={styles.help}>
-          <TouchableOpacity onPress={() => navigation.navigate('TabNav', {screen: 'Recent'})}>
+          <TouchableOpacity onPress={() => navigation.navigate('TabNav', { screen: 'Recent' })}>
             <Text style={styles.signUp}>注册账号</Text>
           </TouchableOpacity>
         </View>
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderWidth: 1,
-    borderColor: '#EAEAEA',
+    borderColor: color.borderColor,
     borderRadius: 24,
   },
   welcome: {
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.lightBlue,
+    backgroundColor: color.lightBlue,
     height: 45,
     lineHeight: 45,
     borderRadius: 6,
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     marginTop: 9,
   },
   signUp: {
-    color: Colors.lightGray,
+    color: color.lightGray,
     fontSize: 13,
   },
 });
