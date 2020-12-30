@@ -12,6 +12,8 @@ target 'speedy' do
 
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
+  pod 'RealmJS', :path => '../node_modules/realm'
+
   target 'speedyTests' do
     inherit! :complete
     # Pods for testing

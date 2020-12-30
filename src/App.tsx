@@ -27,6 +27,7 @@ export default function App() {
 
   const { pages } = router;
   const { screenOptions, list } = pages;
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={screenOptions}>
