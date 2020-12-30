@@ -43,7 +43,7 @@ const Recent: React.FC<{}> = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
-      <Header />
+      <Header title="云闪聊" />
       <View style={styles.main}>
         <SearchBar placeholder="请输入关键字" disabled />
         <View style={styles.list}>

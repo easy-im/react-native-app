@@ -2,12 +2,16 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-interface Props {}
-const Header: React.FC<Props> = () => {
+interface Props {
+  title: string;
+}
+
+const Header: React.FC<Props> = (props) => {
+  const { title } = props;
   return (
     <View style={styles.header}>
       <View style={styles.appName}>
-        <Text style={styles.appNameText}>快聊</Text>
+        <Text style={styles.appNameText}>{title}</Text>
       </View>
       <View style={styles.appOperate}>
         <Icon name="pluscircleo" size={20} color="#333" />
