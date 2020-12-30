@@ -12,7 +12,7 @@ const Login: React.FC<{}> = () => {
         <Image source={require('@/assets/images/logo.png')} style={styles.image} />
       </View>
       <View style={styles.welcome}>
-        <Text style={styles.welcomeText}>欢迎使用快聊</Text>
+        <Text style={styles.welcomeText}>欢迎注册快聊账号</Text>
       </View>
       <View style={styles.form}>
         <View style={styles.formItem}>
@@ -36,14 +36,27 @@ const Login: React.FC<{}> = () => {
             />
           </View>
         </View>
+        <View style={styles.formItem}>
+          <View>
+            <Text style={styles.title}>重复密码</Text>
+          </View>
+          <View style={styles.inputWrap}>
+            <TextInput
+              style={styles.input}
+              keyboardType="default"
+              secureTextEntry={true}
+              placeholder="请输入5-20位密码"
+            />
+          </View>
+        </View>
         <View style={styles.submit}>
           <View style={styles.button}>
-            <Text style={styles.buttonText}>登录</Text>
+            <Text style={styles.buttonText}>注册</Text>
           </View>
         </View>
         <View style={styles.helpWrap}>
-          <TouchableOpacity style={styles.help} onPress={() => navigation.navigate('Register')}>
-            <Text style={styles.signUp}>注册账号</Text>
+          <TouchableOpacity style={styles.help} onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.signUp}>已有账号</Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -2,68 +2,29 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { TransitionPresets } from '@react-navigation/stack';
-import TabIcon from './components/TabIcon';
-import Recent from './pages/chat/recent';
-import Profile from './pages/user/profile';
-import AddressBook from './pages/address-book';
-import Login from './pages/user/login';
-import Chat from './pages/chat/chat';
+import router from './router';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 export default function App() {
   const TabScreen = () => {
+    const { tabBar } = router;
+    const { screenOptions, tabBarOptions, list } = tabBar;
     return (
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: (props) => {
-            const { focused, color, size } = props;
-            return <TabIcon route={route} focused={focused} color={color} size={size} />;
-          },
+      <Tab.Navigator screenOptions={screenOptions} tabBarOptions={tabBarOptions}>
+        {list.map((item, index) => {
+          return <Tab.Screen key={index} name={item.name} component={item.component} options={item.options} />;
         })}
-        tabBarOptions={{
-          activeTintColor: '#1441B8',
-          inactiveTintColor: '#666666',
-          labelStyle: { marginBottom: 4 },
-        }}>
-        <Tab.Screen
-          name="Home"
-          component={Recent}
-          options={{
-            tabBarLabel: '消息',
-            tabBarBadge: 3,
-          }}
-        />
-        <Tab.Screen
-          name="AddressBook"
-          component={AddressBook}
-          options={{
-            tabBarLabel: '通讯录',
-          }}
-        />
-        <Tab.Screen
-          name="User"
-          component={Profile}
-          options={{
-            tabBarLabel: '我',
-          }}
-        />
       </Tab.Navigator>
     );
   };
 
+  const { pages } = router;
+  const { screenOptions, list } = pages;
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerStyle: {
-            height: 48,
-          },
-          gestureEnabled: true,
-          ...TransitionPresets.SlideFromRightIOS,
-        }}>
+      <Stack.Navigator screenOptions={screenOptions}>
         <Stack.Screen
           name="TabNav"
           component={TabScreen}
@@ -71,14 +32,9 @@ export default function App() {
             headerShown: false,
           }}
         />
-        <Stack.Screen name="Chat" component={Chat} options={{ title: '对话' }} />
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{
-            headerShown: false,
-          }}
-        />
+        {list.map((item, index) => {
+          return <Stack.Screen key={index} name={item.name} component={item.component} options={item.options} />;
+        })}
       </Stack.Navigator>
     </NavigationContainer>
   );

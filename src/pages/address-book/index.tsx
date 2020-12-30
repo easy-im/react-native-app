@@ -2,13 +2,15 @@ import React from 'react';
 import { View, Button, StyleSheet, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Header from '@/components/Header';
 
 const AddressBook: React.FC<{}> = () => {
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={styles.main}>
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-      <View>
+      <Header />
+      <View style={styles.main}>
         <Button title="跳转到登陆" onPress={() => navigation.navigate('Login')} />
       </View>
     </SafeAreaView>
@@ -16,11 +18,10 @@ const AddressBook: React.FC<{}> = () => {
 };
 
 const styles = StyleSheet.create({
-  main: {
+  container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
+  main: {},
 });
 
 export default AddressBook;

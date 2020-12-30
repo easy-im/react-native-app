@@ -2,10 +2,10 @@ import React from 'react';
 import { View, StyleSheet, StatusBar, Text, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/AntDesign';
-import SearchBar from '../../components/SearchBar';
-import color from '../../common/color';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import SearchBar from '@/components/SearchBar';
+import Header from '@/components/Header';
+import color from '@/common/color';
 
 const Recent: React.FC<{}> = () => {
   const navigation = useNavigation();
@@ -43,14 +43,7 @@ const Recent: React.FC<{}> = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
-      <View style={styles.header}>
-        <View style={styles.appName}>
-          <Text style={styles.appNameText}>快聊</Text>
-        </View>
-        <View style={styles.appOperate}>
-          <Icon name="pluscircleo" size={20} color="#333" />
-        </View>
-      </View>
+      <Header />
       <View style={styles.main}>
         <SearchBar placeholder="请输入关键字" disabled />
         <View style={styles.list}>
@@ -91,28 +84,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft: 15,
-    paddingRight: 15,
-    backgroundColor: '#FFF',
-    height: 48,
-    borderBottomColor: '#eaeaea',
-    borderBottomWidth: 1,
-  },
-  appName: {
-    flex: 1,
-  },
-  appNameText: {
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  appOperate: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
   },
   main: {
     padding: 15,

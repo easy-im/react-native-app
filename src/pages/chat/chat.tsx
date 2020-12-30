@@ -13,7 +13,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign';
-import color from '../../common/color';
+import color from '@/common/color';
 
 const Chat: React.FC<{}> = () => {
   const navigation = useNavigation();

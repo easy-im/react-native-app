@@ -4,16 +4,16 @@ import { Image } from 'react-native';
 const TabIcon: React.FC<any> = ({ route, focused, size }) => {
   const list: Record<string, { iconPath: any; selectedIconPath: any }> = {
     Home: {
-      iconPath: require('../../assets/images/tab/chat.png'),
-      selectedIconPath: require('../../assets/images/tab/chat-active.png'),
+      iconPath: require('../assets/images/tab/chat.png'),
+      selectedIconPath: require('../assets/images/tab/chat-active.png'),
     },
     AddressBook: {
-      iconPath: require('../../assets/images/tab/address-book.png'),
-      selectedIconPath: require('../../assets/images/tab/address-book-active.png'),
+      iconPath: require('../assets/images/tab/address-book.png'),
+      selectedIconPath: require('../assets/images/tab/address-book-active.png'),
     },
     User: {
-      iconPath: require('../../assets/images/tab/user.png'),
-      selectedIconPath: require('../../assets/images/tab/user-active.png'),
+      iconPath: require('../assets/images/tab/user.png'),
+      selectedIconPath: require('../assets/images/tab/user-active.png'),
     },
   };
   const { name } = route;
