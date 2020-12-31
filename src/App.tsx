@@ -1,17 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import router from './router';
+import UserStorage, { User } from './storage/user';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [loaded, setLoaded] = useState(false);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+
   useEffect(() => {
-    SplashScreen.hide();
+    (async () => {
+      const user = await getAuthUser();
+      SplashScreen.hide();
+      if (user) {
+        setCurrentUser(user);
+      }
+      setLoaded(true);
+    })();
   }, []);
+
+  const getAuthUser = async () => {
+    const storage = new UserStorage();
+    const res = await storage.getAuthUser();
+    if (res && res.length) {
+      return res[0];
+    }
+    return null;
+  };
 
   const TabScreen = () => {
     const { tabBar } = router;
@@ -27,10 +47,15 @@ export default function App() {
 
   const { pages } = router;
   const { screenOptions, list } = pages;
+  const initialRouteName = currentUser ? 'TabNav' : 'Login';
+
+  if (!loaded) {
+    return null;
+  }
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Navigator screenOptions={screenOptions} initialRouteName={initialRouteName}>
         <Stack.Screen
           name="TabNav"
           component={TabScreen}
