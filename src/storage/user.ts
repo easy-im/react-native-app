@@ -2,22 +2,36 @@ import Realm from 'realm';
 import Storage from './base';
 
 export interface User {
-  id: number;
   is_current?: number;
+  id: number;
   token: string;
+  avatar: string;
+  client_id: string;
+  client_type: string;
+  mobile: number;
+  nickname: string;
+  sex: number;
+  status: number;
 }
 
 const UserSchema = {
   name: 'User',
   primaryKey: 'id',
   properties: {
+    is_current: { type: 'int', default: 0, optional: true },
     id: { type: 'int', indexed: true },
     token: { type: 'string' },
-    is_current: { type: 'int', default: 0, optional: true },
+    avatar: { type: 'string' },
+    client_id: { type: 'string' },
+    client_type: { type: 'string' },
+    nickname: { type: 'string' },
+    mobile: { type: 'int' },
+    sex: { type: 'int' },
+    status: { type: 'int' },
   },
 };
 
-export default class UserStorage extends Storage {
+class UserStorage extends Storage {
   constructor() {
     super([UserSchema]);
   }
@@ -28,19 +42,31 @@ export default class UserStorage extends Storage {
     });
   }
 
+  deleteUser(id: number) {
+    return this.query(async (realm) => {
+      const user = await this.getUser(id);
+      user && realm.delete(user);
+    });
+  }
+
   getUser(id: number) {
     return this.query((realm) => {
       const userList = realm.objects('User');
       const user = userList.filtered(`id = ${id}`);
-      return user;
+      return user && user[1];
     });
   }
 
-  getAuthUser(): Promise<User[]> {
+  getAuthUser(): Promise<User[] | null> {
     return this.query((realm) => {
       const userList = realm.objects('User');
+      if (!userList) {
+        return null;
+      }
       const user = userList.filtered('is_current = 1 AND token != ""');
       return user as any;
     });
   }
 }
+
+export default new UserStorage();

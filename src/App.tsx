@@ -3,8 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
-import router from './router';
-import UserStorage, { User } from './storage/user';
+import router from '@/router';
+import UserStorage, { User } from '@/storage/user';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -22,11 +22,14 @@ export default function App() {
       }
       setLoaded(true);
     })();
+    return () => {
+      UserStorage.close();
+    };
   }, []);
 
   const getAuthUser = async () => {
-    const storage = new UserStorage();
-    const res = await storage.getAuthUser();
+    await UserStorage.deleteUser(1);
+    const res = await UserStorage.getAuthUser();
     if (res && res.length) {
       return res[0];
     }

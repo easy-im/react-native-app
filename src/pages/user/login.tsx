@@ -1,10 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Image, Text, TextInput, StyleSheet, StatusBar, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import color from '@/common/color';
+import { isPhoneNumber } from '@/utils';
+import request from '@/utils/request';
+import UserStorage from '@/storage/user';
 
 const Login: React.FC<{}> = () => {
+  const [mobile, setMobile] = useState('13600000000');
+  const [password, setPassword] = useState('admin');
   const navigation = useNavigation();
+
+  const doLogin = async () => {
+    const res = await request.put('/user/signIn', {
+      mobile,
+      password,
+    });
+    if (res && res.errno === 200) {
+      UserStorage.saveUser({
+        is_current: 1,
+        ...res.data,
+      });
+    }
+  };
+
+  const isValid = () => {
+    return isPhoneNumber(+mobile) && password.length >= 5 && password.length < 20;
+  };
+
+  const valid = isValid();
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
@@ -20,7 +45,13 @@ const Login: React.FC<{}> = () => {
             <Text style={styles.title}>手机号码</Text>
           </View>
           <View style={styles.inputWrap}>
-            <TextInput style={styles.input} keyboardType="phone-pad" autoFocus={true} placeholder="请输入手机号码" />
+            <TextInput
+              keyboardType="phone-pad"
+              placeholder="请输入手机号码"
+              style={styles.input}
+              value={mobile}
+              onChangeText={(t) => setMobile(t)}
+            />
           </View>
         </View>
         <View style={styles.formItem}>
@@ -29,17 +60,21 @@ const Login: React.FC<{}> = () => {
           </View>
           <View style={styles.inputWrap}>
             <TextInput
-              style={styles.input}
               keyboardType="default"
-              secureTextEntry={true}
               placeholder="请输入5-20位密码"
+              value={password}
+              style={styles.input}
+              secureTextEntry={true}
+              onChangeText={(t) => setPassword(t)}
             />
           </View>
         </View>
         <View style={styles.submit}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>登录</Text>
-          </View>
+          <TouchableOpacity onPress={doLogin} disabled={!valid}>
+            <View style={[styles.button, !valid && styles.disabledButton]}>
+              <Text style={styles.buttonText}>登录</Text>
+            </View>
+          </TouchableOpacity>
         </View>
         <View style={styles.helpWrap}>
           <TouchableOpacity style={styles.help} onPress={() => navigation.navigate('Register')}>
@@ -86,15 +121,18 @@ const styles = StyleSheet.create({
     color: '#444',
   },
   inputWrap: {
-    marginTop: 6,
-  },
-  input: {
+    padding: 10,
+    paddingLeft: 0,
+    paddingRight: 0,
+    height: 40,
     borderBottomColor: '#eaeaea',
     borderBottomWidth: 1,
-    height: 39,
-    lineHeight: 39,
+  },
+  input: {
     fontSize: 15,
     backgroundColor: 'transparent',
+    padding: 0,
+    height: '100%',
   },
   submit: {
     marginTop: 15,
@@ -106,6 +144,10 @@ const styles = StyleSheet.create({
     height: 45,
     lineHeight: 45,
     borderRadius: 6,
+    opacity: 1,
+  },
+  disabledButton: {
+    opacity: 0.4,
   },
   buttonText: {
     fontSize: 16,

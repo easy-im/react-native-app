@@ -1,18 +1,30 @@
 import Realm, { ObjectClass, ObjectSchema } from 'realm';
 
 export default class Storage {
+  private realm!: Realm;
   private schema: (ObjectClass | ObjectSchema)[];
 
   constructor(schema: (ObjectClass | ObjectSchema)[]) {
     this.schema = schema;
+    this.init();
+  }
+
+  private async init() {
+    if (!this.realm || this.realm.isClosed) {
+      this.realm = await Realm.open({ schema: this.schema, schemaVersion: 5 });
+    }
+  }
+
+  public close() {
+    this.realm.close();
   }
 
   protected async query<T>(callback: (realm: Realm) => Promise<T> | T): Promise<T> {
-    const realm = await Realm.open({ schema: this.schema, schemaVersion: 1 });
+    await this.init();
     return new Promise((resolve, reject) => {
-      realm.write(async () => {
+      this.realm.write(async () => {
         try {
-          const res = await callback(realm);
+          const res = await callback(this.realm);
           resolve(res);
         } catch (error) {
           reject(error);
