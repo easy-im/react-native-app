@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "speedy-tvOS.app"
-               BlueprintName = "speedy-tvOS"
-               ReferencedContainer = "container:speedy.xcodeproj">
+               BuildableName = "kitim-tvOS.app"
+               BlueprintName = "kitim-tvOS"
+               ReferencedContainer = "container:kitim.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "speedy-tvOSTests.xctest"
-               BlueprintName = "speedy-tvOSTests"
-               ReferencedContainer = "container:speedy.xcodeproj">
+               BuildableName = "kitim-tvOSTests.xctest"
+               BlueprintName = "kitim-tvOSTests"
+               ReferencedContainer = "container:kitim.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "speedy-tvOS.app"
-            BlueprintName = "speedy-tvOS"
-            ReferencedContainer = "container:speedy.xcodeproj">
+            BuildableName = "kitim-tvOS.app"
+            BlueprintName = "kitim-tvOS"
+            ReferencedContainer = "container:kitim.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "speedy-tvOS.app"
-            BlueprintName = "speedy-tvOS"
-            ReferencedContainer = "container:speedy.xcodeproj">
+            BuildableName = "kitim-tvOS.app"
+            BlueprintName = "kitim-tvOS"
+            ReferencedContainer = "container:kitim.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

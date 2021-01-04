@@ -37,7 +37,7 @@ const Login: React.FC<{}> = () => {
         <Image source={require('@/assets/images/logo.png')} style={styles.image} />
       </View>
       <View style={styles.welcome}>
-        <Text style={styles.welcomeText}>欢迎使用快聊</Text>
+        <Text style={styles.welcomeText}>欢迎使用kitim</Text>
       </View>
       <View style={styles.form}>
         <View style={styles.formItem}>

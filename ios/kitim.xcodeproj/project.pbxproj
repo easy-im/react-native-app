@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* speedyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* speedyTests.m */; };
+		00E356F31AD99517003FC87E /* kitimTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* kitimTests.m */; };
 		063FD05D536F4780B636F6E5 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8FEF6187DFC469C9063038C /* Zocial.ttf */; };
 		12FBF5F5094F4606B51DA529 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F26E6893AD6D41E7AE64A8D1 /* Entypo.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -15,18 +15,18 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		210E9D2A42BF49B7854F0981 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 731E5CA8A31E466682A5EA5A /* Fontisto.ttf */; };
 		235A566237D14A2397A90957 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA0E28A001E447AFB9E78FE7 /* FontAwesome5_Solid.ttf */; };
-		250B3D1C436DCFF34EB690AA /* libPods-speedy-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0917AF22782545CCA332DE90 /* libPods-speedy-tvOS.a */; };
+		250B3D1C436DCFF34EB690AA /* libPods-kitim-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0917AF22782545CCA332DE90 /* libPods-kitim-tvOS.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2DCD954D1E0B4F2C00145EB5 /* speedyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* speedyTests.m */; };
+		2DCD954D1E0B4F2C00145EB5 /* kitimTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* kitimTests.m */; };
 		2DD09F87E60A415BB6576FDF /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 605B17507FC74D8E8D350730 /* FontAwesome5_Brands.ttf */; };
 		319D303130EC4B829825AB20 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2BE5A2E93D204700AC357A3D /* Octicons.ttf */; };
 		4B954D12BBCB493EB44CAD43 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5673880166D4F6193B23635 /* EvilIcons.ttf */; };
 		5072185DA4E84B128AD777BD /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94733C1A077740D188F6A5E8 /* AntDesign.ttf */; };
-		67EC5ED7BC55876173A959AE /* libPods-speedy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B76252021CE4B9529816C3 /* libPods-speedy.a */; };
+		67EC5ED7BC55876173A959AE /* libPods-kitim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B76252021CE4B9529816C3 /* libPods-kitim.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		939418B625931D183530FCDA /* libPods-speedy-speedyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86293093E16A618DB845A03E /* libPods-speedy-speedyTests.a */; };
+		939418B625931D183530FCDA /* libPods-kitim-kitimTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86293093E16A618DB845A03E /* libPods-kitim-kitimTests.a */; };
 		AC9CAA8F276447D6B0156918 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87DF18A73E134C84A075E089 /* FontAwesome5_Regular.ttf */; };
 		C8432F2478694B3B894C9313 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E02072B48D064E2FBC85124D /* FontAwesome.ttf */; };
 		DC380845BF214595BE05E72E /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57AF33AC503343FFAD00C986 /* Foundation.ttf */; };
@@ -35,7 +35,7 @@
 		ECAF97590A874EE6A77BE027 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE43E72EB5BC46A78978FEE7 /* Feather.ttf */; };
 		ECEFC01176CE452EB2E54B16 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4714F908755F48DB8987E8D2 /* SimpleLineIcons.ttf */; };
 		FC37A3A5D0B74EFF82CA0E0D /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 933498B7567740E1B277C5B6 /* Ionicons.ttf */; };
-		FCC897081096A30AD58A2A30 /* libPods-speedy-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B123F81270B47105D8563B7 /* libPods-speedy-tvOSTests.a */; };
+		FCC897081096A30AD58A2A30 /* libPods-kitim-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B123F81270B47105D8563B7 /* libPods-kitim-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,53 +44,53 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = speedy;
+			remoteInfo = kitim;
 		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
-			remoteInfo = "speedy-tvOS";
+			remoteInfo = "kitim-tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* speedyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = speedyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* kitimTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kitimTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* speedyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = speedyTests.m; sourceTree = "<group>"; };
-		0917AF22782545CCA332DE90 /* libPods-speedy-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-speedy-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0BC3686902592BCC9815A32B /* Pods-speedy-speedyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-speedy-speedyTests.debug.xcconfig"; path = "Target Support Files/Pods-speedy-speedyTests/Pods-speedy-speedyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* kitimTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kitimTests.m; sourceTree = "<group>"; };
+		0917AF22782545CCA332DE90 /* libPods-kitim-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-kitim-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0BC3686902592BCC9815A32B /* Pods-kitim-kitimTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kitim-kitimTests.debug.xcconfig"; path = "Target Support Files/Pods-kitim-kitimTests/Pods-kitim-kitimTests.debug.xcconfig"; sourceTree = "<group>"; };
 		0C455985ACFC41BCA1F20D41 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* speedy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = speedy.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = speedy/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = speedy/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = speedy/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = speedy/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = speedy/main.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* kitim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kitim.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = kitim/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = kitim/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = kitim/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = kitim/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = kitim/main.m; sourceTree = "<group>"; };
 		2BE5A2E93D204700AC357A3D /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
-		2BF70460ADADF51923596622 /* Pods-speedy-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-speedy-tvOS.release.xcconfig"; path = "Target Support Files/Pods-speedy-tvOS/Pods-speedy-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		2D02E47B1E0B4A5D006451C7 /* speedy-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "speedy-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* speedy-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "speedy-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BF70460ADADF51923596622 /* Pods-kitim-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kitim-tvOS.release.xcconfig"; path = "Target Support Files/Pods-kitim-tvOS/Pods-kitim-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		2D02E47B1E0B4A5D006451C7 /* kitim-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "kitim-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E4901E0B4A5D006451C7 /* kitim-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "kitim-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4714F908755F48DB8987E8D2 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		57AF33AC503343FFAD00C986 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		605B17507FC74D8E8D350730 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
-		65B76252021CE4B9529816C3 /* libPods-speedy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-speedy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		65B76252021CE4B9529816C3 /* libPods-kitim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-kitim.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		731E5CA8A31E466682A5EA5A /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = speedy/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		86293093E16A618DB845A03E /* libPods-speedy-speedyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-speedy-speedyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = kitim/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		86293093E16A618DB845A03E /* libPods-kitim-kitimTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-kitim-kitimTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		87DF18A73E134C84A075E089 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
-		8AF916B14D27E4DFBCFEE13A /* Pods-speedy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-speedy.debug.xcconfig"; path = "Target Support Files/Pods-speedy/Pods-speedy.debug.xcconfig"; sourceTree = "<group>"; };
+		8AF916B14D27E4DFBCFEE13A /* Pods-kitim.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kitim.debug.xcconfig"; path = "Target Support Files/Pods-kitim/Pods-kitim.debug.xcconfig"; sourceTree = "<group>"; };
 		933498B7567740E1B277C5B6 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		94733C1A077740D188F6A5E8 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
-		9B123F81270B47105D8563B7 /* libPods-speedy-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-speedy-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A42E2BF28ABBE2BC8B2B708C /* Pods-speedy-speedyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-speedy-speedyTests.release.xcconfig"; path = "Target Support Files/Pods-speedy-speedyTests/Pods-speedy-speedyTests.release.xcconfig"; sourceTree = "<group>"; };
-		AD0933E3CF9A6B76431A6F5C /* Pods-speedy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-speedy.release.xcconfig"; path = "Target Support Files/Pods-speedy/Pods-speedy.release.xcconfig"; sourceTree = "<group>"; };
-		BA5A6D2C3F8268E99C4E7158 /* Pods-speedy-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-speedy-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-speedy-tvOS/Pods-speedy-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		D28FE3D9E026C759833A20C7 /* Pods-speedy-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-speedy-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-speedy-tvOSTests/Pods-speedy-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9B123F81270B47105D8563B7 /* libPods-kitim-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-kitim-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A42E2BF28ABBE2BC8B2B708C /* Pods-kitim-kitimTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kitim-kitimTests.release.xcconfig"; path = "Target Support Files/Pods-kitim-kitimTests/Pods-kitim-kitimTests.release.xcconfig"; sourceTree = "<group>"; };
+		AD0933E3CF9A6B76431A6F5C /* Pods-kitim.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kitim.release.xcconfig"; path = "Target Support Files/Pods-kitim/Pods-kitim.release.xcconfig"; sourceTree = "<group>"; };
+		BA5A6D2C3F8268E99C4E7158 /* Pods-kitim-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kitim-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-kitim-tvOS/Pods-kitim-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		D28FE3D9E026C759833A20C7 /* Pods-kitim-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kitim-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-kitim-tvOSTests/Pods-kitim-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E02072B48D064E2FBC85124D /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
-		E97DA85CFB0C99FB06762DDB /* Pods-speedy-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-speedy-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-speedy-tvOSTests/Pods-speedy-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		E97DA85CFB0C99FB06762DDB /* Pods-kitim-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kitim-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-kitim-tvOSTests/Pods-kitim-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EE43E72EB5BC46A78978FEE7 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				939418B625931D183530FCDA /* libPods-speedy-speedyTests.a in Frameworks */,
+				939418B625931D183530FCDA /* libPods-kitim-kitimTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,7 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67EC5ED7BC55876173A959AE /* libPods-speedy.a in Frameworks */,
+				67EC5ED7BC55876173A959AE /* libPods-kitim.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,7 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				250B3D1C436DCFF34EB690AA /* libPods-speedy-tvOS.a in Frameworks */,
+				250B3D1C436DCFF34EB690AA /* libPods-kitim-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,20 +130,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCC897081096A30AD58A2A30 /* libPods-speedy-tvOSTests.a in Frameworks */,
+				FCC897081096A30AD58A2A30 /* libPods-kitim-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* speedyTests */ = {
+		00E356EF1AD99517003FC87E /* kitimTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* speedyTests.m */,
+				00E356F21AD99517003FC87E /* kitimTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = speedyTests;
+			path = kitimTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -154,7 +154,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* speedy */ = {
+		13B07FAE1A68108700A75B9A /* kitim */ = {
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -165,7 +165,7 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = speedy;
+			name = kitim;
 			sourceTree = "<group>";
 		};
 		267C2EB57DF140159903BC86 /* Resources */ = {
@@ -197,10 +197,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				65B76252021CE4B9529816C3 /* libPods-speedy.a */,
-				86293093E16A618DB845A03E /* libPods-speedy-speedyTests.a */,
-				0917AF22782545CCA332DE90 /* libPods-speedy-tvOS.a */,
-				9B123F81270B47105D8563B7 /* libPods-speedy-tvOSTests.a */,
+				65B76252021CE4B9529816C3 /* libPods-kitim.a */,
+				86293093E16A618DB845A03E /* libPods-kitim-kitimTests.a */,
+				0917AF22782545CCA332DE90 /* libPods-kitim-tvOS.a */,
+				9B123F81270B47105D8563B7 /* libPods-kitim-tvOSTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -208,14 +208,14 @@
 		82D0191F6CDDE12EFFE31318 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				8AF916B14D27E4DFBCFEE13A /* Pods-speedy.debug.xcconfig */,
-				AD0933E3CF9A6B76431A6F5C /* Pods-speedy.release.xcconfig */,
-				0BC3686902592BCC9815A32B /* Pods-speedy-speedyTests.debug.xcconfig */,
-				A42E2BF28ABBE2BC8B2B708C /* Pods-speedy-speedyTests.release.xcconfig */,
-				BA5A6D2C3F8268E99C4E7158 /* Pods-speedy-tvOS.debug.xcconfig */,
-				2BF70460ADADF51923596622 /* Pods-speedy-tvOS.release.xcconfig */,
-				D28FE3D9E026C759833A20C7 /* Pods-speedy-tvOSTests.debug.xcconfig */,
-				E97DA85CFB0C99FB06762DDB /* Pods-speedy-tvOSTests.release.xcconfig */,
+				8AF916B14D27E4DFBCFEE13A /* Pods-kitim.debug.xcconfig */,
+				AD0933E3CF9A6B76431A6F5C /* Pods-kitim.release.xcconfig */,
+				0BC3686902592BCC9815A32B /* Pods-kitim-kitimTests.debug.xcconfig */,
+				A42E2BF28ABBE2BC8B2B708C /* Pods-kitim-kitimTests.release.xcconfig */,
+				BA5A6D2C3F8268E99C4E7158 /* Pods-kitim-tvOS.debug.xcconfig */,
+				2BF70460ADADF51923596622 /* Pods-kitim-tvOS.release.xcconfig */,
+				D28FE3D9E026C759833A20C7 /* Pods-kitim-tvOSTests.debug.xcconfig */,
+				E97DA85CFB0C99FB06762DDB /* Pods-kitim-tvOSTests.release.xcconfig */,
 			);
 			name = Pods;
 			path = Pods;
@@ -231,9 +231,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* speedy */,
+				13B07FAE1A68108700A75B9A /* kitim */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* speedyTests */,
+				00E356EF1AD99517003FC87E /* kitimTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				82D0191F6CDDE12EFFE31318 /* Pods */,
@@ -247,10 +247,10 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* speedy.app */,
-				00E356EE1AD99517003FC87E /* speedyTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* speedy-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* speedy-tvOSTests.xctest */,
+				13B07F961A680F5B00A75B9A /* kitim.app */,
+				00E356EE1AD99517003FC87E /* kitimTests.xctest */,
+				2D02E47B1E0B4A5D006451C7 /* kitim-tvOS.app */,
+				2D02E4901E0B4A5D006451C7 /* kitim-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -258,9 +258,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* speedyTests */ = {
+		00E356ED1AD99517003FC87E /* kitimTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "speedyTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "kitimTests" */;
 			buildPhases = (
 				A7A3E53925B63E3751645EFF /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -273,14 +273,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = speedyTests;
-			productName = speedyTests;
-			productReference = 00E356EE1AD99517003FC87E /* speedyTests.xctest */;
+			name = kitimTests;
+			productName = kitimTests;
+			productReference = 00E356EE1AD99517003FC87E /* kitimTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* speedy */ = {
+		13B07F861A680F5B00A75B9A /* kitim */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "speedy" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "kitim" */;
 			buildPhases = (
 				030FC7AA74A3AB5E90C3621B /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -294,14 +294,14 @@
 			);
 			dependencies = (
 			);
-			name = speedy;
-			productName = speedy;
-			productReference = 13B07F961A680F5B00A75B9A /* speedy.app */;
+			name = kitim;
+			productName = kitim;
+			productReference = 13B07F961A680F5B00A75B9A /* kitim.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* speedy-tvOS */ = {
+		2D02E47A1E0B4A5D006451C7 /* kitim-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "speedy-tvOS" */;
+			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "kitim-tvOS" */;
 			buildPhases = (
 				9EE057EE8CAC8F3CABA89BB6 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
@@ -314,14 +314,14 @@
 			);
 			dependencies = (
 			);
-			name = "speedy-tvOS";
-			productName = "speedy-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* speedy-tvOS.app */;
+			name = "kitim-tvOS";
+			productName = "kitim-tvOS";
+			productReference = 2D02E47B1E0B4A5D006451C7 /* kitim-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E48F1E0B4A5D006451C7 /* speedy-tvOSTests */ = {
+		2D02E48F1E0B4A5D006451C7 /* kitim-tvOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "speedy-tvOSTests" */;
+			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "kitim-tvOSTests" */;
 			buildPhases = (
 				A3BC2BC5FC6669C4C45FA35B /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
@@ -333,9 +333,9 @@
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
 			);
-			name = "speedy-tvOSTests";
-			productName = "speedy-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* speedy-tvOSTests.xctest */;
+			name = "kitim-tvOSTests";
+			productName = "kitim-tvOSTests";
+			productReference = 2D02E4901E0B4A5D006451C7 /* kitim-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -364,7 +364,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "speedy" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "kitim" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -377,10 +377,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* speedy */,
-				00E356ED1AD99517003FC87E /* speedyTests */,
-				2D02E47A1E0B4A5D006451C7 /* speedy-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* speedy-tvOSTests */,
+				13B07F861A680F5B00A75B9A /* kitim */,
+				00E356ED1AD99517003FC87E /* kitimTests */,
+				2D02E47A1E0B4A5D006451C7 /* kitim-tvOS */,
+				2D02E48F1E0B4A5D006451C7 /* kitim-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -465,7 +465,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-speedy-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-kitim-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -501,7 +501,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-speedy-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-kitim-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -523,7 +523,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-speedy-tvOSTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-kitim-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -545,7 +545,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-speedy-speedyTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-kitim-kitimTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -558,7 +558,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-speedy-speedyTests/Pods-speedy-speedyTests-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-kitim-kitimTests/Pods-kitim-kitimTests-resources.sh",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -599,7 +599,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-speedy-speedyTests/Pods-speedy-speedyTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-kitim-kitimTests/Pods-kitim-kitimTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DBA0917292F9BC07381ADC08 /* [CP] Copy Pods Resources */ = {
@@ -608,7 +608,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-speedy/Pods-speedy-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-kitim/Pods-kitim-resources.sh",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -649,7 +649,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-speedy/Pods-speedy-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-kitim/Pods-kitim-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -697,7 +697,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* speedyTests.m in Sources */,
+				00E356F31AD99517003FC87E /* kitimTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -723,7 +723,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DCD954D1E0B4F2C00145EB5 /* speedyTests.m in Sources */,
+				2DCD954D1E0B4F2C00145EB5 /* kitimTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -732,12 +732,12 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* speedy */;
+			target = 13B07F861A680F5B00A75B9A /* kitim */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* speedy-tvOS */;
+			target = 2D02E47A1E0B4A5D006451C7 /* kitim-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -745,14 +745,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0BC3686902592BCC9815A32B /* Pods-speedy-speedyTests.debug.xcconfig */;
+			baseConfigurationReference = 0BC3686902592BCC9815A32B /* Pods-kitim-kitimTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = speedyTests/Info.plist;
+				INFOPLIST_FILE = kitimTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -762,17 +762,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/speedy.app/speedy";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/kitim.app/kitim";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A42E2BF28ABBE2BC8B2B708C /* Pods-speedy-speedyTests.release.xcconfig */;
+			baseConfigurationReference = A42E2BF28ABBE2BC8B2B708C /* Pods-kitim-kitimTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = speedyTests/Info.plist;
+				INFOPLIST_FILE = kitimTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -782,19 +782,19 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/speedy.app/speedy";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/kitim.app/kitim";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8AF916B14D27E4DFBCFEE13A /* Pods-speedy.debug.xcconfig */;
+			baseConfigurationReference = 8AF916B14D27E4DFBCFEE13A /* Pods-kitim.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = speedy/Info.plist;
+				INFOPLIST_FILE = kitim/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -802,7 +802,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = speedy;
+				PRODUCT_NAME = kitim;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -811,12 +811,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AD0933E3CF9A6B76431A6F5C /* Pods-speedy.release.xcconfig */;
+			baseConfigurationReference = AD0933E3CF9A6B76431A6F5C /* Pods-kitim.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = speedy/Info.plist;
+				INFOPLIST_FILE = kitim/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -824,7 +824,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = speedy;
+				PRODUCT_NAME = kitim;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -832,7 +832,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BA5A6D2C3F8268E99C4E7158 /* Pods-speedy-tvOS.debug.xcconfig */;
+			baseConfigurationReference = BA5A6D2C3F8268E99C4E7158 /* Pods-kitim-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -843,14 +843,14 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "speedy-tvOS/Info.plist";
+				INFOPLIST_FILE = "kitim-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.speedy-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.kitim-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -860,7 +860,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2BF70460ADADF51923596622 /* Pods-speedy-tvOS.release.xcconfig */;
+			baseConfigurationReference = 2BF70460ADADF51923596622 /* Pods-kitim-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -871,14 +871,14 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "speedy-tvOS/Info.plist";
+				INFOPLIST_FILE = "kitim-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.speedy-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.kitim-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -888,7 +888,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D28FE3D9E026C759833A20C7 /* Pods-speedy-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = D28FE3D9E026C759833A20C7 /* Pods-kitim-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -898,24 +898,24 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "speedy-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "kitim-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.speedy-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.kitim-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/speedy-tvOS.app/speedy-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/kitim-tvOS.app/kitim-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Debug;
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E97DA85CFB0C99FB06762DDB /* Pods-speedy-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = E97DA85CFB0C99FB06762DDB /* Pods-kitim-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -925,17 +925,17 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "speedy-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "kitim-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.speedy-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.kitim-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/speedy-tvOS.app/speedy-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/kitim-tvOS.app/kitim-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
@@ -1056,7 +1056,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "speedyTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "kitimTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -1065,7 +1065,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "speedy" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "kitim" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1074,7 +1074,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "speedy-tvOS" */ = {
+		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "kitim-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
@@ -1083,7 +1083,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "speedy-tvOSTests" */ = {
+		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "kitim-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
@@ -1092,7 +1092,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "speedy" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "kitim" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

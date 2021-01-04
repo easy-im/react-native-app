@@ -3,7 +3,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'speedy' do
+target 'kitim' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
@@ -14,7 +14,7 @@ target 'speedy' do
 
   pod 'RealmJS', :path => '../node_modules/realm'
 
-  target 'speedyTests' do
+  target 'kitimTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -29,10 +29,10 @@ target 'speedy' do
   end
 end
 
-target 'speedy-tvOS' do
-  # Pods for speedy-tvOS
+target 'kitim-tvOS' do
+  # Pods for kitim-tvOS
 
-  target 'speedy-tvOSTests' do
+  target 'kitim-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

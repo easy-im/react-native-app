@@ -14,7 +14,7 @@ const Recent: React.FC<{}> = () => {
       id: 1,
       unread_number: 1,
       friend_info: {
-        avatar: 'https://im.wangcai.me/speedy_avatar_5.jpg',
+        avatar: 'https://im.wangcai.me/kitim_avatar_5.jpg',
         nickname: '小白',
       },
       last_message: {
@@ -26,7 +26,7 @@ const Recent: React.FC<{}> = () => {
       id: 2,
       unread_number: 1,
       friend_info: {
-        avatar: 'https://im.wangcai.me/speedy_avatar_2.jpg',
+        avatar: 'https://im.wangcai.me/kitim_avatar_2.jpg',
         nickname: '小白',
       },
       last_message: {
@@ -43,7 +43,7 @@ const Recent: React.FC<{}> = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
-      <Header title="云闪聊" />
+      <Header title="kitim" />
       <View style={styles.main}>
         <SearchBar placeholder="请输入关键字" disabled />
         <View style={styles.list}>

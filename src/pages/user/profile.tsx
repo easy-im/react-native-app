@@ -8,29 +8,29 @@ import { SvgUri } from 'react-native-svg';
 const Profile: React.FC<{}> = () => {
   const userInfo = {
     id: 1000,
-    avatar: 'https://im.wangcai.me/speedy_avatar_1.jpg',
+    avatar: 'https://im.wangcai.me/kitim_avatar_1.jpg',
     nickname: '小白',
   };
   const setting = [
     {
       name: '钱包',
-      url: 'https://im.wangcai.me/speedy_wallet.svg',
+      url: 'https://im.wangcai.me/kitim_wallet.svg',
     },
     {
       name: '收藏',
-      url: 'https://im.wangcai.me/speedy_collect.svg',
+      url: 'https://im.wangcai.me/kitim_collect.svg',
     },
     {
       name: '隐私',
-      url: 'https://im.wangcai.me/speedy_privacy.svg',
+      url: 'https://im.wangcai.me/kitim_privacy.svg',
     },
     {
       name: '设置',
-      url: 'https://im.wangcai.me/speedy_setting.svg',
+      url: 'https://im.wangcai.me/kitim_setting.svg',
     },
     {
       name: '联系客服',
-      url: 'https://im.wangcai.me/speedy_service.svg',
+      url: 'https://im.wangcai.me/kitim_service.svg',
     },
   ];
 
@@ -49,7 +49,7 @@ const Profile: React.FC<{}> = () => {
             <Text style={styles.nameText}>{userInfo.nickname}</Text>
           </View>
           <View style={styles.id}>
-            <Text style={styles.idText}>云闪聊ID：{userInfo.id}</Text>
+            <Text style={styles.idText}>kitimID：{userInfo.id}</Text>
           </View>
         </View>
         <View style={styles.more}>

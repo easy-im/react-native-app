@@ -27,11 +27,11 @@ const Chat: React.FC<{}> = () => {
 
   const userInfo = {
     nickname: '罗强',
-    avatar: 'https://im.wangcai.me/speedy_avatar_1.jpg',
+    avatar: 'https://im.wangcai.me/kitim_avatar_1.jpg',
   };
   const friendInfo = {
     nickname: '小⑦',
-    avatar: 'https://im.wangcai.me/speedy_avatar_2.jpg',
+    avatar: 'https://im.wangcai.me/kitim_avatar_2.jpg',
   };
   const list = [
     { id: 1, is_owner: 1, content: '第一行' },
