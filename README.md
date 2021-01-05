@@ -43,9 +43,9 @@ $ yarn && yarn android
 
 系统使用`react-native`开发，可以同时开发安卓端与 IOS 端，同时使用以下第三库开发。
 
-UI 库：@ant-design/react-native
-路由库：@react-navigation/native
-数据管理：redux、redux-thunk
+UI 库：@ant-design/react-native  
+路由库：@react-navigation/native  
+数据管理：redux、redux-thunk  
 本地存储：realm
 
 ## 联系作者
