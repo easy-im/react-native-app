@@ -1,19 +1,6 @@
 import Realm from 'realm';
 import Storage from './base';
 
-export interface User {
-  is_current?: number;
-  id: number;
-  token: string;
-  avatar: string;
-  client_id: string;
-  client_type: string;
-  mobile: number;
-  nickname: string;
-  sex: number;
-  status: number;
-}
-
 const UserSchema = {
   name: 'User',
   primaryKey: 'id',

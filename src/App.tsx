@@ -3,8 +3,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
+import { Provider as ReduxProvider } from 'react-redux';
+import { Provider as AntProvider } from '@ant-design/react-native';
 import router from '@/router';
-import UserStorage, { User } from '@/storage/user';
+import UserStorage from '@/storage/user';
+import store from '@/store';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -28,6 +31,7 @@ export default function App() {
   }, []);
 
   const getAuthUser = async () => {
+    // UserStorage.deleteAll();
     await UserStorage.deleteUser(1);
     const res = await UserStorage.getAuthUser();
     if (res && res.length) {
@@ -57,19 +61,23 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={screenOptions} initialRouteName={initialRouteName}>
-        <Stack.Screen
-          name="TabNav"
-          component={TabScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        {list.map((item, index) => {
-          return <Stack.Screen key={index} name={item.name} component={item.component} options={item.options} />;
-        })}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ReduxProvider store={store}>
+      <AntProvider>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={screenOptions} initialRouteName={initialRouteName}>
+            <Stack.Screen
+              name="TabNav"
+              component={TabScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            {list.map((item, index) => {
+              return <Stack.Screen key={index} name={item.name} component={item.component} options={item.options} />;
+            })}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AntProvider>
+    </ReduxProvider>
   );
 }

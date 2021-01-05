@@ -10,11 +10,11 @@ const AddressBook: React.FC<{}> = () => {
   const navigation = useNavigation();
   const friends_map: Record<number, any> = {
     1: {
-      avatar: 'https://im.wangcai.me/kitim_avatar_1.jpg',
+      avatar: 'https://im.wangcai.me/speedy_avatar_1.jpg',
       nickname: '小白',
     },
     2: {
-      avatar: 'https://im.wangcai.me/kitim_avatar_2.jpg',
+      avatar: 'https://im.wangcai.me/speedy_avatar_2.jpg',
       nickname: '小红',
     },
   };

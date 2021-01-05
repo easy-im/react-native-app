@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Image, Text, TextInput, StyleSheet, StatusBar, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Button } from '@ant-design/react-native';
 import color from '@/common/color';
 
 const Login: React.FC<{}> = () => {
@@ -20,7 +21,7 @@ const Login: React.FC<{}> = () => {
             <Text style={styles.title}>手机号码</Text>
           </View>
           <View style={styles.inputWrap}>
-            <TextInput style={styles.input} keyboardType="phone-pad" autoFocus={true} placeholder="请输入手机号码" />
+            <TextInput style={styles.input} keyboardType="phone-pad" placeholder="请输入手机号码" />
           </View>
         </View>
         <View style={styles.formItem}>
@@ -50,13 +51,11 @@ const Login: React.FC<{}> = () => {
           </View>
         </View>
         <View style={styles.submit}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>注册</Text>
-          </View>
+          <Button type="primary">注册</Button>
         </View>
         <View style={styles.helpWrap}>
           <TouchableOpacity style={styles.help} onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.signUp}>已有账号</Text>
+            <Text style={styles.helpText}>已有账号？去登陆</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -110,29 +109,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   submit: {
-    marginTop: 15,
-  },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: color.lightBlue,
-    height: 45,
-    lineHeight: 45,
-    borderRadius: 6,
-  },
-  buttonText: {
-    fontSize: 16,
-    color: '#fff',
-  },
-  signUp: {
-    color: color.lightGray,
-    fontSize: 13,
+    marginTop: 40,
   },
   helpWrap: {
-    marginTop: 9,
+    marginTop: 10,
+    flexDirection: 'row',
   },
   help: {
+    flex: 1,
+    flexDirection: 'row',
     justifyContent: 'flex-end',
+  },
+  helpText: {
+    color: color.lightGray,
+    fontSize: 13,
   },
 });
 

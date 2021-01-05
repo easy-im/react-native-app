@@ -1,27 +1,34 @@
 import React, { useState } from 'react';
 import { View, Image, Text, TextInput, StyleSheet, StatusBar, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { Button, Toast, Portal } from '@ant-design/react-native';
 import color from '@/common/color';
 import { isPhoneNumber } from '@/utils';
-import request from '@/utils/request';
-import UserStorage from '@/storage/user';
+import { UserLogin } from '@/store/reducer/user';
 
 const Login: React.FC<{}> = () => {
   const [mobile, setMobile] = useState('13600000000');
   const [password, setPassword] = useState('admin');
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const doLogin = async () => {
-    const res = await request.put('/user/signIn', {
-      mobile,
-      password,
-    });
-    if (res && res.errno === 200) {
-      UserStorage.saveUser({
-        is_current: 1,
-        ...res.data,
-      });
+    const key = Toast.loading('Loading...');
+    const res: any = await dispatch(UserLogin({ mobile, password }));
+    Portal.remove(key);
+    if (!res.success) {
+      Toast.info(res.errmsg);
+      return;
     }
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: 'TabNav',
+        },
+      ],
+    });
   };
 
   const isValid = () => {
@@ -37,7 +44,7 @@ const Login: React.FC<{}> = () => {
         <Image source={require('@/assets/images/logo.png')} style={styles.image} />
       </View>
       <View style={styles.welcome}>
-        <Text style={styles.welcomeText}>欢迎使用kitim</Text>
+        <Text style={styles.welcomeText}>欢迎使用KitIM</Text>
       </View>
       <View style={styles.form}>
         <View style={styles.formItem}>
@@ -70,15 +77,13 @@ const Login: React.FC<{}> = () => {
           </View>
         </View>
         <View style={styles.submit}>
-          <TouchableOpacity onPress={doLogin} disabled={!valid}>
-            <View style={[styles.button, !valid && styles.disabledButton]}>
-              <Text style={styles.buttonText}>登录</Text>
-            </View>
-          </TouchableOpacity>
+          <Button type="primary" onPress={doLogin} disabled={!valid}>
+            登录
+          </Button>
         </View>
         <View style={styles.helpWrap}>
           <TouchableOpacity style={styles.help} onPress={() => navigation.navigate('Register')}>
-            <Text style={styles.signUp}>注册账号</Text>
+            <Text style={styles.helpText}>注册账号</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -135,33 +140,20 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   submit: {
-    marginTop: 15,
-  },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: color.lightBlue,
-    height: 45,
-    lineHeight: 45,
-    borderRadius: 6,
-    opacity: 1,
-  },
-  disabledButton: {
-    opacity: 0.4,
-  },
-  buttonText: {
-    fontSize: 16,
-    color: '#fff',
-  },
-  signUp: {
-    color: color.lightGray,
-    fontSize: 13,
+    marginTop: 40,
   },
   helpWrap: {
-    marginTop: 9,
+    marginTop: 10,
+    flexDirection: 'row',
   },
   help: {
+    flex: 1,
+    flexDirection: 'row',
     justifyContent: 'flex-end',
+  },
+  helpText: {
+    color: color.lightGray,
+    fontSize: 13,
   },
 });
 

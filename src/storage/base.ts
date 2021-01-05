@@ -11,12 +11,18 @@ export default class Storage {
 
   private async init() {
     if (!this.realm || this.realm.isClosed) {
-      this.realm = await Realm.open({ schema: this.schema, schemaVersion: 5 });
+      this.realm = await Realm.open({ schema: this.schema, schemaVersion: 6 });
     }
   }
 
   public close() {
     this.realm.close();
+  }
+
+  public deleteAll() {
+    return this.query((realm) => {
+      realm.deleteAll();
+    });
   }
 
   protected async query<T>(callback: (realm: Realm) => Promise<T> | T): Promise<T> {

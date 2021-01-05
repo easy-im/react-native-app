@@ -60,7 +60,8 @@ const request = async (url: string, options: RequestInit) => {
       if (res.ok) {
         return res.json();
       }
-      throw new Error(JSON.stringify({ status: res.status, error: 'network error' }));
+      console.log('network error', res);
+      throw new Error(JSON.stringify({ status: res.status, error: res.statusText || 'network error' }));
     })
     .catch((error) => {
       console.log('request error:', error);
