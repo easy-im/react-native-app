@@ -2,7 +2,7 @@
 
 [![star](https://img.shields.io/github/stars/AspenLuoQiang/speedy-im?style=social)](https://github.com/AspenLuoQiang/speedy-im) [![QQ群](https://img.shields.io/badge/QQ%E7%BE%A4-207879913-yellowgreen.svg)](https://jq.qq.com/?_wv=1027&k=9f25XGCW)
 
-[介绍](#介绍) | [DEMO](#DEMO) | [开发](#开发) | [开发计划](#开发计划) | [客户端](#客户端) | [联系作者](#联系作者)
+[介绍](#介绍) | [DEMO](#DEMO) | [开发](#开发) | [开发计划](#开发计划) | [系统架构](#系统架构) | [联系作者](#联系作者)
 
 ## 介绍
 
@@ -39,9 +39,14 @@ $ yarn && yarn android
 - [ ] [我的信息](#我的信息)
 - [ ] [好友信息](#好友信息)
 
-## 客户端
+## 系统架构
 
-客户端使用`react-native`开发，可以同时开发安卓端与 IOS 端，简单快捷。
+系统使用`react-native`开发，可以同时开发安卓端与 IOS 端，同时使用以下第三库开发。
+
+UI 库：@ant-design/react-native
+路由库：@react-navigation/native
+数据管理：redux、redux-thunk
+本地存储：realm
 
 ## 联系作者
 
