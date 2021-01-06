@@ -5,12 +5,23 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import { Provider as ReduxProvider } from 'react-redux';
 import { Provider as AntProvider } from '@ant-design/react-native';
+import { useDispatch } from 'react-redux';
 import router from '@/router';
 import UserStorage from '@/storage/user';
 import store from '@/store';
+import { GetUserFriendList } from '@/store/reducer/user';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+
+const InitApp: React.FC<{}> = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(GetUserFriendList());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return null;
+};
 
 export default function App() {
   const [loaded, setLoaded] = useState(false);
@@ -32,7 +43,6 @@ export default function App() {
 
   const getAuthUser = async () => {
     // UserStorage.deleteAll();
-    await UserStorage.deleteUser(1);
     const res = await UserStorage.getAuthUser();
     if (res && res.length) {
       return res[0];
@@ -63,6 +73,7 @@ export default function App() {
   return (
     <ReduxProvider store={store}>
       <AntProvider>
+        <InitApp />
         <NavigationContainer>
           <Stack.Navigator screenOptions={screenOptions} initialRouteName={initialRouteName}>
             <Stack.Screen
