@@ -1,29 +1,58 @@
-import React, { useEffect } from 'react';
-import {
-  View,
-  ScrollView,
-  Text,
-  Image,
-  StyleSheet,
-  StatusBar,
-  KeyboardAvoidingView,
-  TextInput,
-  Platform,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, ScrollView, Text, Image, StyleSheet, StatusBar, TextInput, Keyboard, KeyboardEvent } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign';
+import FeatherIcon from 'react-native-vector-icons/Feather';
 import color from '@/common/color';
+import { rpx } from '@/utils/screen';
 
 const Chat: React.FC<{}> = () => {
+  const $scroll = useRef<ScrollView | null>(null);
+  const scrollOffset = useRef<number>(0);
+  const keyboardHeight = useRef<number>(0);
+  const [messageText, setMessageText] = useState('');
+  const [inputHeight, setInputHeight] = useState(0);
+
   const navigation = useNavigation();
+  const route = useRoute();
+  const statusBarHeight = StatusBar.currentHeight || 0;
 
   useEffect(() => {
-    navigation.setOptions({
-      title: '小⑦',
-    });
+    const { params = {} }: any = route;
+    params.title &&
+      navigation.setOptions({
+        title: params.title,
+      });
+
+    $scroll.current?.scrollToEnd({ animated: false });
+
+    Keyboard.addListener('keyboardDidShow', handleKeyboardShow);
+    Keyboard.addListener('keyboardDidHide', handleKeyboardHide);
+
+    return () => {
+      Keyboard.removeAllListeners('keyboardDidShow');
+      Keyboard.removeAllListeners('keyboardDidHide');
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleKeyboardShow = (e: KeyboardEvent) => {
+    const { endCoordinates } = e;
+    const { height } = endCoordinates;
+    keyboardHeight.current = height;
+    $scroll.current?.scrollTo({
+      y: height + scrollOffset.current + statusBarHeight,
+      animated: true,
+    });
+  };
+
+  const handleKeyboardHide = () => {
+    $scroll.current?.scrollTo({
+      y: scrollOffset.current - keyboardHeight.current - statusBarHeight,
+      animated: true,
+    });
+  };
 
   const userInfo = {
     nickname: '罗强',
@@ -47,56 +76,97 @@ const Chat: React.FC<{}> = () => {
         '这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑',
     },
     { id: 8, is_owner: 1, content: '是啊' },
+    {
+      id: 9,
+      is_owner: 0,
+      content:
+        '这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑',
+    },
+    {
+      id: 10,
+      is_owner: 0,
+      content:
+        '这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑',
+    },
+    {
+      id: 11,
+      is_owner: 0,
+      content:
+        '这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑',
+    },
   ];
+
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        style={styles.container}
-        keyboardVerticalOffset={40}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
-        <View style={styles.main}>
-          <ScrollView style={styles.chatBody}>
-            {list.map((item) => {
-              const { is_owner } = item;
-              return (
-                <View style={[styles.chatItem, is_owner ? styles.chatMine : styles.chatFriend]} key={item.id}>
-                  <View style={[styles.chatAvatar, is_owner ? styles.chatMineAvatar : false]}>
-                    <Image
-                      source={{ uri: is_owner ? userInfo.avatar : friendInfo.avatar }}
-                      style={styles.chatAvatarImage}
-                    />
+      <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
+      <View style={styles.main}>
+        <ScrollView
+          ref={$scroll}
+          style={styles.chatBody}
+          keyboardShouldPersistTaps="always"
+          onScroll={(event) => (scrollOffset.current = event.nativeEvent.contentOffset.y)}
+        >
+          {list.map((item, index) => {
+            const { is_owner } = item;
+            return (
+              <View
+                style={[
+                  styles.chatItem,
+                  is_owner ? styles.chatMine : styles.chatFriend,
+                  index === 0 && styles.chatFirstItem,
+                ]}
+                key={item.id}
+              >
+                <View style={[styles.chatAvatar, is_owner ? styles.chatMineAvatar : false]}>
+                  <Image
+                    source={{ uri: is_owner ? userInfo.avatar : friendInfo.avatar }}
+                    style={styles.chatAvatarImage}
+                  />
+                </View>
+                <View style={[styles.chatTextWrap, is_owner ? styles.chatMineTextWrap : false]}>
+                  <View>
+                    <Text style={styles.chatNameText}>{is_owner ? userInfo.nickname : friendInfo.nickname}</Text>
                   </View>
-                  <View style={[styles.chatTextWrap, is_owner ? styles.chatMineTextWrap : false]}>
-                    <View>
-                      <Text style={styles.chatNameText}>{is_owner ? userInfo.nickname : friendInfo.nickname}</Text>
-                    </View>
-                    <View style={[styles.chatContent, is_owner ? styles.chatMineContent : false]}>
-                      <Text style={[styles.chatContentText, is_owner ? styles.chatMineContentText : false]}>
-                        {item.content}
-                      </Text>
-                      <View style={is_owner ? styles.chatMineBubble : styles.chatBubble} />
-                    </View>
+                  <View style={[styles.chatContent, is_owner ? styles.chatMineContent : false]}>
+                    <Text
+                      selectable={true}
+                      style={[styles.chatContentText, is_owner ? styles.chatMineContentText : false]}
+                    >
+                      {item.content}
+                    </Text>
+                    <View style={is_owner ? styles.chatMineBubble : styles.chatBubble} />
                   </View>
                 </View>
-              );
-            })}
-          </ScrollView>
-          <View style={styles.chatFooter}>
-            <TextInput
-              style={styles.input}
-              enablesReturnKeyAutomatically={true}
-              returnKeyType="send"
-              autoCapitalize="none"
-              placeholder="请输入"
-            />
-            <View style={styles.chatToolIcons}>
-              <Icon name="meh" size={24} color="#333" style={styles.icon} />
-              <Icon name="pluscircleo" size={24} color="#333" style={styles.icon} />
-            </View>
+              </View>
+            );
+          })}
+        </ScrollView>
+        <View style={styles.chatFooter}>
+          <TextInput
+            returnKeyType="send"
+            autoCapitalize="none"
+            textAlignVertical="top"
+            style={[styles.input, { height: Math.max(rpx(42), Math.min(rpx(84.3), inputHeight)) }]}
+            maxLength={1000}
+            multiline={true}
+            blurOnSubmit={false}
+            enablesReturnKeyAutomatically={true}
+            onSubmitEditing={() => {
+              console.log(messageText);
+            }}
+            onContentSizeChange={(e) => {
+              setInputHeight(e.nativeEvent.contentSize.height);
+            }}
+            onChangeText={(text) => setMessageText(text)}
+            value={messageText}
+          />
+          <View style={styles.chatToolIcons}>
+            <Icon name="meh" size={rpx(23)} color={color.text} style={styles.icon} />
+            {!messageText.trim() && <Icon name="pluscircleo" size={rpx(23)} color={color.text} style={styles.icon} />}
+            {!!messageText.trim() && <FeatherIcon name="send" size={rpx(25)} color={color.blue} style={styles.icon} />}
           </View>
         </View>
-      </KeyboardAvoidingView>
+      </View>
     </SafeAreaView>
   );
 };
@@ -104,44 +174,46 @@ const Chat: React.FC<{}> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#efefef',
   },
   main: {
     flex: 1,
-    flexDirection: 'column',
     justifyContent: 'space-between',
   },
   chatBody: {
     flex: 1,
   },
   chatItem: {
-    paddingLeft: 15,
-    paddingRight: 15,
-    marginTop: 15,
+    paddingLeft: rpx(15),
+    paddingRight: rpx(15),
+    marginBottom: rpx(15),
     flexDirection: 'row',
+  },
+  chatFirstItem: {
+    marginTop: rpx(15),
   },
   chatMine: {
     flex: 1,
     position: 'relative',
     flexDirection: 'row-reverse',
-    paddingRight: 120,
+    paddingRight: rpx(120),
   },
   chatFriend: {
     flex: 1,
     position: 'relative',
-    paddingRight: 120,
+    paddingRight: rpx(120),
   },
   chatAvatar: {
-    marginRight: 15,
+    marginRight: rpx(15),
   },
   chatMineAvatar: {
-    marginLeft: 15,
+    marginLeft: rpx(15),
     marginRight: 0,
   },
   chatAvatarImage: {
-    width: 42,
-    height: 42,
-    borderRadius: 4,
+    width: rpx(42),
+    height: rpx(42),
+    borderRadius: rpx(4),
   },
   chatTextWrap: {
     alignItems: 'flex-start',
@@ -151,19 +223,18 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   chatNameText: {
-    color: color.gray,
-    fontSize: 13,
-    lineHeight: 24,
+    color: color.lightGray,
+    fontSize: rpx(13),
   },
   chatContent: {
     position: 'relative',
-    lineHeight: 22,
-    marginTop: 5,
-    padding: 8,
-    paddingLeft: 15,
-    paddingRight: 15,
+    lineHeight: rpx(22),
+    marginTop: rpx(5),
+    padding: rpx(8),
+    paddingLeft: rpx(15),
+    paddingRight: rpx(15),
     backgroundColor: color.white,
-    borderRadius: 4,
+    borderRadius: rpx(4),
   },
   chatMineContent: {
     textAlign: 'left',
@@ -171,18 +242,18 @@ const styles = StyleSheet.create({
   },
   chatContentText: {
     color: color.text,
-    fontSize: 16,
+    fontSize: rpx(16),
   },
   chatMineContentText: {
     color: color.white,
   },
   chatBubble: {
     position: 'absolute',
-    left: -10,
-    top: 13,
+    left: rpx(-10),
+    top: rpx(13),
     width: 0,
     height: 0,
-    borderWidth: 10,
+    borderWidth: rpx(10),
     borderStyle: 'solid',
     borderLeftColor: 'transparent',
     borderBottomColor: 'transparent',
@@ -192,11 +263,11 @@ const styles = StyleSheet.create({
   },
   chatMineBubble: {
     position: 'absolute',
-    top: 13,
-    right: -10,
+    top: rpx(13),
+    right: rpx(-10),
     width: 0,
     height: 0,
-    borderWidth: 10,
+    borderWidth: rpx(10),
     borderStyle: 'solid',
     borderRightColor: 'transparent',
     borderBottomColor: 'transparent',
@@ -205,30 +276,33 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   chatFooter: {
-    height: 60,
-    backgroundColor: color.background,
-    borderTopColor: color.borderLightColor,
-    borderTopWidth: 1,
     flexDirection: 'row',
-    padding: 10,
-    paddingLeft: 12,
-    paddingRight: 12,
+    backgroundColor: '#f6f6f6',
+    borderTopColor: color.borderColor,
+    borderTopWidth: 0.5,
+    padding: rpx(10),
+    paddingLeft: rpx(12),
+    paddingRight: rpx(12),
   },
   input: {
-    backgroundColor: color.white,
     flex: 1,
-    borderRadius: 5,
-    padding: 0,
-    paddingLeft: 8,
-    paddingRight: 8,
-    fontSize: 15,
+    backgroundColor: color.white,
+    borderColor: color.borderColor,
+    borderWidth: 0.5,
+    borderRadius: rpx(5),
+    padding: rpx(8),
+    paddingTop: rpx(10),
+    paddingBottom: rpx(10),
+    fontSize: rpx(16),
+    lineHeight: rpx(24),
   },
   chatToolIcons: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
+    paddingBottom: rpx(8),
   },
   icon: {
-    marginLeft: 10,
+    marginLeft: rpx(10),
   },
 });
 

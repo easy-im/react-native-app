@@ -1,16 +1,15 @@
-import color from '@/common/color';
 import React from 'react';
 import { View, Text, StyleSheet, StatusBar, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { SvgUri } from 'react-native-svg';
+import { useSelector } from 'react-redux';
+import color from '@/common/color';
 
 const Profile: React.FC<{}> = () => {
-  const userInfo = {
-    id: 1000,
-    avatar: 'https://im.wangcai.me/speedy_avatar_1.jpg',
-    nickname: '小白',
-  };
+  const userInfo = useSelector((state: any) => state.user);
+  const { currentUser } = userInfo;
+
   const setting = [
     {
       name: '钱包',
@@ -25,12 +24,12 @@ const Profile: React.FC<{}> = () => {
       url: 'https://im.wangcai.me/speedy_privacy.svg',
     },
     {
-      name: '设置',
-      url: 'https://im.wangcai.me/speedy_setting.svg',
-    },
-    {
       name: '联系客服',
       url: 'https://im.wangcai.me/speedy_service.svg',
+    },
+    {
+      name: '设置',
+      url: 'https://im.wangcai.me/speedy_setting.svg',
     },
   ];
 
@@ -40,16 +39,16 @@ const Profile: React.FC<{}> = () => {
       <View style={styles.info}>
         <View style={styles.avatar}>
           <Image
-            source={{ uri: `${userInfo.avatar}?imageView2/1/w/150/h/150/format/jpg/interlace/1/q/75` }}
+            source={{ uri: `${currentUser.avatar}?imageView2/1/w/150/h/150/format/jpg/interlace/1/q/75` }}
             style={styles.avatarImage}
           />
         </View>
         <View style={styles.content}>
           <View>
-            <Text style={styles.nameText}>{userInfo.nickname}</Text>
+            <Text style={styles.nameText}>{currentUser.nickname}</Text>
           </View>
           <View style={styles.id}>
-            <Text style={styles.idText}>kitimID：{userInfo.id}</Text>
+            <Text style={styles.idText}>kitimID：{currentUser.id}</Text>
           </View>
         </View>
         <View style={styles.more}>

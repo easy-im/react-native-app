@@ -15,7 +15,7 @@ const Recent: React.FC<{}> = () => {
       unread_number: 1,
       friend_info: {
         avatar: 'https://im.wangcai.me/speedy_avatar_5.jpg',
-        nickname: '小白',
+        nickname: '小⑦',
       },
       last_message: {
         content: '你好啊，我是小白',
@@ -36,8 +36,8 @@ const Recent: React.FC<{}> = () => {
     },
   ];
 
-  const chat2user = (id: number) => {
-    navigation.navigate('Chat', { id });
+  const chat2user = (item: any) => {
+    navigation.navigate('Chat', { id: item.id, title: item.friend_info.nickname });
   };
 
   return (
@@ -49,7 +49,7 @@ const Recent: React.FC<{}> = () => {
         <View style={styles.list}>
           {list.map((item) => {
             return (
-              <TouchableWithoutFeedback onPress={() => chat2user(item.id)} key={item.id}>
+              <TouchableWithoutFeedback onPress={() => chat2user(item)} key={item.id}>
                 <View style={styles.listItem}>
                   <View style={styles.avatar}>
                     <Image source={{ uri: item.friend_info.avatar }} style={styles.avatarImage} />
