@@ -3,7 +3,7 @@ import { View, Image, Text, TextInput, StyleSheet, StatusBar, TouchableOpacity }
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { Button, Toast, Portal } from '@ant-design/react-native';
-import color from '@/common/color';
+import color from '@/utils/color';
 import { isPhoneNumber } from '@/utils';
 import { UserLogin } from '@/store/reducer/user';
 

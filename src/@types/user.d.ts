@@ -1,18 +1,19 @@
 interface User {
-  is_current?: number;
   id: number;
-  token: string;
-  avatar: string;
-  client_id: string;
-  client_type: string;
-  mobile: number;
   nickname: string;
+  mobile: number;
+  password: string;
+  avatar: string;
   sex: number;
+  token: string;
+  client_id: string;
+  client_type: 'android' | 'ios';
+  create_time: number;
   status: number;
 }
 
-type Friend = User & {
+interface Friend extends User {
   uid: number;
   friend_id: number;
   remark: string;
-};
+}

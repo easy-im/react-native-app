@@ -4,11 +4,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { SvgUri } from 'react-native-svg';
 import { useSelector } from 'react-redux';
-import color from '@/common/color';
+import color from '@/utils/color';
 
 const Profile: React.FC<{}> = () => {
-  const userInfo = useSelector((state: any) => state.user);
-  const { currentUser } = userInfo;
+  const currentUser = useSelector((state: any) => state.user.currentUser);
 
   const setting = [
     {

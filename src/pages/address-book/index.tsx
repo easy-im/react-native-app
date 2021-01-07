@@ -2,31 +2,19 @@ import React from 'react';
 import { View, Image, Text, StyleSheet, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSelector } from 'react-redux';
 import Header from '@/components/Header';
-import color from '@/common/color';
+import color from '@/utils/color';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { UserState } from '@/store/reducer/user';
 
 const AddressBook: React.FC<{}> = () => {
   const navigation = useNavigation();
-  const friends_map: Record<number, any> = {
-    1: {
-      avatar: 'https://im.wangcai.me/speedy_avatar_1.jpg',
-      nickname: '小白',
-    },
-    2: {
-      avatar: 'https://im.wangcai.me/speedy_avatar_2.jpg',
-      nickname: '小红',
-    },
-  };
-  const friends = [
-    {
-      key: 'X',
-      list: [1, 2],
-    },
-  ];
+  const friendMap = useSelector((state: { user: UserState }) => state.user.friendMap);
+  const friendList = useSelector((state: { user: UserState }) => state.user.friendList);
 
-  const chat2user = (id: number) => {
-    navigation.navigate('Chat', { id });
+  const chat2user = (friend: Friend) => {
+    navigation.navigate('Chat', { id: friend.friend_id, title: friend.remark || friend.nickname });
   };
 
   return (
@@ -53,7 +41,7 @@ const AddressBook: React.FC<{}> = () => {
           </View>
         </View>
         <View>
-          {friends.map((item) => {
+          {friendList.map((item) => {
             return (
               <View key={item.key}>
                 <View style={styles.key}>
@@ -61,14 +49,15 @@ const AddressBook: React.FC<{}> = () => {
                 </View>
                 <View style={[styles.card]}>
                   {item.list.map((fid, index) => {
+                    const friend = friendMap[fid];
                     return (
-                      <TouchableWithoutFeedback key={index} onPress={() => chat2user(fid)}>
+                      <TouchableWithoutFeedback key={index} onPress={() => chat2user(friend)}>
                         <View style={styles.listItem}>
                           <View style={styles.avatar}>
-                            <Image source={{ uri: friends_map[fid].avatar }} style={styles.avatarImage} />
+                            <Image source={{ uri: friend?.avatar }} style={styles.avatarImage} />
                           </View>
                           <View style={[styles.userName, index === 0 && styles.firstUserName]}>
-                            <Text style={styles.userNameText}>{friends_map[fid].nickname}</Text>
+                            <Text style={styles.userNameText}>{friend?.nickname}</Text>
                           </View>
                         </View>
                       </TouchableWithoutFeedback>
@@ -88,7 +77,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-
   card: {
     backgroundColor: color.white,
     borderTopColor: color.borderLightColor,

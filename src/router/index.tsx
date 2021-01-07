@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from '@react-navigation/native';
 import { TransitionPresets } from '@react-navigation/stack';
 import TabIcon from './TabIcon';
-
+import MODULES from './modules';
 import Recent from '../pages/chat/recent';
 import AddressBook from '../pages/address-book';
 import Chat from '../pages/chat/chat';
@@ -14,7 +14,7 @@ export default {
   tabBar: {
     list: [
       {
-        name: 'Home',
+        name: MODULES.Recent,
         component: Recent,
         options: {
           tabBarLabel: '消息',
@@ -22,14 +22,14 @@ export default {
         },
       },
       {
-        name: 'AddressBook',
+        name: MODULES.AddressBook,
         component: AddressBook,
         options: {
           tabBarLabel: '通讯录',
         },
       },
       {
-        name: 'User',
+        name: MODULES.Profile,
         component: Profile,
         options: {
           tabBarLabel: '我',
@@ -51,23 +51,23 @@ export default {
   pages: {
     list: [
       {
-        name: 'Chat',
-        component: Chat,
-        options: { title: '对话' },
-      },
-      {
-        name: 'Login',
+        name: MODULES.Login,
         component: Login,
         options: {
           headerShown: false,
         },
       },
       {
-        name: 'Register',
+        name: MODULES.Register,
         component: Register,
         options: {
           headerShown: false,
         },
+      },
+      {
+        name: MODULES.Chat,
+        component: Chat,
+        options: { title: '对话' },
       },
     ],
     screenOptions: {

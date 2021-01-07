@@ -4,7 +4,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import color from '@/common/color';
+import color from '@/utils/color';
 import { rpx } from '@/utils/screen';
 
 const Chat: React.FC<{}> = () => {

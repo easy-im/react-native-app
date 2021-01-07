@@ -11,9 +11,9 @@ const configMap = {
 };
 
 const defaults = {
-  baseUrl: 'http://app.speedy-im.com/api',
+  baseUrl: 'http://10.12.164.126:8360/api',
   ws: {
-    host: 'http://app.speedy-im.com',
+    host: 'http://10.12.164.126:8360',
     namespace: 'chat',
   },
 };

@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import SearchBar from '@/components/SearchBar';
 import Header from '@/components/Header';
-import color from '@/common/color';
+import color from '@/utils/color';
 
 const Recent: React.FC<{}> = () => {
   const navigation = useNavigation();

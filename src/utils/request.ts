@@ -58,7 +58,6 @@ const request = async (url: string, options: RequestInit) => {
       if (res.ok) {
         return res.json();
       }
-      console.log('network error', res);
       throw new Error(JSON.stringify({ status: res.status, error: res.statusText || 'network error' }));
     })
     .catch((error) => {

@@ -1,17 +1,18 @@
 import React from 'react';
 import { Image } from 'react-native';
+import MODULES from './modules';
 
 const TabIcon: React.FC<any> = ({ route, focused, size }) => {
   const list: Record<string, { iconPath: any; selectedIconPath: any }> = {
-    Home: {
+    [MODULES.Recent]: {
       iconPath: require('../assets/images/tab/chat.png'),
       selectedIconPath: require('../assets/images/tab/chat-active.png'),
     },
-    AddressBook: {
+    [MODULES.AddressBook]: {
       iconPath: require('../assets/images/tab/address-book.png'),
       selectedIconPath: require('../assets/images/tab/address-book-active.png'),
     },
-    User: {
+    [MODULES.Profile]: {
       iconPath: require('../assets/images/tab/user.png'),
       selectedIconPath: require('../assets/images/tab/user-active.png'),
     },
