@@ -6,8 +6,9 @@ import SplashScreen from 'react-native-splash-screen';
 import { Provider as ReduxProvider } from 'react-redux';
 import { Provider as AntProvider } from '@ant-design/react-native';
 import { useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import router from '@/router';
-import UserStorage from '@/storage/user';
+import Storage from '@/storage/base';
 import store from '@/store';
 import { GetUserFriendList } from '@/store/reducer/user';
 
@@ -29,26 +30,16 @@ export default function App() {
 
   useEffect(() => {
     (async () => {
-      const user = await getAuthUser();
+      const userStr = await AsyncStorage.getItem('CURRENT_USER');
+      const user = userStr ? JSON.parse(userStr) : null;
       SplashScreen.hide();
       if (user) {
         setCurrentUser(user);
       }
       setLoaded(true);
     })();
-    return () => {
-      UserStorage.close();
-    };
+    return Storage.closeAll;
   }, []);
-
-  const getAuthUser = async () => {
-    // UserStorage.deleteAll();
-    const res = await UserStorage.getAuthUser();
-    if (res && res.length) {
-      return res[0];
-    }
-    return null;
-  };
 
   const TabScreen = () => {
     const { tabBar } = router;

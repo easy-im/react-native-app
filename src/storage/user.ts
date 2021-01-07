@@ -20,7 +20,7 @@ const UserSchema = {
 
 class UserStorage extends Storage {
   constructor() {
-    super([UserSchema]);
+    super('user', [UserSchema]);
   }
 
   saveUser(user: User, update = false) {

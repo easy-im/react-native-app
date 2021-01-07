@@ -1,6 +1,6 @@
-import request from '@/utils/request';
-import UserStorage from '@/storage/user';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dispatch } from 'redux';
+import request from '@/utils/request';
 
 const initialState = {
   currentUser: undefined,
@@ -15,10 +15,7 @@ export const UserLogin = (payload: { mobile: string; password: string }) => {
       password,
     });
     if (res && res.errno === 200) {
-      UserStorage.saveUser({
-        is_current: 1,
-        ...res.data,
-      });
+      AsyncStorage.setItem('CURRENT_USER', JSON.stringify(res.data));
       dispatch({ type: SET_CURRENT_USER, payload: { currentUser: res.data } });
       return { success: true, errmsg: '' };
     }
@@ -29,7 +26,7 @@ export const UserLogin = (payload: { mobile: string; password: string }) => {
 export const GetUserFriendList = () => {
   return async (dispatch: Dispatch) => {
     const res = await request.get('/user/friends');
-    console.log(res);
+    console.log(res.data[0].list);
     if (res && res.errno === 200) {
       // dispatch({ type: SET_CURRENT_USER, payload: { currentUser: res.data } });
       return { success: true, errmsg: '' };

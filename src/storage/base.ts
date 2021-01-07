@@ -1,17 +1,28 @@
 import Realm, { ObjectClass, ObjectSchema } from 'realm';
 
+const INSTANCE: Record<string, Realm> = {};
+
 export default class Storage {
   private realm!: Realm;
   private schema: (ObjectClass | ObjectSchema)[];
+  private key: string; // 用于标识数据库连接
 
-  constructor(schema: (ObjectClass | ObjectSchema)[]) {
+  constructor(key: string, schema: (ObjectClass | ObjectSchema)[]) {
     this.schema = schema;
+    this.key = key;
     this.init();
+  }
+
+  public static closeAll() {
+    Object.values(INSTANCE).forEach((realm) => {
+      realm.close();
+    });
   }
 
   private async init() {
     if (!this.realm || this.realm.isClosed) {
       this.realm = await Realm.open({ schema: this.schema, schemaVersion: 6 });
+      INSTANCE[this.key] = this.realm;
     }
   }
 
