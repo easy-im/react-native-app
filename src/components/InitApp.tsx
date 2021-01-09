@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 // import { useNavigation } from '@react-navigation/native';
 import { Toast } from '@ant-design/react-native';
 import { GetUserFriendList, AutoLogin } from '@/store/reducer/user';
+import { GetUnreadMessage } from '@/store/reducer/message';
 import Socket from '@/socket/chat';
 
 const InitApp: React.FC<{}> = ({}) => {
@@ -26,6 +27,7 @@ const InitApp: React.FC<{}> = ({}) => {
       }
       Socket.setup();
       dispatch(GetUserFriendList());
+      dispatch(GetUnreadMessage());
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -10,6 +10,7 @@ import router from '@/router';
 import store from '@/store';
 import Storage from '@/storage/base';
 import InitApp from '@/components/InitApp';
+import { User } from '@/types/interface/user';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();

@@ -6,10 +6,12 @@ export default class Storage {
   private realm!: Realm;
   private schema: (ObjectClass | ObjectSchema)[];
   private key: string; // 用于标识数据库连接
+  private version: number;
 
-  constructor(key: string, schema: (ObjectClass | ObjectSchema)[]) {
+  constructor(key: string, version: number, schema: (ObjectClass | ObjectSchema)[]) {
     this.schema = schema;
     this.key = key;
+    this.version = version;
     this.init();
   }
 
@@ -21,7 +23,7 @@ export default class Storage {
 
   private async init() {
     if (!this.realm || this.realm.isClosed) {
-      this.realm = await Realm.open({ schema: this.schema, schemaVersion: 6 });
+      this.realm = await Realm.open({ schema: this.schema, schemaVersion: this.version });
       INSTANCE[this.key] = this.realm;
     }
   }

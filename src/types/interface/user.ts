@@ -1,4 +1,4 @@
-interface User {
+export interface User {
   id: number;
   nickname: string;
   mobile: number;
@@ -12,8 +12,14 @@ interface User {
   status: number;
 }
 
-interface Friend extends User {
-  uid: number;
-  friend_id: number;
+export interface Friend {
+  fid: number;
   remark: string;
+  nickname: string;
+  mobile?: number;
+  avatar: string;
+  sex: number;
+  client_id: string;
+  client_type: 'android' | 'ios';
+  status: number;
 }

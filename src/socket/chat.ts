@@ -2,8 +2,8 @@ import { io, Socket } from 'socket.io-client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import md5 from 'md5';
 import config from '@/config';
-import { ENUM_SOCKET_MESSAGE_TYPE } from '@/@types/enum/message';
-import { CHAT_MESSAGE, RESPONSE_MESSAGE, SOCKET_RESPONSE } from '@/@types/response';
+import { ENUM_SOCKET_MESSAGE_TYPE } from '@/types/enum/message';
+import { CHAT_MESSAGE, RESPONSE_MESSAGE, SOCKET_RESPONSE } from '@/types/interface/response';
 // import Store from '@/store';
 
 const { ws } = config;

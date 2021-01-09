@@ -1,29 +1,37 @@
-import Realm from 'realm';
+import { Friend } from '@/types/interface/user';
+import Realm, { ObjectSchema } from 'realm';
 import Storage from './base';
 
-const UserSchema = {
+const UserSchema: ObjectSchema = {
   name: 'User',
-  primaryKey: 'id',
+  primaryKey: 'fid',
   properties: {
-    is_current: { type: 'int', default: 0, optional: true },
-    id: { type: 'int', indexed: true },
-    token: { type: 'string' },
-    avatar: { type: 'string' },
-    client_id: { type: 'string' },
-    client_type: { type: 'string' },
+    fid: { type: 'int' },
     nickname: { type: 'string' },
-    mobile: { type: 'int' },
+    remark: { type: 'string' },
+    mobile: { type: 'int', optional: true },
     sex: { type: 'int' },
+    avatar: { type: 'string' },
+    client_id: { type: 'string', optional: true },
+    client_type: { type: 'string', optional: true },
     status: { type: 'int' },
   },
 };
 
 class UserStorage extends Storage {
   constructor() {
-    super('user', [UserSchema]);
+    super('user', 7, [UserSchema]);
   }
 
-  saveUser(user: User, update = false) {
+  saveUserList(list: Friend[]) {
+    this.query((realm) => {
+      list.forEach((user) => {
+        realm.create('User', user, Realm.UpdateMode.All);
+      });
+    });
+  }
+
+  saveUser(user: Friend, update = false) {
     this.query((realm) => {
       realm.create('User', user, update ? Realm.UpdateMode.Modified : Realm.UpdateMode.All);
     });
@@ -44,14 +52,10 @@ class UserStorage extends Storage {
     });
   }
 
-  getAuthUser(): Promise<User[] | null> {
+  getAllUser() {
     return this.query((realm) => {
       const userList = realm.objects('User');
-      if (!userList) {
-        return null;
-      }
-      const user = userList.filtered('is_current = 1 AND token != ""');
-      return user as any;
+      return userList;
     });
   }
 }

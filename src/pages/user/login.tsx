@@ -6,6 +6,7 @@ import { Button, Toast, Portal } from '@ant-design/react-native';
 import color from '@/utils/color';
 import { isPhoneNumber } from '@/utils';
 import { UserLogin } from '@/store/reducer/user';
+import MODULES from '@/router/MODULES';
 
 const Login: React.FC<{}> = () => {
   const [mobile, setMobile] = useState('13600000000');
@@ -82,7 +83,7 @@ const Login: React.FC<{}> = () => {
           </Button>
         </View>
         <View style={styles.helpWrap}>
-          <TouchableOpacity style={styles.help} onPress={() => navigation.navigate('Register')}>
+          <TouchableOpacity style={styles.help} onPress={() => navigation.navigate(MODULES.Register)}>
             <Text style={styles.helpText}>注册账号</Text>
           </TouchableOpacity>
         </View>

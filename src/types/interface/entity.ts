@@ -1,4 +1,4 @@
-import { ENUM_MESSAGE_CONTENT_TYPE, ENUM_MESSAGE_DIST_TYPE } from './enum/message';
+import { ENUM_MESSAGE_CONTENT_TYPE, ENUM_MESSAGE_DIST_TYPE } from '../enum/message';
 
 // 与后端一致
 export interface Message {
@@ -8,10 +8,10 @@ export interface Message {
   dist_id: number;
   dist_type: ENUM_MESSAGE_DIST_TYPE;
   content_type: ENUM_MESSAGE_CONTENT_TYPE;
-  is_received?: number;
-  is_sent?: number;
   content: string;
   create_time: number;
+  is_received?: number;
+  is_sent?: number;
   status?: number;
 }
 

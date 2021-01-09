@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image } from 'react-native';
-import MODULES from './modules';
+import MODULES from './MODULES';
 
 const TabIcon: React.FC<any> = ({ route, focused, size }) => {
   const list: Record<string, { iconPath: any; selectedIconPath: any }> = {

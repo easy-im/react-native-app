@@ -3,6 +3,7 @@ import { View, Image, Text, TextInput, StyleSheet, StatusBar, TouchableOpacity }
 import { useNavigation } from '@react-navigation/native';
 import { Button } from '@ant-design/react-native';
 import color from '@/utils/color';
+import MODULES from '@/router/MODULES';
 
 const Login: React.FC<{}> = () => {
   const navigation = useNavigation();
@@ -54,7 +55,7 @@ const Login: React.FC<{}> = () => {
           <Button type="primary">注册</Button>
         </View>
         <View style={styles.helpWrap}>
-          <TouchableOpacity style={styles.help} onPress={() => navigation.navigate('Login')}>
+          <TouchableOpacity style={styles.help} onPress={() => navigation.navigate(MODULES.Login)}>
             <Text style={styles.helpText}>已有账号？去登陆</Text>
           </TouchableOpacity>
         </View>

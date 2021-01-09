@@ -6,6 +6,9 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import color from '@/utils/color';
 import { rpx } from '@/utils/screen';
+import { useDispatch, useSelector } from 'react-redux';
+import { MessageState, UPDATE_CHAT_UNREAD_NUMBER } from '@/store/reducer/message';
+import { UserState } from '@/store/reducer/user';
 
 const Chat: React.FC<{}> = () => {
   const $scroll = useRef<ScrollView | null>(null);
@@ -14,16 +17,27 @@ const Chat: React.FC<{}> = () => {
   const [messageText, setMessageText] = useState('');
   const [inputHeight, setInputHeight] = useState(0);
 
+  const statusBarHeight = StatusBar.currentHeight || 0;
   const navigation = useNavigation();
   const route = useRoute();
-  const statusBarHeight = StatusBar.currentHeight || 0;
+  const { params = {} }: any = route;
+  const { id, title } = params;
+
+  const dispatch = useDispatch();
+
+  const friendMap = useSelector((state: { user: UserState }) => state.user.friendMap);
+  const currentUser = useSelector((state: { user: UserState }) => state.user.currentUser);
+  const messageMap = useSelector((state: { message: MessageState }) => state.message.messageMap);
+  const messages = useSelector((state: { message: MessageState }) => state.message.messages);
+  const list = messages[id] || [];
 
   useEffect(() => {
-    const { params = {} }: any = route;
-    params.title &&
+    title &&
       navigation.setOptions({
-        title: params.title,
+        title: title,
       });
+    // 重置未读消息
+    dispatch({ type: UPDATE_CHAT_UNREAD_NUMBER, payload: { fid: +id } });
 
     $scroll.current?.scrollToEnd({ animated: false });
 
@@ -54,48 +68,6 @@ const Chat: React.FC<{}> = () => {
     });
   };
 
-  const userInfo = {
-    nickname: '罗强',
-    avatar: 'https://im.wangcai.me/speedy_avatar_1.jpg',
-  };
-  const friendInfo = {
-    nickname: '小⑦',
-    avatar: 'https://im.wangcai.me/speedy_avatar_2.jpg',
-  };
-  const list = [
-    { id: 1, is_owner: 1, content: '第一行' },
-    { id: 2, is_owner: 0, content: '第二行' },
-    { id: 3, is_owner: 1, content: '这种人真是醉了' },
-    { id: 4, is_owner: 0, content: '你看他在说屁' },
-    { id: 5, is_owner: 1, content: '这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，' },
-    { id: 6, is_owner: 1, content: '呵呵呵哒' },
-    {
-      id: 7,
-      is_owner: 0,
-      content:
-        '这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑',
-    },
-    { id: 8, is_owner: 1, content: '是啊' },
-    {
-      id: 9,
-      is_owner: 0,
-      content:
-        '这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑',
-    },
-    {
-      id: 10,
-      is_owner: 0,
-      content:
-        '这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑',
-    },
-    {
-      id: 11,
-      is_owner: 0,
-      content:
-        '这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑，这种人就是在别人面前找存在感，实则心理内心自卑',
-    },
-  ];
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
@@ -106,8 +78,14 @@ const Chat: React.FC<{}> = () => {
           keyboardShouldPersistTaps="always"
           onScroll={(event) => (scrollOffset.current = event.nativeEvent.contentOffset.y)}
         >
-          {list.map((item, index) => {
-            const { is_owner } = item;
+          {list.map((hash, index) => {
+            const message = messageMap[hash];
+            if (!message) {
+              return null;
+            }
+            const { is_owner, user_id, dist_id } = message;
+            const friendInfo = is_owner ? friendMap[dist_id] : friendMap[user_id];
+
             return (
               <View
                 style={[
@@ -115,24 +93,26 @@ const Chat: React.FC<{}> = () => {
                   is_owner ? styles.chatMine : styles.chatFriend,
                   index === 0 && styles.chatFirstItem,
                 ]}
-                key={item.id}
+                key={hash}
               >
                 <View style={[styles.chatAvatar, is_owner ? styles.chatMineAvatar : false]}>
                   <Image
-                    source={{ uri: is_owner ? userInfo.avatar : friendInfo.avatar }}
+                    source={{ uri: is_owner ? currentUser?.avatar : friendInfo.avatar }}
                     style={styles.chatAvatarImage}
                   />
                 </View>
                 <View style={[styles.chatTextWrap, is_owner ? styles.chatMineTextWrap : false]}>
                   <View>
-                    <Text style={styles.chatNameText}>{is_owner ? userInfo.nickname : friendInfo.nickname}</Text>
+                    <Text style={styles.chatNameText}>
+                      {is_owner ? currentUser?.nickname : friendInfo.remark || friendInfo.nickname}
+                    </Text>
                   </View>
                   <View style={[styles.chatContent, is_owner ? styles.chatMineContent : false]}>
                     <Text
                       selectable={true}
                       style={[styles.chatContentText, is_owner ? styles.chatMineContentText : false]}
                     >
-                      {item.content}
+                      {message.content}
                     </Text>
                     <View style={is_owner ? styles.chatMineBubble : styles.chatBubble} />
                   </View>

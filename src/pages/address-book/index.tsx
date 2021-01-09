@@ -7,6 +7,8 @@ import Header from '@/components/Header';
 import color from '@/utils/color';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { UserState } from '@/store/reducer/user';
+import { Friend } from '@/types/interface/user';
+import MODULES from '@/router/MODULES';
 
 const AddressBook: React.FC<{}> = () => {
   const navigation = useNavigation();
@@ -14,7 +16,7 @@ const AddressBook: React.FC<{}> = () => {
   const friendList = useSelector((state: { user: UserState }) => state.user.friendList);
 
   const chat2user = (friend: Friend) => {
-    navigation.navigate('Chat', { id: friend.friend_id, title: friend.remark || friend.nickname });
+    navigation.navigate(MODULES.Chat, { id: friend.fid, title: friend.remark || friend.nickname });
   };
 
   return (
@@ -100,8 +102,8 @@ const styles = StyleSheet.create({
     borderTopWidth: 0,
   },
   image: {
-    width: 22,
-    height: 22,
+    width: 24,
+    height: 24,
     marginRight: 15,
     backgroundColor: '#ecbe45',
     padding: 5,

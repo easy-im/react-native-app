@@ -1,5 +1,5 @@
 import { MessageRecord } from './entity';
-import { ENUM_MESSAGE_DIST_TYPE, ENUM_MESSAGE_RESPONSE_STATUS, ENUM_SOCKET_MESSAGE_TYPE } from './enum/message';
+import { ENUM_MESSAGE_DIST_TYPE, ENUM_MESSAGE_RESPONSE_STATUS, ENUM_SOCKET_MESSAGE_TYPE } from '../enum/message';
 
 // 发送给其他人消息
 export interface CHAT_MESSAGE {
