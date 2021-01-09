@@ -26,7 +26,7 @@ export const AutoLogin = () => {
     const userStr = await AsyncStorage.getItem('CURRENT_USER');
     const user: User | null = userStr ? JSON.parse(userStr) : null;
     if (!user) {
-      return { success: false, offline: false, errmsg: '您已退出登录' };
+      return { success: false, errmsg: '您已退出登录' };
     }
 
     dispatch({ type: SET_CURRENT_USER, payload: { currentUser: user } });
@@ -37,7 +37,7 @@ export const AutoLogin = () => {
       dispatch({ type: SET_CURRENT_USER, payload: { currentUser: res.data } });
       return { success: true, errmsg: '' };
     }
-    return { success: false, offline: true, errmsg: res?.errmsg || '网络错误' };
+    return { success: true, errmsg: res?.errmsg || '登陆已失效' };
   };
 };
 

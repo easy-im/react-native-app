@@ -9,7 +9,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import router from '@/router';
 import store from '@/store';
 import Storage from '@/storage/base';
-import InitApp from '@/components/InitApp';
 import { User } from '@/types/interface/user';
 
 const Tab = createBottomTabNavigator();
@@ -55,7 +54,6 @@ export default function App() {
   return (
     <AntProvider>
       <ReduxProvider store={store}>
-        <InitApp />
         <NavigationContainer>
           <Stack.Navigator screenOptions={screenOptions} initialRouteName={initialRouteName}>
             <Stack.Screen

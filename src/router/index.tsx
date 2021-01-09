@@ -9,6 +9,7 @@ import Chat from '../pages/chat/chat';
 import Login from '../pages/user/login';
 import Register from '../pages/user/register';
 import Profile from '../pages/user/profile';
+import Colors from '@/utils/color';
 
 export default {
   tabBar: {
@@ -42,8 +43,8 @@ export default {
       },
     }),
     tabBarOptions: {
-      activeTintColor: '#1441B8',
-      inactiveTintColor: '#666666',
+      activeTintColor: Colors.blue,
+      inactiveTintColor: Colors.lightGray,
       labelStyle: { marginBottom: 4 },
     },
   },

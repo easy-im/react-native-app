@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, StatusBar, Text, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -6,20 +6,50 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import SearchBar from '@/components/SearchBar';
 import Header from '@/components/Header';
 import color from '@/utils/color';
-import { MessageState } from '@/store/reducer/message';
-import { UserState } from '@/store/reducer/user';
-import { useSelector } from 'react-redux';
+import { GetUnreadMessage, MessageState } from '@/store/reducer/message';
+import { AutoLogin, GetUserFriendList, UserState } from '@/store/reducer/user';
+import { useDispatch, useSelector } from 'react-redux';
 import { formatTime } from '@/utils';
 import { Friend } from '@/types/interface/user';
 import MODULES from '@/router/MODULES';
 import { rpx } from '@/utils/screen';
+import Socket from '@/socket/chat';
+import { Toast } from '@ant-design/react-native';
 
 const Recent: React.FC<{}> = () => {
+  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const recent = useSelector((state: { message: MessageState }) => state.message.recent);
   const messageMap = useSelector((state: { message: MessageState }) => state.message.messageMap);
   const totalMessage = useSelector((state: { message: MessageState }) => state.message.totalMessage);
   const friendMap = useSelector((state: { user: UserState }) => state.user.friendMap);
+
+  useEffect(() => {
+    (async () => {
+      setLoading(true);
+      const res: any = await dispatch(AutoLogin());
+      if (!res.success) {
+        setLoading(false);
+        Toast.info(res.errmsg);
+        navigation.reset({
+          index: 0,
+          routes: [
+            {
+              name: MODULES.Login,
+            },
+          ],
+        });
+        return;
+      }
+      await Socket.setup();
+      await dispatch(GetUserFriendList());
+      await dispatch(GetUnreadMessage());
+      setLoading(false);
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     navigation.setOptions({
@@ -34,7 +64,7 @@ const Recent: React.FC<{}> = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
-      <Header title="KitIM" />
+      <Header title="KitIM" loading={loading} />
       <View style={styles.main}>
         <SearchBar placeholder="请输入关键字" disabled />
         <View style={styles.list}>
