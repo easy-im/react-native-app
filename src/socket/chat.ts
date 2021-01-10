@@ -8,6 +8,7 @@ import { Friend, User } from '@/types/interface/user';
 import { Message, MessageRecord } from '@/types/interface/entity';
 import Store from '@/store';
 import { UPDATE_MESSAGE_STATUS, UPDATE_MESSAGE_LIST } from '@/store/reducer/message';
+import { CURRENT_USER_KEY } from '@/storage/storageKeys';
 
 const { ws } = config;
 
@@ -24,7 +25,7 @@ class Chat {
   }
 
   public async setup() {
-    const userStr = await AsyncStorage.getItem('CURRENT_USER');
+    const userStr = await AsyncStorage.getItem(CURRENT_USER_KEY);
     const user = userStr ? JSON.parse(userStr) : null;
     this.token = user ? user.token : null;
     if (!this.token) {

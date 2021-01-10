@@ -4,6 +4,7 @@ import request from '@/utils/request';
 import UserStorage from '@/storage/user';
 import { Friend, User } from '@/types/interface/user';
 import { IAction } from '@/types/interface/redux';
+import { CURRENT_USER_KEY, USER_FRIEND_LIST_KEY } from '@/storage/storageKeys';
 
 export interface UserState {
   currentUser?: User;
@@ -23,7 +24,7 @@ export const SET_FRIEND_LIST = 'USER/SET_FRIEND_LIST';
 
 export const AutoLogin = () => {
   return async (dispatch: Dispatch) => {
-    const userStr = await AsyncStorage.getItem('CURRENT_USER');
+    const userStr = await AsyncStorage.getItem(CURRENT_USER_KEY);
     const user: User | null = userStr ? JSON.parse(userStr) : null;
     if (!user) {
       return { success: false, errmsg: '您已退出登录' };
@@ -33,7 +34,7 @@ export const AutoLogin = () => {
     const res = await request.get('/user/info');
 
     if (res && res.errno === 200) {
-      AsyncStorage.setItem('CURRENT_USER', JSON.stringify(res.data));
+      AsyncStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res.data));
       dispatch({ type: SET_CURRENT_USER, payload: { currentUser: res.data } });
       return { success: true, errmsg: '' };
     }
@@ -49,7 +50,7 @@ export const UserLogin = (payload: { mobile: string; password: string }) => {
       password,
     });
     if (res && res.errno === 200) {
-      AsyncStorage.setItem('CURRENT_USER', JSON.stringify(res.data));
+      AsyncStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res.data));
       dispatch({ type: SET_CURRENT_USER, payload: { currentUser: res.data } });
       return { success: true, errmsg: '' };
     }
@@ -59,7 +60,7 @@ export const UserLogin = (payload: { mobile: string; password: string }) => {
 
 export const GetUserFriendList = () => {
   return async (dispatch: Dispatch) => {
-    let tmp1 = await AsyncStorage.getItem('USER_FRIEND_LIST');
+    let tmp1 = await AsyncStorage.getItem(USER_FRIEND_LIST_KEY);
     let tmp2 = await UserStorage.getAllUser();
     if (tmp1 && tmp2 && tmp2.length) {
       tmp1 = tmp1 ? JSON.parse(tmp1) : null;
@@ -87,7 +88,7 @@ export const GetUserFriendList = () => {
         };
       });
       if (list.length) {
-        AsyncStorage.setItem('USER_FRIEND_LIST', JSON.stringify(list));
+        AsyncStorage.setItem(USER_FRIEND_LIST_KEY, JSON.stringify(list));
         UserStorage.saveUserList(Object.values(map));
         dispatch({ type: SET_FRIEND_MAP, payload: { friendMap: map } });
         dispatch({ type: SET_FRIEND_LIST, payload: { friendList: list } });

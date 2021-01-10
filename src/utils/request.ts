@@ -1,3 +1,4 @@
+import { CURRENT_USER_KEY } from '@/storage/storageKeys';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import config from '../config';
 
@@ -22,7 +23,7 @@ import config from '../config';
 const TIMEOUT = 3000;
 
 const request = async (url: string, options: RequestInit) => {
-  const userStr = await AsyncStorage.getItem('CURRENT_USER');
+  const userStr = await AsyncStorage.getItem(CURRENT_USER_KEY);
   const user = userStr ? JSON.parse(userStr) : null;
   const token = user ? user.token : null;
 

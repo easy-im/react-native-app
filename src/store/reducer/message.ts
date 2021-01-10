@@ -1,8 +1,9 @@
 import { Dispatch } from 'redux';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import request from '@/utils/request';
 import { IAction } from '@/types/interface/redux';
 import { MessageRecord } from '@/types/interface/entity';
+import { MESSAGE_RECENT_KEY } from '@/storage/storageKeys';
 
 export interface MessageState {
   totalMessage: number;
@@ -97,6 +98,7 @@ function updateMessageList(state: MessageState, payload: any) {
       messages[fid].push(hash);
     }
   });
+  AsyncStorage.setItem(MESSAGE_RECENT_KEY, JSON.stringify(recent));
   return {
     ...state,
     messages: { ...messages },

@@ -10,6 +10,7 @@ import router from '@/router';
 import store from '@/store';
 import Storage from '@/storage/base';
 import { User } from '@/types/interface/user';
+import { CURRENT_USER_KEY } from './storage/storageKeys';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -20,7 +21,7 @@ export default function App() {
 
   useEffect(() => {
     (async () => {
-      const userStr = await AsyncStorage.getItem('CURRENT_USER');
+      const userStr = await AsyncStorage.getItem(CURRENT_USER_KEY);
       const user = userStr ? JSON.parse(userStr) : null;
       SplashScreen.hide();
       if (user) {
