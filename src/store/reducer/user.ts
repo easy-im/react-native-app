@@ -58,7 +58,7 @@ export const UserLogin = (payload: { mobile: string; password: string }) => {
   };
 };
 
-export const GetUserFriendList = () => {
+export const RecoverUserInfo = () => {
   return async (dispatch: Dispatch) => {
     let tmp1 = await AsyncStorage.getItem(USER_FRIEND_LIST_KEY);
     let tmp2 = await UserStorage.getAllUser();
@@ -71,7 +71,11 @@ export const GetUserFriendList = () => {
       dispatch({ type: SET_FRIEND_MAP, payload: { friendMap: tmp3 } });
       dispatch({ type: SET_FRIEND_LIST, payload: { friendList: tmp1 } });
     }
+  };
+};
 
+export const GetUserFriendList = () => {
+  return async (dispatch: Dispatch) => {
     const res = await request.get('/user/friends');
 
     if (res && res.errno === 200) {

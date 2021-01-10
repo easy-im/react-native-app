@@ -6,8 +6,8 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import SearchBar from '@/components/SearchBar';
 import Header from '@/components/Header';
 import color from '@/utils/color';
-import { GetUnreadMessage, MessageState } from '@/store/reducer/message';
-import { AutoLogin, GetUserFriendList, UserState } from '@/store/reducer/user';
+import { RecoverMessageOnInit, GetUnreadMessage, MessageState } from '@/store/reducer/message';
+import { AutoLogin, GetUserFriendList, RecoverUserInfo, UserState } from '@/store/reducer/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatTime } from '@/utils';
 import { Friend } from '@/types/interface/user';
@@ -25,6 +25,10 @@ const Recent: React.FC<{}> = () => {
   const messageMap = useSelector((state: { message: MessageState }) => state.message.messageMap);
   const totalMessage = useSelector((state: { message: MessageState }) => state.message.totalMessage);
   const friendMap = useSelector((state: { user: UserState }) => state.user.friendMap);
+
+  // console.log('recent', recent);
+  // console.log('messageMap', messageMap);
+  // console.log('friendMap', friendMap);
 
   useEffect(() => {
     (async () => {
@@ -44,6 +48,8 @@ const Recent: React.FC<{}> = () => {
         return;
       }
       await Socket.setup();
+      await dispatch(RecoverUserInfo());
+      await dispatch(RecoverMessageOnInit());
       await dispatch(GetUserFriendList());
       await dispatch(GetUnreadMessage());
       setLoading(false);

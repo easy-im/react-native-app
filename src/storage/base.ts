@@ -1,35 +1,56 @@
 import Realm, { ObjectClass, ObjectSchema } from 'realm';
 
-const INSTANCE: Record<string, Realm> = {};
+const UserSchema: ObjectSchema = {
+  name: 'User',
+  primaryKey: 'fid',
+  properties: {
+    fid: { type: 'int' },
+    nickname: { type: 'string' },
+    remark: { type: 'string' },
+    mobile: { type: 'int', optional: true },
+    sex: { type: 'int' },
+    avatar: { type: 'string' },
+    client_id: { type: 'string', optional: true },
+    client_type: { type: 'string', optional: true },
+    status: { type: 'int' },
+  },
+};
+
+const MessageSchema = {
+  name: 'Message',
+  primaryKey: 'hash',
+  properties: {
+    fid: { type: 'int', indexed: true },
+    hash: { type: 'string', indexed: true },
+    user_id: { type: 'int' },
+    dist_id: { type: 'int' },
+    dist_type: { type: 'int' },
+    content_type: { type: 'string' },
+    content: { type: 'string' },
+    create_time: { type: 'int' },
+    is_received: { type: 'int', optional: true },
+    is_sent: { type: 'int', optional: true },
+    status: { type: 'int', optional: true },
+  },
+};
 
 export default class Storage {
   private realm!: Realm;
-  private schema: (ObjectClass | ObjectSchema)[];
-  private key: string; // 用于标识数据库连接
-  private version: number;
+  private schema: (ObjectClass | ObjectSchema)[] = [UserSchema, MessageSchema];
+  private version: number = 8;
 
-  constructor(key: string, version: number, schema: (ObjectClass | ObjectSchema)[]) {
-    this.schema = schema;
-    this.key = key;
-    this.version = version;
+  constructor() {
     this.init();
   }
 
-  public static closeAll() {
-    Object.values(INSTANCE).forEach((realm) => {
-      realm.close();
-    });
+  public close() {
+    this.realm.close();
   }
 
   private async init() {
     if (!this.realm || this.realm.isClosed) {
       this.realm = await Realm.open({ schema: this.schema, schemaVersion: this.version });
-      INSTANCE[this.key] = this.realm;
     }
-  }
-
-  public close() {
-    this.realm.close();
   }
 
   public deleteAll() {

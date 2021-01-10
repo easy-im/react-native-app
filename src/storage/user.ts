@@ -1,28 +1,8 @@
 import { Friend } from '@/types/interface/user';
-import Realm, { ObjectSchema } from 'realm';
+import Realm from 'realm';
 import Storage from './base';
 
-const UserSchema: ObjectSchema = {
-  name: 'User',
-  primaryKey: 'fid',
-  properties: {
-    fid: { type: 'int' },
-    nickname: { type: 'string' },
-    remark: { type: 'string' },
-    mobile: { type: 'int', optional: true },
-    sex: { type: 'int' },
-    avatar: { type: 'string' },
-    client_id: { type: 'string', optional: true },
-    client_type: { type: 'string', optional: true },
-    status: { type: 'int' },
-  },
-};
-
 class UserStorage extends Storage {
-  constructor() {
-    super('user', 7, [UserSchema]);
-  }
-
   saveUserList(list: Friend[]) {
     this.query((realm) => {
       list.forEach((user) => {
