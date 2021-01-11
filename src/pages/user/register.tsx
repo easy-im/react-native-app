@@ -3,7 +3,7 @@ import { View, Image, Text, TextInput, StyleSheet, StatusBar, TouchableOpacity }
 import { useNavigation } from '@react-navigation/native';
 import { Button } from '@ant-design/react-native';
 import color from '@/utils/color';
-import MODULES from '@/router/MODULES';
+import MODULES from '@/router/module';
 
 const Login: React.FC<{}> = () => {
   const navigation = useNavigation();

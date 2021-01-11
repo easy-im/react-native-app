@@ -1,8 +1,9 @@
-import color from '@/utils/color';
-import { rpx } from '@/utils/screen';
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import color from '@/utils/color';
+import { rpx } from '@/utils/screen';
+import MenuLayer from './MenuLayer';
 
 interface Props {
   title: string;
@@ -10,17 +11,22 @@ interface Props {
 }
 
 const Header: React.FC<Props> = (props) => {
+  const [showMenu, setShowMenu] = useState(false);
+
   const { title, loading = false } = props;
   return (
-    <View style={styles.header}>
-      <View style={styles.appName}>
-        <Text style={styles.appNameText}>{title}</Text>
-        {loading && <ActivityIndicator size="small" color={color.blue} style={styles.loading} />}
+    <>
+      <View style={styles.header}>
+        <View style={styles.appName}>
+          <Text style={styles.appNameText}>{title}</Text>
+          {loading && <ActivityIndicator size="small" color={color.blue} style={styles.loading} />}
+        </View>
+        <View style={styles.appOperate}>
+          <Icon name="pluscircleo" size={20} color={color.text} onPress={() => setShowMenu(true)} />
+        </View>
       </View>
-      <View style={styles.appOperate}>
-        <Icon name="pluscircleo" size={20} color={color.text} />
-      </View>
-    </View>
+      <MenuLayer visible={showMenu} onClose={() => setShowMenu(!showMenu)} />
+    </>
   );
 };
 

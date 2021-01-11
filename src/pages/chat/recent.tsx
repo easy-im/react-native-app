@@ -11,7 +11,7 @@ import { AutoLogin, GetUserFriendList, RecoverUserInfo, UserState } from '@/stor
 import { useDispatch, useSelector } from 'react-redux';
 import { formatTime } from '@/utils';
 import { Friend } from '@/types/interface/user';
-import MODULES from '@/router/MODULES';
+import MODULES from '@/router/module';
 import { rpx } from '@/utils/screen';
 import Socket from '@/socket/chat';
 import { Toast } from '@ant-design/react-native';

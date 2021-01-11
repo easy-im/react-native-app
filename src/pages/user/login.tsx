@@ -6,7 +6,7 @@ import { Button, Toast, Portal } from '@ant-design/react-native';
 import color from '@/utils/color';
 import { isPhoneNumber } from '@/utils';
 import { UserLogin } from '@/store/reducer/user';
-import MODULES from '@/router/MODULES';
+import MODULES from '@/router/module';
 
 const Login: React.FC<{}> = () => {
   const [mobile, setMobile] = useState('13600000000');

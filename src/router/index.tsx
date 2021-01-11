@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from '@react-navigation/native';
 import { TransitionPresets } from '@react-navigation/stack';
 import TabIcon from './TabIcon';
-import MODULES from './MODULES';
+import MODULES from './module';
 import Recent from '../pages/chat/recent';
 import AddressBook from '../pages/address-book';
 import Chat from '../pages/chat/chat';

@@ -8,7 +8,7 @@ import color from '@/utils/color';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { UserState } from '@/store/reducer/user';
 import { Friend } from '@/types/interface/user';
-import MODULES from '@/router/MODULES';
+import MODULES from '@/router/module';
 
 const AddressBook: React.FC<{}> = () => {
   const navigation = useNavigation();
