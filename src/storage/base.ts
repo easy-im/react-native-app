@@ -31,13 +31,14 @@ const MessageSchema = {
     is_received: { type: 'int', optional: true },
     is_sent: { type: 'int', optional: true },
     status: { type: 'int', optional: true },
+    is_owner: { type: 'int' },
   },
 };
 
 export default class Storage {
   private realm!: Realm;
   private schema: (ObjectClass | ObjectSchema)[] = [UserSchema, MessageSchema];
-  private version: number = 8;
+  private version: number = 9;
 
   constructor() {
     this.init();

@@ -7,6 +7,7 @@ import { SvgUri } from 'react-native-svg';
 import { useSelector } from 'react-redux';
 import color from '@/utils/color';
 import { rpx } from '@/utils/screen';
+import { Modal } from '@ant-design/react-native';
 
 const Profile: React.FC<{}> = () => {
   const currentUser = useSelector((state: any) => state.user.currentUser);
@@ -25,6 +26,20 @@ const Profile: React.FC<{}> = () => {
       url: 'https://im.wangcai.me/speedy_setting.svg',
     },
   ];
+
+  const signOut = async () => {
+    Modal.alert('提示', '确认退出登录？', [
+      {
+        text: '取消',
+      },
+      {
+        text: '确定',
+        onPress: () => {
+          // console.log(2);
+        },
+      },
+    ]);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -64,7 +79,7 @@ const Profile: React.FC<{}> = () => {
         })}
       </View>
       <View style={styles.logout}>
-        <TouchableOpacity style={styles.button} activeOpacity={0.6}>
+        <TouchableOpacity style={styles.button} activeOpacity={0.6} onPress={signOut}>
           <Text style={styles.buttonText}>退出登录</Text>
         </TouchableOpacity>
       </View>

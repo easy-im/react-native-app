@@ -7,7 +7,12 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import color from '@/utils/color';
 import { rpx } from '@/utils/screen';
 import { useDispatch, useSelector } from 'react-redux';
-import { MessageState, RESET_CHAT_UNREAD_NUMBER, UPDATE_CURRENT_CHAT_USER } from '@/store/reducer/message';
+import {
+  MessageState,
+  RESET_CHAT_UNREAD_NUMBER,
+  UPDATE_CURRENT_CHAT_USER,
+  RECLAIM_USER_MESSAGE,
+} from '@/store/reducer/message';
 import { UserState } from '@/store/reducer/user';
 import Chat from '@/socket/chat';
 import { User } from '@/types/interface/user';
@@ -25,16 +30,18 @@ const ChatPage: React.FC<{}> = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { params = {} }: any = route;
-  let { id, title } = params;
-  id = Number.isNaN(id) ? 0 : +id;
+  const { id, title } = params;
+  const fid = Number.isNaN(id) ? 0 : +id;
 
   const friendMap = useSelector((state: { user: UserState }) => state.user.friendMap);
   const currentUser = useSelector((state: { user: UserState }) => state.user.currentUser);
   const messageMap = useSelector((state: { message: MessageState }) => state.message.messageMap);
   const messages = useSelector((state: { message: MessageState }) => state.message.messages);
 
-  const friendInfo = friendMap[+id];
-  const list = messages[id] || [];
+  const friendInfo = friendMap[fid];
+  const list = messages[fid] || [];
+
+  // console.log(list, messageMap, currentUser, friendInfo);
 
   useEffect(() => {
     title &&
@@ -42,9 +49,9 @@ const ChatPage: React.FC<{}> = () => {
         title: title,
       });
     // 重置未读消息
-    dispatch({ type: RESET_CHAT_UNREAD_NUMBER, payload: { fid: id } });
+    dispatch({ type: RESET_CHAT_UNREAD_NUMBER, payload: { fid } });
     // 设置当前用户为在聊用户
-    dispatch({ type: UPDATE_CURRENT_CHAT_USER, payload: { currentChatUserId: id } });
+    dispatch({ type: UPDATE_CURRENT_CHAT_USER, payload: { currentChatUserId: fid } });
 
     Keyboard.addListener('keyboardDidShow', handleKeyboardShow);
     Keyboard.addListener('keyboardDidHide', handleKeyboardHide);
@@ -52,6 +59,8 @@ const ChatPage: React.FC<{}> = () => {
 
     return () => {
       dispatch({ type: UPDATE_CURRENT_CHAT_USER, payload: { currentChatUserId: 0 } });
+      dispatch({ type: RECLAIM_USER_MESSAGE, payload: { fid } });
+
       Keyboard.removeAllListeners('keyboardDidShow');
       Keyboard.removeAllListeners('keyboardDidHide');
     };

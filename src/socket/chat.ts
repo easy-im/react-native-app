@@ -7,7 +7,7 @@ import { CHAT_MESSAGE, RESPONSE_MESSAGE, SOCKET_RESPONSE } from '@/types/interfa
 import { Friend, User } from '@/types/interface/user';
 import { Message, MessageRecord } from '@/types/interface/entity';
 import Store from '@/store';
-import { UPDATE_MESSAGE_STATUS, UPDATE_MESSAGE_LIST } from '@/store/reducer/message';
+import { UPDATE_MESSAGE_SENDING_STATUS, UPDATE_MESSAGE_LIST } from '@/store/reducer/message';
 import { CURRENT_USER_KEY } from '@/storage/storageKeys';
 
 const { ws } = config;
@@ -76,7 +76,7 @@ class Chat {
    * @param message { RESPONSE_MESSAGE } 收到的消息
    */
   public async onConfirmMessage(message: RESPONSE_MESSAGE) {
-    Store.dispatch({ type: UPDATE_MESSAGE_STATUS, payload: message });
+    Store.dispatch({ type: UPDATE_MESSAGE_SENDING_STATUS, payload: message });
   }
 
   /**

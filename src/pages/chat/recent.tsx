@@ -85,7 +85,7 @@ const Recent: React.FC<{}> = () => {
                     <Image source={{ uri: user.avatar }} style={styles.avatarImage} />
                     {unreadNumber > 0 && (
                       <View style={styles.badge}>
-                        <Text style={styles.badgeText}>{unreadNumber}</Text>
+                        <Text style={styles.badgeText}>{unreadNumber > 99 ? '99+' : unreadNumber}</Text>
                       </View>
                     )}
                   </View>

@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dispatch } from 'redux';
-import request from '@/utils/request';
 import UserStorage from '@/storage/user';
 import { Friend, User } from '@/types/interface/user';
 import { IAction } from '@/types/interface/redux';
 import { CURRENT_USER_KEY, USER_FRIEND_LIST_KEY } from '@/storage/storageKeys';
+import { GetUserInfo, GetUserFriend, UserSign } from '@/service';
 
 export interface UserState {
   currentUser?: User;
@@ -31,7 +31,7 @@ export const AutoLogin = () => {
     }
 
     dispatch({ type: SET_CURRENT_USER, payload: { currentUser: user } });
-    const res = await request.get('/user/info');
+    const res = await GetUserInfo();
 
     if (res && res.errno === 200) {
       AsyncStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res.data));
@@ -45,10 +45,7 @@ export const AutoLogin = () => {
 export const UserLogin = (payload: { mobile: string; password: string }) => {
   return async (dispatch: Dispatch) => {
     const { mobile, password } = payload;
-    const res = await request.put('/user/signIn', {
-      mobile,
-      password,
-    });
+    const res = await UserSign(mobile, password);
     if (res && res.errno === 200) {
       AsyncStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res.data));
       dispatch({ type: SET_CURRENT_USER, payload: { currentUser: res.data } });
@@ -76,7 +73,7 @@ export const RecoverUserInfo = () => {
 
 export const GetUserFriendList = () => {
   return async (dispatch: Dispatch) => {
-    const res = await request.get('/user/friends');
+    const res = await GetUserFriend();
 
     if (res && res.errno === 200) {
       const { data }: { data: { key: string; list: Friend[] }[] } = res;
