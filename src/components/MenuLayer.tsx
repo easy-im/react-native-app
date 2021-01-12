@@ -11,7 +11,7 @@ interface Props {
 const MenuLayer: React.FC<Props> = (props) => {
   const { visible, onClose } = props;
 
-  const add = () => {
+  const searchUser = () => {
     Toast.info('添加好友');
     onClose();
   };
@@ -20,19 +20,19 @@ const MenuLayer: React.FC<Props> = (props) => {
     <Modal statusBarTranslucent visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       <Pressable style={styles.layer} onPress={onClose}>
         <View style={styles.menu}>
-          <TouchableOpacity style={styles.pressWrap}>
+          <TouchableOpacity style={styles.pressWrap} onPress={onClose}>
             <View style={[styles.menuItem, styles.firstItem]}>
               <Image source={require('@/assets/images/icon/scan.png')} style={styles.image} />
               <Text style={styles.text}>扫一扫</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.pressWrap}>
+          <TouchableOpacity style={styles.pressWrap} onPress={onClose}>
             <View style={styles.menuItem}>
               <Image source={require('@/assets/images/tab/chat.png')} style={styles.image} />
               <Text style={styles.text}>发起群聊</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.pressWrap} onPress={add}>
+          <TouchableOpacity style={styles.pressWrap} onPress={searchUser}>
             <View style={styles.menuItem}>
               <Image source={require('@/assets/images/icon/add.png')} style={styles.image} />
               <Text style={styles.text}>添加好友</Text>
