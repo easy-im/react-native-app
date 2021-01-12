@@ -11,7 +11,7 @@ import { AutoLogin, GetUserFriendList, RecoverUserInfo, UserState } from '@/stor
 import { useDispatch, useSelector } from 'react-redux';
 import { formatTime } from '@/utils';
 import { Friend } from '@/types/interface/user';
-import MODULES from '@/router/module';
+import MODULES from '@/router/MODULES';
 import { rpx } from '@/utils/screen';
 import Socket from '@/socket/chat';
 import { Toast } from '@ant-design/react-native';
@@ -78,6 +78,11 @@ const Recent: React.FC<{}> = () => {
             const { fid, last_message, unreadNumber } = item;
             const user = friendMap[item.fid];
             const message = messageMap[last_message];
+
+            if (!user || !message) {
+              return null;
+            }
+
             return (
               <TouchableWithoutFeedback onPress={() => chat2user(user)} key={fid}>
                 <View style={styles.listItem}>
@@ -92,10 +97,10 @@ const Recent: React.FC<{}> = () => {
                   <View style={styles.wrap}>
                     <View style={styles.content}>
                       <View>
-                        <Text style={styles.userName}>{user.remark || user.nickname}</Text>
+                        <Text style={[styles.contentText, styles.userName]}>{user.remark || user.nickname}</Text>
                       </View>
                       <View>
-                        <Text style={styles.message} numberOfLines={1}>
+                        <Text style={[styles.contentText, styles.message]} numberOfLines={1}>
                           {message.content}
                         </Text>
                       </View>
@@ -167,11 +172,15 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+    justifyContent: 'center',
   },
   userName: {
     fontSize: rpx(16),
     color: color.text,
     fontWeight: '600',
+  },
+  contentText: {
+    lineHeight: 22,
   },
   message: {
     fontSize: rpx(13),

@@ -6,16 +6,17 @@ import { Button, Toast, Portal } from '@ant-design/react-native';
 import color from '@/utils/color';
 import { isPhoneNumber } from '@/utils';
 import { UserLogin } from '@/store/reducer/user';
-import MODULES from '@/router/module';
+import MODULES from '@/router/MODULES';
+import { rpx } from '@/utils/screen';
 
 const Login: React.FC<{}> = () => {
-  const [mobile, setMobile] = useState('13600000000');
+  const [mobile, setMobile] = useState('13600000003');
   const [password, setPassword] = useState('admin');
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const doLogin = async () => {
-    const key = Toast.loading('Loading...');
+    const key = Toast.loading('正在加载');
     const res: any = await dispatch(UserLogin({ mobile, password }));
     Portal.remove(key);
     if (!res.success) {
@@ -26,7 +27,7 @@ const Login: React.FC<{}> = () => {
       index: 0,
       routes: [
         {
-          name: 'TabNav',
+          name: MODULES.TabNav,
         },
       ],
     });
@@ -40,7 +41,7 @@ const Login: React.FC<{}> = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+      <StatusBar barStyle="dark-content" backgroundColor={color.white} />
       <View style={styles.logo}>
         <Image source={require('@/assets/images/logo.png')} style={styles.image} />
       </View>
@@ -95,56 +96,56 @@ const Login: React.FC<{}> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingLeft: 40,
-    paddingRight: 40,
-    backgroundColor: '#fff',
+    paddingLeft: rpx(40),
+    paddingRight: rpx(40),
+    backgroundColor: color.white,
   },
   logo: {
-    marginTop: 100,
+    marginTop: rpx(100),
   },
   image: {
-    width: 48,
-    height: 48,
-    borderWidth: 1,
+    width: rpx(48),
+    height: rpx(48),
+    borderWidth: 0.5,
     borderColor: color.borderColor,
-    borderRadius: 24,
+    borderRadius: rpx(24),
   },
   welcome: {
-    marginTop: 20,
+    marginTop: rpx(20),
   },
   welcomeText: {
-    fontSize: 20,
-    color: '#333',
+    fontSize: rpx(20),
+    color: color.text,
   },
   form: {
-    marginTop: 25,
+    marginTop: rpx(25),
   },
   formItem: {
-    marginTop: 10,
+    marginTop: rpx(10),
   },
   title: {
-    fontSize: 13,
+    fontSize: rpx(13),
     color: '#444',
   },
   inputWrap: {
-    padding: 10,
+    padding: rpx(10),
     paddingLeft: 0,
     paddingRight: 0,
-    height: 40,
-    borderBottomColor: '#eaeaea',
-    borderBottomWidth: 1,
+    height: rpx(40),
+    borderBottomColor: color.borderColor,
+    borderBottomWidth: 0.5,
   },
   input: {
-    fontSize: 15,
+    fontSize: rpx(15),
     backgroundColor: 'transparent',
     padding: 0,
     height: '100%',
   },
   submit: {
-    marginTop: 40,
+    marginTop: rpx(40),
   },
   helpWrap: {
-    marginTop: 10,
+    marginTop: rpx(10),
     flexDirection: 'row',
   },
   help: {
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
   },
   helpText: {
     color: color.lightGray,
-    fontSize: 13,
+    fontSize: rpx(13),
   },
 });
 

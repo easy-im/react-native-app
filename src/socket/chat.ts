@@ -42,7 +42,7 @@ class Chat {
       const { id } = socket;
       console.log('ws 已连接', id);
       socket.on(id, (data: SOCKET_RESPONSE) => {
-        // console.log('ws 收到服务器消息：', data);
+        console.log('ws 收到服务器消息：', data);
         switch (data.message_type) {
           case ENUM_SOCKET_MESSAGE_TYPE.PRIVATE_CHAT:
             this.onMessage(data.message as CHAT_MESSAGE);

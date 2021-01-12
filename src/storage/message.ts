@@ -5,6 +5,7 @@ import Storage from './base';
 export interface Message extends MessageRecord {
   id?: number;
   fid: number;
+  owner_id: number;
 }
 
 class MessageStorage extends Storage {
@@ -14,9 +15,12 @@ class MessageStorage extends Storage {
     });
   }
 
-  getMessageByFid(fid: number, limit = 50): Promise<Realm.Results<Message>> {
+  getMessageByFid(owner_id: number, fid: number, limit = 50): Promise<Realm.Results<Message>> {
     return this.query((realm) => {
-      const messages = realm.objects('Message').filtered(`fid = ${fid} LIMIT (${limit})`).sorted('create_time');
+      const messages = realm
+        .objects('Message')
+        .filtered(`owner_id = ${owner_id} AND fid = ${fid} LIMIT (${limit})`)
+        .sorted('create_time');
       return messages as any;
     });
   }

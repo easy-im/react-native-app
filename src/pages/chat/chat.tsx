@@ -61,8 +61,8 @@ const ChatPage: React.FC<{}> = () => {
       dispatch({ type: UPDATE_CURRENT_CHAT_USER, payload: { currentChatUserId: 0 } });
       dispatch({ type: RECLAIM_USER_MESSAGE, payload: { fid } });
 
-      Keyboard.removeAllListeners('keyboardDidShow');
-      Keyboard.removeAllListeners('keyboardDidHide');
+      Keyboard.removeListener('keyboardDidShow', handleKeyboardShow);
+      Keyboard.removeListener('keyboardDidHide', handleKeyboardHide);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -107,97 +107,96 @@ const ChatPage: React.FC<{}> = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.main}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
-      <View style={styles.main}>
-        <ScrollView
-          ref={$scroll}
-          style={styles.chatBody}
-          keyboardShouldPersistTaps="always"
-          onScroll={(event) => (scrollOffset.current = event.nativeEvent.contentOffset.y)}
-        >
-          {list.map((hash, index) => {
-            const message = messageMap[hash];
-            if (!message) {
-              return null;
-            }
-            const { is_owner } = message;
+      <ScrollView
+        ref={$scroll}
+        style={styles.chatBody}
+        keyboardShouldPersistTaps="always"
+        onScroll={(event) => (scrollOffset.current = event.nativeEvent.contentOffset.y)}
+        scrollEventThrottle={16}
+      >
+        {list.map((hash, index) => {
+          const message = messageMap[hash];
+          if (!message) {
+            return null;
+          }
+          const { is_owner } = message;
 
-            return (
-              <View
-                style={[
-                  styles.chatItem,
-                  is_owner ? styles.chatMine : styles.chatFriend,
-                  index === 0 && styles.chatFirstItem,
-                ]}
-                key={hash}
-              >
-                <View style={[styles.chatAvatar, is_owner ? styles.chatMineAvatar : false]}>
-                  <Image
-                    source={{ uri: is_owner ? currentUser?.avatar : friendInfo.avatar }}
-                    style={styles.chatAvatarImage}
-                  />
-                </View>
-                <View style={[styles.chatTextWrap, is_owner ? styles.chatMineTextWrap : false]}>
-                  {/* <View>
+          return (
+            <View
+              style={[
+                styles.chatItem,
+                is_owner ? styles.chatMine : styles.chatFriend,
+                index === 0 && styles.chatFirstItem,
+              ]}
+              key={hash}
+            >
+              <View style={[styles.chatAvatar, is_owner ? styles.chatMineAvatar : false]}>
+                <Image
+                  source={{ uri: is_owner ? currentUser?.avatar : friendInfo.avatar }}
+                  style={styles.chatAvatarImage}
+                />
+              </View>
+              <View style={[styles.chatTextWrap, is_owner ? styles.chatMineTextWrap : false]}>
+                {/* <View>
                     <Text style={styles.chatNameText}>
                       {is_owner ? currentUser?.nickname : friendInfo.remark || friendInfo.nickname}
                     </Text>
                   </View> */}
-                  <View style={[styles.chatContent, is_owner ? styles.chatMineContent : false]}>
-                    <Text
-                      selectable={true}
-                      style={[styles.chatContentText, is_owner ? styles.chatMineContentText : false]}
-                    >
-                      {message.content}
-                    </Text>
-                    <View style={is_owner ? styles.chatMineBubble : styles.chatBubble} />
-                  </View>
+                <View style={[styles.chatContent, is_owner ? styles.chatMineContent : false]}>
+                  <Text
+                    selectable={true}
+                    style={[styles.chatContentText, is_owner ? styles.chatMineContentText : false]}
+                  >
+                    {message.content}
+                  </Text>
+                  <View style={is_owner ? styles.chatMineBubble : styles.chatBubble} />
                 </View>
               </View>
-            );
-          })}
-        </ScrollView>
-        <View style={styles.chatFooter}>
-          <TextInput
-            returnKeyType="send"
-            autoCapitalize="none"
-            textAlignVertical="top"
-            style={[styles.input, { height: Math.max(rpx(42), Math.min(rpx(84.3), inputHeight)) }]}
-            maxLength={1000}
-            multiline={true}
-            blurOnSubmit={false}
-            enablesReturnKeyAutomatically={true}
-            onSubmitEditing={() => {
-              // console.log(messageText);
-            }}
-            onContentSizeChange={(e) => {
-              setInputHeight(e.nativeEvent.contentSize.height);
-            }}
-            onChangeText={(text) => setMessageText(text)}
-            value={messageText}
-          />
-          <View style={styles.chatToolIcons}>
-            <Icon name="meh" size={rpx(23)} color={color.text} style={styles.icon} />
-            {!messageText.trim() && <Icon name="pluscircleo" size={rpx(23)} color={color.text} style={styles.icon} />}
-            {!!messageText.trim() && (
-              <FeatherIcon onPress={sendMessage} name="send" size={rpx(25)} color={color.blue} style={styles.icon} />
-            )}
-          </View>
+            </View>
+          );
+        })}
+      </ScrollView>
+      <View style={styles.chatFooter}>
+        <TextInput
+          returnKeyType="send"
+          autoCapitalize="none"
+          textAlignVertical="top"
+          style={[styles.input, { height: Math.max(rpx(42), Math.min(rpx(84.3), inputHeight)) }]}
+          maxLength={1000}
+          multiline={true}
+          blurOnSubmit={false}
+          enablesReturnKeyAutomatically={true}
+          onSubmitEditing={() => {
+            // console.log(messageText);
+          }}
+          onContentSizeChange={(e) => {
+            setInputHeight(e.nativeEvent.contentSize.height);
+          }}
+          onChangeText={(text) => setMessageText(text)}
+          value={messageText}
+        />
+        <View style={styles.chatToolIcons}>
+          <Icon name="meh" size={rpx(23)} color={color.text} style={styles.icon} />
+          {!messageText.trim() && <Icon name="pluscircleo" size={rpx(23)} color={color.text} style={styles.icon} />}
+          {!!messageText.trim() && (
+            <FeatherIcon onPress={sendMessage} name="send" size={rpx(25)} color={color.blue} style={styles.icon} />
+          )}
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#efefef',
   },
   main: {
     flex: 1,
     justifyContent: 'space-between',
+    backgroundColor: '#efefef',
   },
   chatBody: {
     flex: 1,

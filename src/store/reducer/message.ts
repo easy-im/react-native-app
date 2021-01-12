@@ -28,32 +28,25 @@ export const UPDATE_MESSAGE_LIST = 'MESSAGE/UPDATE_MESSAGE_LIST';
 export const RESET_CHAT_UNREAD_NUMBER = 'MESSAGE/RESET_CHAT_UNREAD_NUMBER';
 export const UPDATE_MESSAGE_SENDING_STATUS = 'MESSAGE/UPDATE_MESSAGE_SENDING_STATUS';
 export const UPDATE_CURRENT_CHAT_USER = 'MESSAGE/UPDATE_CURRENT_CHAT_USER';
-export const INIT_STORE = 'MESSAGE/INIT_STORE';
+export const INIT_MESSAGE_STORE = 'MESSAGE/INIT_MESSAGE_STORE';
 export const RECLAIM_USER_MESSAGE = 'MESSAGE/RECLAIM_USER_MESSAGE';
 
-// 获取用户未读消息
-export const GetUnreadMessage = () => {
-  return async (dispatch: Dispatch) => {
-    const res = await GetUserUnreadMessage();
-    if (res && res.errno === 200) {
-      const ids: number[] = [];
-      const data = res.data.map((item: MessageRecord) => {
-        item.is_received = 1;
-        item.id && ids.push(item.id);
-        return item;
-      });
-      // 向服务器更新消息已接收状态
-      await UpdateRemoteMessageStatus(ids, { is_received: 1 });
-      dispatch({ type: UPDATE_MESSAGE_LIST, payload: { list: data, isRead: false } });
-      return { success: true, errmsg: '' };
-    }
-    return { success: false, offline: true, errmsg: res?.errmsg || '网络错误' };
-  };
+export const ResetMessageStore = async (dispatch: Dispatch) => {
+  await AsyncStorage.removeItem(MESSAGE_RECENT_KEY);
+  await AsyncStorage.removeItem(MESSAGE_TOTAL_COUNT_KEY);
+  dispatch({
+    type: INIT_MESSAGE_STORE,
+    payload: { currentChatUserId: 0, totalMessage: 0, recent: [], messageMap: {}, messages: {} },
+  });
 };
 
 // 从本地存储中恢复消息
 export const RecoverMessageOnInit = () => {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch, getState: any) => {
+    const { user } = getState();
+    if (!user || !user.currentUser || !user.currentUser.id) {
+      return;
+    }
     const recentStr = await AsyncStorage.getItem(MESSAGE_RECENT_KEY);
     const recent: MessageState['recent'] = recentStr ? JSON.parse(recentStr) : [];
     let totalMessage = 0;
@@ -64,7 +57,7 @@ export const RecoverMessageOnInit = () => {
       return (async () => {
         const { fid, unreadNumber } = item;
         totalMessage += unreadNumber || 0;
-        const data = await MessageStorage.getMessageByFid(fid, USER_CHAT_MESSAGE_LIMIT);
+        const data = await MessageStorage.getMessageByFid(user.currentUser.id, fid, USER_CHAT_MESSAGE_LIMIT);
         if (data && data.length) {
           messages[fid] = data.map((m) => {
             const temp: MessageRecord = {
@@ -87,7 +80,27 @@ export const RecoverMessageOnInit = () => {
       })();
     });
     await Promise.all(pro);
-    dispatch({ type: INIT_STORE, payload: { recent, totalMessage, messageMap, messages } });
+    dispatch({ type: INIT_MESSAGE_STORE, payload: { recent, totalMessage, messageMap, messages } });
+  };
+};
+
+// 获取用户未读消息
+export const GetUnreadMessage = () => {
+  return async (dispatch: Dispatch) => {
+    const res = await GetUserUnreadMessage();
+    if (res && res.errno === 200) {
+      const ids: number[] = [];
+      const data = res.data.map((item: MessageRecord) => {
+        item.is_received = 1;
+        item.id && ids.push(item.id);
+        return item;
+      });
+      // 向服务器更新消息已接收状态
+      await UpdateRemoteMessageStatus(ids, { is_received: 1 });
+      dispatch({ type: UPDATE_MESSAGE_LIST, payload: { list: data, isRead: false } });
+      return { success: true, errmsg: '' };
+    }
+    return { success: false, offline: true, errmsg: res?.errmsg || '网络错误' };
   };
 };
 
@@ -124,6 +137,7 @@ function updateMessageList(state: MessageState, payload: any) {
     }
 
     const fid = item.is_owner ? item.dist_id : item.user_id;
+    const owner_id = item.is_owner ? item.user_id : item.dist_id;
     const isCurrentChatUser = currentChatUserId === +fid;
     const shouldUpdateUnread = !isRead && !isCurrentChatUser;
 
@@ -160,7 +174,7 @@ function updateMessageList(state: MessageState, payload: any) {
     }
 
     // 存储消息到数据库
-    const m: Message = { ...item, fid };
+    const m: Message = { ...item, fid, owner_id };
     delete m.id;
     MessageStorage.saveMessage(m, true);
   });

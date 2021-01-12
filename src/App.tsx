@@ -8,7 +8,7 @@ import { Provider as AntProvider } from '@ant-design/react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import router from '@/router';
 import store from '@/store';
-import Storage from '@/storage/base';
+// import Storage from '@/storage/base';
 import { User } from '@/types/interface/user';
 import { CURRENT_USER_KEY } from './storage/storageKeys';
 
@@ -29,7 +29,7 @@ export default function App() {
       }
       setLoaded(true);
     })();
-    return Storage.closeAll;
+    // return Storage.;
   }, []);
 
   const TabScreen = () => {
@@ -62,6 +62,7 @@ export default function App() {
               component={TabScreen}
               options={{
                 headerShown: false,
+                title: '消息',
               }}
             />
             {list.map((item, index) => {

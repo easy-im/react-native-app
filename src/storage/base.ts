@@ -20,6 +20,7 @@ const MessageSchema = {
   name: 'Message',
   primaryKey: 'hash',
   properties: {
+    owner_id: { type: 'int', indexed: true },
     fid: { type: 'int', indexed: true },
     hash: { type: 'string', indexed: true },
     user_id: { type: 'int' },
@@ -38,7 +39,7 @@ const MessageSchema = {
 export default class Storage {
   private realm!: Realm;
   private schema: (ObjectClass | ObjectSchema)[] = [UserSchema, MessageSchema];
-  private version: number = 9;
+  private version: number = 10;
 
   constructor() {
     this.init();

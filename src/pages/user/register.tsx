@@ -1,20 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Image, Text, TextInput, StyleSheet, StatusBar, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Button } from '@ant-design/react-native';
+import { Button, Portal, Toast } from '@ant-design/react-native';
 import color from '@/utils/color';
-import MODULES from '@/router/module';
+import MODULES from '@/router/MODULES';
+import { isPhoneNumber } from '@/utils';
+import { UserRegister } from '@/service';
+import { rpx } from '@/utils/screen';
 
-const Login: React.FC<{}> = () => {
+const Register: React.FC<{}> = () => {
+  const [mobile, setMobile] = useState('');
+  const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
   const navigation = useNavigation();
+
+  const register = async () => {
+    if (!isPhoneNumber(mobile)) {
+      Toast.fail('手机号不正确', 1);
+    } else if (!password || password.length < 5 || password.length > 18) {
+      Toast.fail('密码格式不正确', 1);
+    } else if (password !== password2) {
+      Toast.fail('两次密码不相同', 1);
+    } else {
+      const key = Toast.loading('正在加载');
+      const res = await UserRegister(mobile, password);
+      Portal.remove(key);
+      if (res && res.errno === 200) {
+        Toast.success('注册成功，请登录', 1);
+        setTimeout(() => {
+          navigation.navigate(MODULES.Login);
+        }, 1000);
+      } else {
+        Toast.fail(res?.errmsg || '网络错误', 1);
+      }
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+      <StatusBar barStyle="dark-content" backgroundColor={color.white} />
       <View style={styles.logo}>
         <Image source={require('@/assets/images/logo.png')} style={styles.image} />
       </View>
       <View style={styles.welcome}>
-        <Text style={styles.welcomeText}>欢迎注册kitim账号</Text>
+        <Text style={styles.welcomeText}>欢迎注册KitIM账号</Text>
       </View>
       <View style={styles.form}>
         <View style={styles.formItem}>
@@ -22,7 +51,13 @@ const Login: React.FC<{}> = () => {
             <Text style={styles.title}>手机号码</Text>
           </View>
           <View style={styles.inputWrap}>
-            <TextInput style={styles.input} keyboardType="phone-pad" placeholder="请输入手机号码" />
+            <TextInput
+              keyboardType="phone-pad"
+              placeholder="请输入手机号码"
+              style={styles.input}
+              value={mobile}
+              onChangeText={(text) => setMobile(text)}
+            />
           </View>
         </View>
         <View style={styles.formItem}>
@@ -31,10 +66,12 @@ const Login: React.FC<{}> = () => {
           </View>
           <View style={styles.inputWrap}>
             <TextInput
-              style={styles.input}
               keyboardType="default"
+              placeholder="请输入5-18位密码"
+              style={styles.input}
               secureTextEntry={true}
-              placeholder="请输入5-20位密码"
+              value={password}
+              onChangeText={(text) => setPassword(text)}
             />
           </View>
         </View>
@@ -44,15 +81,19 @@ const Login: React.FC<{}> = () => {
           </View>
           <View style={styles.inputWrap}>
             <TextInput
-              style={styles.input}
               keyboardType="default"
+              placeholder="请输入5-18位密码"
+              style={styles.input}
               secureTextEntry={true}
-              placeholder="请输入5-20位密码"
+              value={password2}
+              onChangeText={(text) => setPassword2(text)}
             />
           </View>
         </View>
         <View style={styles.submit}>
-          <Button type="primary">注册</Button>
+          <Button type="primary" onPress={register}>
+            注册
+          </Button>
         </View>
         <View style={styles.helpWrap}>
           <TouchableOpacity style={styles.help} onPress={() => navigation.navigate(MODULES.Login)}>
@@ -67,53 +108,56 @@ const Login: React.FC<{}> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingLeft: 40,
-    paddingRight: 40,
-    backgroundColor: '#fff',
+    paddingLeft: rpx(40),
+    paddingRight: rpx(40),
+    backgroundColor: color.white,
   },
   logo: {
-    marginTop: 100,
+    marginTop: rpx(100),
   },
   image: {
-    width: 48,
-    height: 48,
-    borderWidth: 1,
+    width: rpx(48),
+    height: rpx(48),
+    borderWidth: 0.5,
     borderColor: color.borderColor,
-    borderRadius: 24,
+    borderRadius: rpx(24),
   },
   welcome: {
-    marginTop: 20,
+    marginTop: rpx(20),
   },
   welcomeText: {
-    fontSize: 20,
-    color: '#333',
+    fontSize: rpx(20),
+    color: color.text,
   },
   form: {
-    marginTop: 25,
+    marginTop: rpx(25),
   },
   formItem: {
-    marginTop: 10,
+    marginTop: rpx(10),
   },
   title: {
-    fontSize: 13,
+    fontSize: rpx(13),
     color: '#444',
   },
   inputWrap: {
-    marginTop: 6,
+    padding: rpx(10),
+    paddingLeft: 0,
+    paddingRight: 0,
+    height: rpx(40),
+    borderBottomColor: color.borderColor,
+    borderBottomWidth: 0.5,
   },
   input: {
-    borderBottomColor: '#eaeaea',
-    borderBottomWidth: 1,
-    height: 39,
-    lineHeight: 39,
-    fontSize: 15,
+    fontSize: rpx(15),
     backgroundColor: 'transparent',
+    padding: 0,
+    height: '100%',
   },
   submit: {
-    marginTop: 40,
+    marginTop: rpx(40),
   },
   helpWrap: {
-    marginTop: 10,
+    marginTop: rpx(10),
     flexDirection: 'row',
   },
   help: {
@@ -123,8 +167,8 @@ const styles = StyleSheet.create({
   },
   helpText: {
     color: color.lightGray,
-    fontSize: 13,
+    fontSize: rpx(13),
   },
 });
 
-export default Login;
+export default Register;

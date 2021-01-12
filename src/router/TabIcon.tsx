@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image } from 'react-native';
-import MODULES from './module';
+import MODULES from './MODULES';
 
 const TabIcon: React.FC<any> = ({ route, focused, size }) => {
   const list: Record<string, { iconPath: any; selectedIconPath: any }> = {
@@ -25,7 +25,7 @@ const TabIcon: React.FC<any> = ({ route, focused, size }) => {
   return (
     <Image
       source={focused ? select.selectedIconPath : select.iconPath}
-      style={{ width: size * 0.8, height: size * 0.8 }}
+      style={{ width: size * 0.9, height: size * 0.9 }}
     />
   );
 };

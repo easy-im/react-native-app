@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from '@react-navigation/native';
 import { TransitionPresets } from '@react-navigation/stack';
 import TabIcon from './TabIcon';
-import MODULES from './module';
+import MODULES from './MODULES';
 import Recent from '../pages/chat/recent';
 import AddressBook from '../pages/address-book';
 import Chat from '../pages/chat/chat';
@@ -67,7 +67,12 @@ export default {
       {
         name: MODULES.Chat,
         component: Chat,
-        options: { title: '对话' },
+        options: {
+          title: '对话',
+          headerStyle: {
+            backgroundColor: Colors.white,
+          },
+        },
       },
     ],
     screenOptions: {

@@ -1,15 +1,39 @@
-import React from 'react';
-import { View, Image, Text, StyleSheet, TouchableOpacity, Modal, StatusBar, Pressable } from 'react-native';
-import color from '@/utils/color';
-import { rpx } from '@/utils/screen';
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Modal,
+  StatusBar,
+  Pressable,
+  NativeModules,
+  Platform,
+} from 'react-native';
 import { Toast } from '@ant-design/react-native';
+import { rpx } from '@/utils/screen';
+import color from '@/utils/color';
+
+const { StatusBarManager } = NativeModules;
 interface Props {
   visible: boolean;
   onClose: () => void;
 }
 
 const MenuLayer: React.FC<Props> = (props) => {
+  const [statusBarHeight, setStatusBarHeight] = useState(0);
   const { visible, onClose } = props;
+
+  useEffect(() => {
+    if (Platform.OS === 'ios') {
+      StatusBarManager.getHeight((status: { height: number }) => {
+        setStatusBarHeight(status.height);
+      });
+    } else if (Platform.OS === 'android') {
+      setStatusBarHeight(StatusBar.currentHeight || 0);
+    }
+  }, []);
 
   const searchUser = () => {
     Toast.info('添加好友');
@@ -17,9 +41,9 @@ const MenuLayer: React.FC<Props> = (props) => {
   };
 
   return (
-    <Modal statusBarTranslucent visible={visible} transparent animationType="fade" onRequestClose={onClose}>
+    <Modal statusBarTranslucent transparent visible={visible} animationType="fade" onRequestClose={onClose}>
       <Pressable style={styles.layer} onPress={onClose}>
-        <View style={styles.menu}>
+        <View style={[styles.menu, { top: statusBarHeight + rpx(52) }]}>
           <TouchableOpacity style={styles.pressWrap} onPress={onClose}>
             <View style={[styles.menuItem, styles.firstItem]}>
               <Image source={require('@/assets/images/icon/scan.png')} style={styles.image} />
@@ -57,7 +81,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 2,
     right: rpx(8),
-    top: (StatusBar.currentHeight || 0) + rpx(52),
     backgroundColor: color.white,
     borderRadius: rpx(6),
     borderWidth: 0.5,
@@ -85,13 +108,13 @@ const styles = StyleSheet.create({
     borderTopWidth: 0,
   },
   image: {
-    width: rpx(24),
-    height: rpx(24),
+    width: rpx(22),
+    height: rpx(22),
     marginRight: rpx(15),
   },
   text: {
     color: color.text,
-    fontSize: rpx(16),
+    fontSize: rpx(15),
   },
 });
 

@@ -1,16 +1,21 @@
 import React from 'react';
-import { View, Text, StyleSheet, StatusBar, Image } from 'react-native';
+import { View, Text, StyleSheet, StatusBar, Image, Platform } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { SvgUri } from 'react-native-svg';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import color from '@/utils/color';
+import { Modal, Portal, Toast } from '@ant-design/react-native';
 import { rpx } from '@/utils/screen';
-import { Modal } from '@ant-design/react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Logout } from '@/store/reducer/user';
+import MODULES from '@/router/MODULES';
 
 const Profile: React.FC<{}> = () => {
   const currentUser = useSelector((state: any) => state.user.currentUser);
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const setting = [
     {
@@ -34,54 +39,75 @@ const Profile: React.FC<{}> = () => {
       },
       {
         text: '确定',
-        onPress: () => {
-          // console.log(2);
+        onPress: async () => {
+          const key = Toast.loading('处理中...');
+          const res: any = await dispatch(Logout());
+          Portal.remove(key);
+          if (!res.success) {
+            Toast.info(res.errmsg);
+            return;
+          }
+          navigation.reset({
+            index: 0,
+            routes: [
+              {
+                name: MODULES.Login,
+              },
+            ],
+          });
         },
       },
     ]);
   };
 
+  if (!currentUser) {
+    return null;
+  }
+
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-      <View style={styles.info}>
-        <View style={styles.avatar}>
-          <Image
-            source={{ uri: `${currentUser.avatar}?imageView2/1/w/150/h/150/format/jpg/interlace/1/q/75` }}
-            style={styles.avatarImage}
-          />
-        </View>
-        <View style={styles.content}>
-          <View>
-            <Text style={styles.nameText}>{currentUser.nickname}</Text>
+    // eslint-disable-next-line react-native/no-inline-styles
+    <SafeAreaView style={[styles.container, Platform.OS === 'ios' && { paddingBottom: -34 }]}>
+      <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
+      <View style={styles.main}>
+        <View style={styles.info}>
+          <View style={styles.avatar}>
+            <Image
+              source={{ uri: `${currentUser.avatar}?imageView2/1/w/150/h/150/format/jpg/interlace/1/q/75` }}
+              style={styles.avatarImage}
+            />
           </View>
-          <View style={styles.id}>
-            <Text style={styles.idText}>kitimID：{currentUser.id}</Text>
+          <View style={styles.content}>
+            <View>
+              <Text style={styles.nameText}>{currentUser.nickname}</Text>
+            </View>
+            <View style={styles.id}>
+              <Text style={styles.idText}>kitimID：{currentUser.id}</Text>
+            </View>
           </View>
-        </View>
-        {/* <View style={styles.more}>
+          {/* <View style={styles.more}>
           <Icon name="right" size={18} color={color.lightText} />
         </View> */}
-      </View>
-      <View style={styles.setting}>
-        {setting.map((item, index) => {
-          return (
-            <View style={[styles.settingItem, index === 0 && styles.settingFirstItem]} key={index}>
-              <SvgUri uri={item.url} width={rpx(25)} height={rpx(25)} />
-              <View style={styles.settingName}>
-                <Text style={styles.settingNameText}>{item.name}</Text>
+        </View>
+        <View style={styles.setting}>
+          {setting.map((item, index) => {
+            return (
+              <View style={[styles.settingItem, index === 0 && styles.settingFirstItem]} key={index}>
+                <SvgUri uri={item.url} width={rpx(25)} height={rpx(25)} />
+                <View style={styles.settingName}>
+                  <Text style={styles.settingNameText}>{item.name}</Text>
+                </View>
+                <View style={styles.more}>
+                  <Icon name="right" size={rpx(18)} color={color.lightText} />
+                </View>
               </View>
-              <View style={styles.more}>
-                <Icon name="right" size={rpx(18)} color={color.lightText} />
-              </View>
-            </View>
-          );
-        })}
-      </View>
-      <View style={styles.logout}>
-        <TouchableOpacity style={styles.button} activeOpacity={0.6} onPress={signOut}>
-          <Text style={styles.buttonText}>退出登录</Text>
-        </TouchableOpacity>
+            );
+          })}
+        </View>
+        <View style={styles.logout}>
+          <TouchableOpacity style={styles.button} activeOpacity={0.6} onPress={signOut}>
+            <Text style={styles.buttonText}>退出登录</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -89,6 +115,10 @@ const Profile: React.FC<{}> = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: color.white,
+  },
+  main: {
     flex: 1,
     backgroundColor: color.background,
   },
