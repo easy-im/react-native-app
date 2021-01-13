@@ -31,6 +31,7 @@ export const UPDATE_CURRENT_CHAT_USER = 'MESSAGE/UPDATE_CURRENT_CHAT_USER';
 export const INIT_MESSAGE_STORE = 'MESSAGE/INIT_MESSAGE_STORE';
 export const RECLAIM_USER_MESSAGE = 'MESSAGE/RECLAIM_USER_MESSAGE';
 
+// 退出时，清空所有数据
 export const ResetMessageStore = async (dispatch: Dispatch) => {
   await AsyncStorage.removeItem(MESSAGE_RECENT_KEY);
   await AsyncStorage.removeItem(MESSAGE_TOTAL_COUNT_KEY);
@@ -202,6 +203,8 @@ function resetChatUnreadNumber(state: MessageState, payload: any) {
     totalMessage -= recent[index].unreadNumber;
     recent[index].unreadNumber = 0;
   }
+  AsyncStorage.setItem(MESSAGE_RECENT_KEY, JSON.stringify(recent));
+  AsyncStorage.setItem(MESSAGE_TOTAL_COUNT_KEY, JSON.stringify(totalMessage));
   return {
     ...state,
     totalMessage,

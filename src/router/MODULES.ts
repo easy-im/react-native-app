@@ -7,4 +7,6 @@ export default {
   Login: 'Login',
   Register: 'Register',
   Chat: 'Chat',
+  Search: 'Search',
+  FriendRequest: 'FriendRequest',
 };

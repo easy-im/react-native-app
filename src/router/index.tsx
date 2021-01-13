@@ -3,13 +3,16 @@ import { Route } from '@react-navigation/native';
 import { TransitionPresets } from '@react-navigation/stack';
 import TabIcon from './TabIcon';
 import MODULES from './MODULES';
-import Recent from '../pages/chat/recent';
-import AddressBook from '../pages/address-book';
-import Chat from '../pages/chat/chat';
-import Login from '../pages/user/login';
-import Register from '../pages/user/register';
-import Profile from '../pages/user/profile';
 import Colors from '@/utils/color';
+import AddressBook from '@/pages/address-book';
+import Recent from '@/pages/chat/recent';
+import Chat from '@/pages/chat/chat';
+import Search from '@/pages/chat/search';
+import FriendRequest from '@/pages/chat/friendRequest';
+import Login from '@/pages/user/login';
+import Register from '@/pages/user/register';
+import Profile from '@/pages/user/profile';
+import { Platform } from 'react-native';
 
 export default {
   tabBar: {
@@ -70,6 +73,26 @@ export default {
         options: {
           title: '对话',
           headerStyle: {
+            height: Platform.OS === 'android' ? 44 : undefined, // ios设置会错乱
+            backgroundColor: Colors.white,
+          },
+        },
+      },
+      {
+        name: MODULES.Search,
+        component: Search,
+        options: {
+          title: '添加好友',
+          headerShown: false,
+        },
+      },
+      {
+        name: MODULES.FriendRequest,
+        component: FriendRequest,
+        options: {
+          title: '新的朋友',
+          headerStyle: {
+            height: Platform.OS === 'android' ? 44 : undefined, // ios设置会错乱
             backgroundColor: Colors.white,
           },
         },
@@ -77,7 +100,8 @@ export default {
     ],
     screenOptions: {
       headerStyle: {
-        height: 48,
+        height: 44,
+        backgroundColor: Colors.white,
       },
       gestureEnabled: true,
       ...TransitionPresets.SlideFromRightIOS,

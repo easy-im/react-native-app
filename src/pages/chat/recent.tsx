@@ -174,13 +174,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  contentText: {
+    lineHeight: 22,
+  },
   userName: {
     fontSize: rpx(16),
     color: color.text,
     fontWeight: '600',
-  },
-  contentText: {
-    lineHeight: 22,
   },
   message: {
     fontSize: rpx(13),

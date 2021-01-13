@@ -61,11 +61,12 @@ export const AutoLogin = () => {
       AsyncStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res.data));
       dispatch({ type: SET_CURRENT_USER, payload: { currentUser: res.data } });
       return { success: true, errmsg: '' };
+    } else if (res?.errno === 401) {
+      await ResetUserStore(dispatch);
+      await ResetMessageStore(dispatch);
+      return { success: false, errmsg: '登陆已失效' };
     }
-
-    await ResetUserStore(dispatch);
-    await ResetMessageStore(dispatch);
-    return { success: false, errmsg: res?.errmsg || '登陆已失效' };
+    return { success: true, errmsg: res?.errmsg || '网络错误' };
   };
 };
 

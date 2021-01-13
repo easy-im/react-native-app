@@ -11,9 +11,10 @@ import {
   NativeModules,
   Platform,
 } from 'react-native';
-import { Toast } from '@ant-design/react-native';
 import { rpx } from '@/utils/screen';
 import color from '@/utils/color';
+import { useNavigation } from '@react-navigation/native';
+import MODULES from '@/router/MODULES';
 
 const { StatusBarManager } = NativeModules;
 interface Props {
@@ -23,6 +24,7 @@ interface Props {
 
 const MenuLayer: React.FC<Props> = (props) => {
   const [statusBarHeight, setStatusBarHeight] = useState(0);
+  const navigation = useNavigation();
   const { visible, onClose } = props;
 
   useEffect(() => {
@@ -36,8 +38,8 @@ const MenuLayer: React.FC<Props> = (props) => {
   }, []);
 
   const searchUser = () => {
-    Toast.info('添加好友');
     onClose();
+    navigation.navigate(MODULES.Search);
   };
 
   return (
