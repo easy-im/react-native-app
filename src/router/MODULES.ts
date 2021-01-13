@@ -9,4 +9,5 @@ export default {
   Chat: 'Chat',
   Search: 'Search',
   FriendRequest: 'FriendRequest',
+  ApplyToFriend: 'ApplyToFriend',
 };

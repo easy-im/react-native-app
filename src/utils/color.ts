@@ -1,9 +1,9 @@
 export default {
   white: '#fff',
   blue: '#1441B8',
-  gray: '#999',
   red: '#C60',
   green: '#3C6',
+  gray: '#999',
   lightGray: '#666',
   text: '#333',
   lightText: '#555',

@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 import Header from '@/components/Header';
 import color from '@/utils/color';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { UserState } from '@/store/reducer/user';
 import { Friend } from '@/types/interface/user';
 import MODULES from '@/router/MODULES';
@@ -27,22 +27,25 @@ const AddressBook: React.FC<{}> = () => {
         <Header title="通讯录" />
         <View>
           <View style={[styles.card, styles.groups]}>
-            <View style={[styles.groupItem, styles.apply]}>
+            <TouchableOpacity
+              style={[styles.groupItem, styles.apply]}
+              onPress={() => navigation.navigate(MODULES.FriendRequest)}
+            >
               <View style={styles.image}>
                 <Image source={require('@/assets/images/icon/apply.png')} style={styles.icon} />
               </View>
               <View>
                 <Text style={styles.groupText}>好友申请</Text>
               </View>
-            </View>
-            <View style={[styles.groupItem]}>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.groupItem]}>
               <View style={[styles.image, styles.groupImage]}>
                 <Image source={require('@/assets/images/icon/group.png')} style={styles.icon} />
               </View>
               <View>
                 <Text style={styles.groupText}>我的群组</Text>
               </View>
-            </View>
+            </TouchableOpacity>
           </View>
           <View>
             {friendList.map((item) => {

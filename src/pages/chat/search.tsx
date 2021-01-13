@@ -10,16 +10,11 @@ import SearchBar from '@/components/SearchBar';
 import { useNavigation } from '@react-navigation/native';
 import { isPhoneNumber } from '@/utils';
 import { UserSearch } from '@/service';
+import MODULES from '@/router/MODULES';
+import { SearchUser } from '@/types/interface/user';
 
-interface SearchUser {
-  id: number;
-  nickname: string;
-  mobile: number;
-  avatar: string;
-  status: 0 | 1;
-}
 const Search: React.FC<{}> = () => {
-  const [user, setUser] = useState<SearchUser | null | undefined>(undefined);
+  const [userData, setUserData] = useState<SearchUser | null | undefined>(undefined);
   const navigation = useNavigation();
 
   const onSearch = async (text: string) => {
@@ -31,14 +26,14 @@ const Search: React.FC<{}> = () => {
     const res = await UserSearch(+text);
     Portal.remove(key);
     if (res && res.errno === 200) {
-      setUser(res.data);
+      setUserData(res.data);
     } else {
-      setUser(null);
+      setUserData(null);
     }
   };
 
-  const onAddFriend = (data: SearchUser) => {
-    console.log(data);
+  const onAddFriend = async (data: SearchUser) => {
+    navigation.navigate(MODULES.ApplyToFriend, { userData: data });
   };
 
   return (
@@ -56,29 +51,29 @@ const Search: React.FC<{}> = () => {
           onSubmitEditing={onSearch}
         />
       </View>
-      {user === null && (
+      {userData === null && (
         <View style={styles.empty}>
           <Text style={styles.emptyText}>用户不存在</Text>
         </View>
       )}
-      {user && (
+      {userData && (
         <View style={styles.result}>
           <View style={styles.item}>
-            <Image source={{ uri: user.avatar }} style={styles.avatar} />
+            <Image source={{ uri: userData.avatar }} style={styles.avatar} />
             <View style={styles.content}>
               <View>
-                <Text style={[styles.contentText, styles.name]}>{user.nickname}</Text>
+                <Text style={[styles.contentText, styles.name]}>{userData.nickname}</Text>
               </View>
               <View>
-                <Text style={[styles.contentText, styles.mobile]}>手机号：{user.mobile}</Text>
+                <Text style={[styles.contentText, styles.mobile]}>手机号：{userData.mobile}</Text>
               </View>
             </View>
             <TouchableOpacity
-              style={[styles.add, user.status !== 1 && styles.disabled]}
-              onPress={() => onAddFriend(user)}
-              disabled={user.status !== 1}
+              style={[styles.add, userData.status !== 0 && styles.disabled]}
+              onPress={() => onAddFriend(userData)}
+              disabled={userData.status !== 0}
             >
-              <Text style={styles.addText}>添加</Text>
+              <Text style={styles.addText}>{userData.status === 2 ? '待确认' : '添加'}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -152,7 +147,7 @@ const styles = StyleSheet.create({
     padding: rpx(12),
     paddingTop: rpx(5),
     paddingBottom: rpx(5),
-    borderRadius: rpx(6),
+    borderRadius: rpx(4),
   },
   addText: {
     fontSize: rpx(16),

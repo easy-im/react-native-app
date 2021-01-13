@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route } from '@react-navigation/native';
 import { TransitionPresets } from '@react-navigation/stack';
+import { Platform } from 'react-native';
 import TabIcon from './TabIcon';
 import MODULES from './MODULES';
 import Colors from '@/utils/color';
@@ -12,7 +13,7 @@ import FriendRequest from '@/pages/chat/friendRequest';
 import Login from '@/pages/user/login';
 import Register from '@/pages/user/register';
 import Profile from '@/pages/user/profile';
-import { Platform } from 'react-native';
+import ApplyToFriend from '@/pages/chat/applyToFriend';
 
 export default {
   tabBar: {
@@ -87,13 +88,21 @@ export default {
         },
       },
       {
+        name: MODULES.ApplyToFriend,
+        component: ApplyToFriend,
+        options: {
+          title: '好友申请',
+          headerShown: false,
+        },
+      },
+      {
         name: MODULES.FriendRequest,
         component: FriendRequest,
         options: {
           title: '新的朋友',
           headerStyle: {
             height: Platform.OS === 'android' ? 44 : undefined, // ios设置会错乱
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.background,
           },
         },
       },

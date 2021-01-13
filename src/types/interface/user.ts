@@ -23,3 +23,11 @@ export interface Friend {
   client_type: 'android' | 'ios';
   status: number;
 }
+
+export interface SearchUser {
+  id: number;
+  nickname: string;
+  mobile: number;
+  avatar: string;
+  status: 0 | 1 | 2; // 可以添加，不可添加，已发送请求
+}

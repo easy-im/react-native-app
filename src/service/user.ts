@@ -6,3 +6,8 @@ export const GetUserFriend = () => request.get('/user/friends');
 export const UserLogout = () => request.put('/user/signOut');
 export const UserRegister = (mobile: string, password: string) => request.post('/user/signUp', { mobile, password });
 export const UserSearch = (mobile: number) => request.post('/user/search', { mobile });
+export const RequestToBeFriend = (payload: { fid: number; remark: string; message: string }) =>
+  request.post('/user/requestToBeFriend', payload);
+export const DealFriendRequest = (id: number, agree: boolean, remark: string) =>
+  request.post('/user/dealFriendRequest', { id, agree, remark });
+export const UserFriendRequest = () => request.get('/user/friendRequest');

@@ -110,13 +110,13 @@ const styles = StyleSheet.create({
     borderTopWidth: 0,
   },
   image: {
-    width: rpx(22),
-    height: rpx(22),
+    width: rpx(24),
+    height: rpx(24),
     marginRight: rpx(15),
   },
   text: {
     color: color.text,
-    fontSize: rpx(15),
+    fontSize: rpx(16),
   },
 });
 
