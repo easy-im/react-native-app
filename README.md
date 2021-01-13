@@ -81,4 +81,4 @@ UI 库：@ant-design/react-native
 
 如果您觉得我们的开源软件对你有所帮助，请帮作者点一个免费的 Star, 或者扫下方二维码打赏我们一杯咖啡。
 
-<img src="https://images.gitee.com/uploads/images/2021/0105/120317_1bea64c8_592960.png" width="400" height="400" align="bottom" />
+<img src="https://images.gitee.com/uploads/images/2021/0105/120317_1bea64c8_592960.png" width="300" height="300" align="bottom" />
