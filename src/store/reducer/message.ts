@@ -1,9 +1,8 @@
 import { Dispatch } from 'redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { IAction } from '@/types/interface/redux';
 import { MessageRecord } from '@/types/interface/entity';
-import { MESSAGE_RECENT_KEY, MESSAGE_TOTAL_COUNT_KEY } from '@/storage/storageKeys';
 import MessageStorage, { Message } from '@/storage/message';
+import RecentMessageStorage from '@/storage/recentMessage';
 import { GetUserUnreadMessage, UpdateRemoteMessageStatus } from '@/service';
 
 export interface MessageState {
@@ -33,8 +32,6 @@ export const RECLAIM_USER_MESSAGE = 'MESSAGE/RECLAIM_USER_MESSAGE';
 
 // 退出时，清空所有数据
 export const ResetMessageStore = async (dispatch: Dispatch) => {
-  await AsyncStorage.removeItem(MESSAGE_RECENT_KEY);
-  await AsyncStorage.removeItem(MESSAGE_TOTAL_COUNT_KEY);
   dispatch({
     type: INIT_MESSAGE_STORE,
     payload: { currentChatUserId: 0, totalMessage: 0, recent: [], messageMap: {}, messages: {} },
@@ -48,8 +45,8 @@ export const RecoverMessageOnInit = () => {
     if (!user || !user.currentUser || !user.currentUser.id) {
       return;
     }
-    const recentStr = await AsyncStorage.getItem(MESSAGE_RECENT_KEY);
-    const recent: MessageState['recent'] = recentStr ? JSON.parse(recentStr) : [];
+
+    const recent = await RecentMessageStorage.getData(user.currentUser.id);
     let totalMessage = 0;
     const messageMap: MessageState['messageMap'] = {};
     const messages: MessageState['messages'] = {};
@@ -58,13 +55,13 @@ export const RecoverMessageOnInit = () => {
       return (async () => {
         const { fid, unreadNumber } = item;
         totalMessage += unreadNumber || 0;
-        const data = await MessageStorage.getMessageByFid(user.currentUser.id, fid, USER_CHAT_MESSAGE_LIMIT);
+        const data = await MessageStorage.getFriendMessageByUid(user.currentUser.id, fid, USER_CHAT_MESSAGE_LIMIT);
         if (data && data.length) {
           messages[fid] = data.map((m) => {
             const temp: MessageRecord = {
               hash: m.hash,
-              user_id: m.user_id,
-              dist_id: m.dist_id,
+              user_id: m.is_owner ? m.uid : m.fid,
+              dist_id: m.is_owner ? m.fid : m.uid,
               dist_type: m.dist_type,
               content_type: m.content_type,
               content: m.content,
@@ -87,18 +84,17 @@ export const RecoverMessageOnInit = () => {
 
 // 获取用户未读消息
 export const GetUnreadMessage = () => {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch, getState: any) => {
+    const { user } = getState();
+    if (!user || !user.currentUser || !user.currentUser.id) {
+      return;
+    }
     const res = await GetUserUnreadMessage();
     if (res && res.errno === 200) {
-      const ids: number[] = [];
-      const data = res.data.map((item: MessageRecord) => {
-        item.is_received = 1;
-        item.id && ids.push(item.id);
-        return item;
+      await dispatch({
+        type: UPDATE_MESSAGE_LIST,
+        payload: { list: res.data, isRead: false, currentUserId: user.currentUser.id },
       });
-      // 向服务器更新消息已接收状态
-      await UpdateRemoteMessageStatus(ids, { is_received: 1 });
-      dispatch({ type: UPDATE_MESSAGE_LIST, payload: { list: data, isRead: false } });
       return { success: true, errmsg: '' };
     }
     return { success: false, offline: true, errmsg: res?.errmsg || '网络错误' };
@@ -123,14 +119,21 @@ export default (state = initialState, action: IAction) => {
 };
 
 /**
- * 处理未读消息
+ * 处理收到的消息
  * @param state
  * @param payload
  */
 function updateMessageList(state: MessageState, payload: any) {
-  const { list, isRead = false }: { list: MessageRecord[]; isRead: boolean } = payload;
+  const {
+    list,
+    isRead = false,
+    currentUserId,
+  }: { list: MessageRecord[]; isRead: boolean; currentUserId: number } = payload;
+
   const { messages, recent, messageMap, currentChatUserId } = state;
   let { totalMessage } = state;
+  const ids: number[] = [];
+
   list.forEach((item) => {
     const { hash } = item;
     if (!hash) {
@@ -138,11 +141,14 @@ function updateMessageList(state: MessageState, payload: any) {
     }
 
     const fid = item.is_owner ? item.dist_id : item.user_id;
-    const owner_id = item.is_owner ? item.user_id : item.dist_id;
+    const uid = item.is_owner ? item.user_id : item.dist_id;
     const isCurrentChatUser = currentChatUserId === +fid;
     const shouldUpdateUnread = !isRead && !isCurrentChatUser;
 
-    // 该消息已存在，属于重复消息，更新但后续处理
+    item.is_received = 1;
+    item.id && ids.push(item.id);
+
+    // 该消息已存在，属于重复消息，更新该消息但不再进行后续处理
     if (messageMap[hash]) {
       messageMap[hash] = item;
       return;
@@ -175,12 +181,15 @@ function updateMessageList(state: MessageState, payload: any) {
     }
 
     // 存储消息到数据库
-    const m: Message = { ...item, fid, owner_id };
-    delete m.id;
+    const m: Message = { ...item, fid, uid };
     MessageStorage.saveMessage(m, true);
   });
-  AsyncStorage.setItem(MESSAGE_RECENT_KEY, JSON.stringify(recent));
-  AsyncStorage.setItem(MESSAGE_TOTAL_COUNT_KEY, JSON.stringify(totalMessage));
+
+  // 向服务器更新消息已接收状态
+  UpdateRemoteMessageStatus(ids, { is_received: 1 });
+  // 存储最近联系人到数据库
+  RecentMessageStorage.saveData(currentUserId, recent);
+
   return {
     ...state,
     messages: { ...messages },
@@ -196,15 +205,14 @@ function updateMessageList(state: MessageState, payload: any) {
  * @param payload
  */
 function resetChatUnreadNumber(state: MessageState, payload: any) {
-  const { fid }: { fid: number } = payload;
+  const { fid, currentUserId }: { fid: number; currentUserId: number } = payload;
   let { totalMessage, recent } = state;
   const index = recent.findIndex((i) => i.fid === fid);
   if (index !== -1) {
     totalMessage -= recent[index].unreadNumber;
     recent[index].unreadNumber = 0;
   }
-  AsyncStorage.setItem(MESSAGE_RECENT_KEY, JSON.stringify(recent));
-  AsyncStorage.setItem(MESSAGE_TOTAL_COUNT_KEY, JSON.stringify(totalMessage));
+  RecentMessageStorage.saveData(currentUserId, recent);
   return {
     ...state,
     totalMessage,

@@ -48,7 +48,7 @@ const ChatPage: React.FC<{}> = () => {
         title: title,
       });
     // 重置未读消息
-    dispatch({ type: RESET_CHAT_UNREAD_NUMBER, payload: { fid } });
+    dispatch({ type: RESET_CHAT_UNREAD_NUMBER, payload: { fid, currentUserId: currentUser?.id } });
     // 设置当前用户为在聊用户
     dispatch({ type: UPDATE_CURRENT_CHAT_USER, payload: { currentChatUserId: fid } });
 

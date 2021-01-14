@@ -1,10 +1,11 @@
 import Realm, { ObjectClass, ObjectSchema } from 'realm';
 
-const UserSchema: ObjectSchema = {
-  name: 'User',
+const FriendSchema: ObjectSchema = {
+  name: 'Friend',
   primaryKey: 'fid',
   properties: {
-    fid: { type: 'int' },
+    uid: { type: 'int', indexed: true },
+    fid: { type: 'int', indexed: true },
     nickname: { type: 'string' },
     remark: { type: 'string' },
     mobile: { type: 'int', optional: true },
@@ -16,15 +17,22 @@ const UserSchema: ObjectSchema = {
   },
 };
 
+const UserFriendSchema: ObjectSchema = {
+  name: 'UserFriend',
+  primaryKey: 'uid',
+  properties: {
+    uid: { type: 'int', indexed: true },
+    data: { type: 'string' },
+  },
+};
+
 const MessageSchema = {
   name: 'Message',
   primaryKey: 'hash',
   properties: {
-    owner_id: { type: 'int', indexed: true },
+    uid: { type: 'int', indexed: true },
     fid: { type: 'int', indexed: true },
     hash: { type: 'string', indexed: true },
-    user_id: { type: 'int' },
-    dist_id: { type: 'int' },
     dist_type: { type: 'int' },
     content_type: { type: 'string' },
     content: { type: 'string' },
@@ -36,10 +44,19 @@ const MessageSchema = {
   },
 };
 
+const RecentMessageSchema = {
+  name: 'RecentMessage',
+  primaryKey: 'uid',
+  properties: {
+    uid: { type: 'int', indexed: true },
+    data: { type: 'string' },
+  },
+};
+
 export default class Storage {
   private realm!: Realm;
-  private schema: (ObjectClass | ObjectSchema)[] = [UserSchema, MessageSchema];
-  private version: number = 10;
+  private schema: (ObjectClass | ObjectSchema)[] = [FriendSchema, UserFriendSchema, MessageSchema, RecentMessageSchema];
+  private version: number = 11;
 
   constructor() {
     this.init();

@@ -1,9 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dispatch } from 'redux';
-import UserStorage from '@/storage/user';
+import FriendStorage, { FriendInfo } from '@/storage/user';
+import UserFriendStorage from '@/storage/userFriend';
 import { Friend, User } from '@/types/interface/user';
 import { IAction } from '@/types/interface/redux';
-import { CURRENT_USER_KEY, USER_FRIEND_LIST_KEY } from '@/storage/storageKeys';
+import { CURRENT_USER_KEY } from '@/storage';
 import { GetUserInfo, GetUserFriend, UserSign, UserLogout } from '@/service';
 import { ResetMessageStore } from './message';
 
@@ -26,16 +27,19 @@ export const INIT_USER_STATE = 'USER/INIT_USER_STATE';
 
 export const ResetUserStore = async (dispatch: Dispatch) => {
   await AsyncStorage.removeItem(CURRENT_USER_KEY);
-  await AsyncStorage.removeItem(USER_FRIEND_LIST_KEY);
   dispatch({ type: INIT_USER_STATE, payload: { currentUser: undefined, friendMap: {}, friendList: [] } });
 };
 
-export const RecoverUserInfo = () => {
-  return async (dispatch: Dispatch) => {
-    let tmp1 = await AsyncStorage.getItem(USER_FRIEND_LIST_KEY);
-    let tmp2 = await UserStorage.getAllUser();
+export const RecoverUserInfoOnInit = () => {
+  return async (dispatch: Dispatch, getState: any) => {
+    const { user } = getState();
+    if (!user || !user.currentUser || !user.currentUser.id) {
+      return;
+    }
+
+    let tmp1 = await UserFriendStorage.getData(user.currentUser.id);
+    let tmp2 = await FriendStorage.getAllFriend(user.currentUser.id);
     if (tmp1 && tmp2 && tmp2.length) {
-      tmp1 = tmp1 ? JSON.parse(tmp1) : null;
       let tmp3: Record<number, Friend> = {};
       tmp2.forEach((i: any) => {
         tmp3[i.fid] = i;
@@ -97,15 +101,19 @@ export const Logout = () => {
 };
 
 export const GetUserFriendList = () => {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch, getState: any) => {
+    const { user } = getState();
+    if (!user || !user.currentUser || !user.currentUser.id) {
+      return;
+    }
     const res = await GetUserFriend();
 
     if (res && res.errno === 200) {
       const { data }: { data: { key: string; list: Friend[] }[] } = res;
-      const map: Record<number, Friend> = {};
+      const map: Record<number, FriendInfo> = {};
       const list = data.map((item) => {
         const l = item.list.map((f) => {
-          map[f.fid] = f;
+          map[f.fid] = { uid: user.currentUser.id, ...f };
           return f.fid;
         });
         return {
@@ -114,8 +122,8 @@ export const GetUserFriendList = () => {
         };
       });
       if (list.length) {
-        AsyncStorage.setItem(USER_FRIEND_LIST_KEY, JSON.stringify(list));
-        UserStorage.saveUserList(Object.values(map));
+        UserFriendStorage.saveData(user.currentUser.id, list);
+        FriendStorage.saveFriendList(Object.values(map));
         dispatch({ type: SET_FRIEND_MAP, payload: { friendMap: map } });
         dispatch({ type: SET_FRIEND_LIST, payload: { friendList: list } });
       }

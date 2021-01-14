@@ -2,11 +2,10 @@ import Realm from 'realm';
 import { MessageRecord } from '@/types/interface/entity';
 import Storage from './base';
 
-export interface Message extends MessageRecord {
-  id?: number;
+export type Message = Omit<MessageRecord, 'id' | 'user_id' | 'dist_id'> & {
+  uid: number; // 所属用户
   fid: number;
-  owner_id: number;
-}
+};
 
 class MessageStorage extends Storage {
   saveMessage(message: Message, update = false) {
@@ -15,11 +14,11 @@ class MessageStorage extends Storage {
     });
   }
 
-  getMessageByFid(owner_id: number, fid: number, limit = 50): Promise<Realm.Results<Message>> {
+  getFriendMessageByUid(uid: number, fid: number, limit = 50): Promise<Realm.Results<Message>> {
     return this.query((realm) => {
       const messages = realm
         .objects('Message')
-        .filtered(`owner_id = ${owner_id} AND fid = ${fid} LIMIT (${limit})`)
+        .filtered(`uid = ${uid} AND fid = ${fid} LIMIT (${limit})`)
         .sorted('create_time');
       return messages as any;
     });
@@ -29,7 +28,7 @@ class MessageStorage extends Storage {
     return this.query((realm) => {
       const userList = realm.objects('Message');
       const user = userList.filtered(`hash = ${hash}`);
-      return user && user[1];
+      return user && user[0];
     });
   }
 

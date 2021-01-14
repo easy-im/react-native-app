@@ -8,14 +8,14 @@ import { Friend, User } from '@/types/interface/user';
 import { Message, MessageRecord } from '@/types/interface/entity';
 import Store from '@/store';
 import { UPDATE_MESSAGE_SENDING_STATUS, UPDATE_MESSAGE_LIST } from '@/store/reducer/message';
-import { CURRENT_USER_KEY } from '@/storage/storageKeys';
+import { CURRENT_USER_KEY } from '@/storage';
 
 const { ws } = config;
 
 class Chat {
   private static instance: Chat;
-  private token: string = '';
   private socket!: Socket;
+  private userInfo!: User;
 
   public static getInstance() {
     if (!this.instance) {
@@ -27,13 +27,14 @@ class Chat {
   public async setup() {
     const userStr = await AsyncStorage.getItem(CURRENT_USER_KEY);
     const user = userStr ? JSON.parse(userStr) : null;
-    this.token = user ? user.token : null;
-    if (!this.token) {
+    if (!user) {
       return;
     }
+    this.userInfo = user;
+
     const socket = io(`${ws.host}/${ws.namespace}`, {
       query: {
-        token: this.token,
+        token: user.token,
       },
       transports: ['websocket'],
       timeout: 5000,
@@ -42,7 +43,7 @@ class Chat {
       const { id } = socket;
       console.log('ws 已连接', id);
       socket.on(id, (data: SOCKET_RESPONSE) => {
-        console.log('ws 收到服务器消息：', data);
+        console.log('ws 收到服务器消息：', data.message_type, data.message);
         switch (data.message_type) {
           case ENUM_SOCKET_MESSAGE_TYPE.PRIVATE_CHAT:
             this.onMessage(data.message as CHAT_MESSAGE);
@@ -67,16 +68,8 @@ class Chat {
   public async onMessage(data: CHAT_MESSAGE) {
     const { type, messages } = data;
     if (type === ENUM_MESSAGE_DIST_TYPE.PRIVATE) {
-      Store.dispatch({ type: UPDATE_MESSAGE_LIST, payload: { list: messages } });
+      Store.dispatch({ type: UPDATE_MESSAGE_LIST, payload: { list: messages, currentUserId: this.userInfo.id } });
     }
-  }
-
-  /**
-   * 消息确认，确认消息已被接收，并更新消息ID
-   * @param message { RESPONSE_MESSAGE } 收到的消息
-   */
-  public async onConfirmMessage(message: RESPONSE_MESSAGE) {
-    Store.dispatch({ type: UPDATE_MESSAGE_SENDING_STATUS, payload: message });
   }
 
   /**
@@ -110,7 +103,19 @@ class Chat {
       is_owner: 1,
     };
     this.socket.emit('message', { message });
-    await Store.dispatch({ type: UPDATE_MESSAGE_LIST, payload: { list: [record], isRead: true } });
+
+    Store.dispatch({
+      type: UPDATE_MESSAGE_LIST,
+      payload: { list: [record], isRead: true, currentUserId: this.userInfo.id },
+    });
+  }
+
+  /**
+   * 消息确认，确认消息已被接收，并更新消息ID
+   * @param message { RESPONSE_MESSAGE } 收到的消息
+   */
+  public async onConfirmMessage(message: RESPONSE_MESSAGE) {
+    Store.dispatch({ type: UPDATE_MESSAGE_SENDING_STATUS, payload: message });
   }
 }
 

@@ -1,4 +1,4 @@
-import { CURRENT_USER_KEY } from '@/storage/storageKeys';
+import { CURRENT_USER_KEY } from '@/storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import config from '../config';
 

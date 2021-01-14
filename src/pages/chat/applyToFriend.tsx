@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { StatusBar, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Portal, Toast } from '@ant-design/react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import color from '@/utils/color';
 import { rpx } from '@/utils/screen';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import { RequestToBeFriend } from '@/service';
 import { SearchUser } from '@/types/interface/user';
-import { useSelector } from 'react-redux';
 import { UserState } from '@/store/reducer/user';
 
 const Search: React.FC<{}> = () => {

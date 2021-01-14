@@ -1,43 +1,48 @@
-import { Friend } from '@/types/interface/user';
 import Realm from 'realm';
+import { Friend } from '@/types/interface/user';
 import Storage from './base';
 
-class UserStorage extends Storage {
-  saveUserList(list: Friend[]) {
+export type FriendInfo = Friend & {
+  uid: number;
+};
+
+class FriendStorage extends Storage {
+  saveFriendList(list: FriendInfo[]) {
     this.query((realm) => {
       list.forEach((user) => {
-        realm.create('User', user, Realm.UpdateMode.All);
+        realm.create('Friend', user, Realm.UpdateMode.All);
       });
     });
   }
 
-  saveUser(user: Friend, update = false) {
+  saveFriend(user: FriendInfo, update = false) {
     this.query((realm) => {
-      realm.create('User', user, update ? Realm.UpdateMode.Modified : Realm.UpdateMode.All);
+      realm.create('Friend', user, update ? Realm.UpdateMode.Modified : Realm.UpdateMode.All);
     });
   }
 
-  deleteUser(id: number) {
+  deleteFriend(uid: number, fid: number) {
     return this.query(async (realm) => {
-      const user = await this.getUser(id);
-      user && realm.delete(user);
+      const friend = await this.getFriend(uid, fid);
+      friend && realm.delete(friend);
     });
   }
 
-  getUser(id: number) {
+  getFriend(uid: number, fid: number) {
     return this.query((realm) => {
-      const userList = realm.objects('User');
-      const user = userList.filtered(`id = ${id}`);
-      return user && user[1];
+      const friendList = realm.objects('Friend');
+      const friend = friendList.filtered(`uid = ${uid} AND fid = ${fid}`);
+      return friend && friend[0];
     });
   }
 
-  getAllUser() {
+  getAllFriend(uid: number) {
     return this.query((realm) => {
-      const userList = realm.objects('User');
-      return userList;
+      const friendList = realm.objects('Friend');
+      const friend = friendList.filtered(`uid = ${uid}`);
+      return friend;
     });
   }
 }
 
-export default new UserStorage();
+export default new FriendStorage();

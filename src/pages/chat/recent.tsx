@@ -7,7 +7,7 @@ import SearchBar from '@/components/SearchBar';
 import Header from '@/components/Header';
 import color from '@/utils/color';
 import { RecoverMessageOnInit, GetUnreadMessage, MessageState } from '@/store/reducer/message';
-import { AutoLogin, GetUserFriendList, RecoverUserInfo, UserState } from '@/store/reducer/user';
+import { AutoLogin, GetUserFriendList, RecoverUserInfoOnInit, UserState } from '@/store/reducer/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatTime } from '@/utils';
 import { Friend } from '@/types/interface/user';
@@ -48,7 +48,7 @@ const Recent: React.FC<{}> = () => {
         return;
       }
       await Socket.setup();
-      await dispatch(RecoverUserInfo());
+      await dispatch(RecoverUserInfoOnInit());
       await dispatch(RecoverMessageOnInit());
       await dispatch(GetUserFriendList());
       await dispatch(GetUnreadMessage());
