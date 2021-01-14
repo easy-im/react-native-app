@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { StatusBar, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { Pressable, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -8,38 +8,63 @@ import { Portal, Toast } from '@ant-design/react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import color from '@/utils/color';
 import { rpx } from '@/utils/screen';
-import { RequestToBeFriend } from '@/service';
-import { SearchUser } from '@/types/interface/user';
-import { UserState } from '@/store/reducer/user';
+import { UserFriendRequest } from '@/types/interface/user';
+import { GetUserFriendList, SET_USER_FRIEND_REQUEST, UserState } from '@/store/reducer/user';
+import { DealFriendRequest } from '@/service';
+import MODULES from '@/router/MODULES';
 
-const ApplyToFriend: React.FC<{}> = () => {
-  const [message, setMessage] = useState('');
+const AddFriend: React.FC<{}> = () => {
   const [remark, setRemark] = useState('');
 
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const route = useRoute();
   const { params = {} }: any = route;
-  const { userData }: { userData: SearchUser } = params;
+  const { userData }: { userData: UserFriendRequest } = params;
+  const userFriendRequest = useSelector((state: { user: UserState }) => state.user.userFriendRequest);
+  const userFriendRequestCount = useSelector((state: { user: UserState }) => state.user.userFriendRequestCount);
   const currentUser = useSelector((state: { user: UserState }) => state.user.currentUser);
 
   useEffect(() => {
-    setMessage(`我是${currentUser?.nickname}`);
     setRemark(userData?.nickname);
   }, [currentUser, userData]);
 
   const onAddFriend = async () => {
-    if (userData.status === 0) {
-      const key = Toast.loading('正在发送请求');
-      const res = await RequestToBeFriend({ fid: userData.id, remark, message });
+    const key = Toast.loading('正在处理');
+    const res = await DealFriendRequest(userData.id, true, remark);
+    if (res && res.errno === 200) {
+      await dispatch({
+        type: SET_USER_FRIEND_REQUEST,
+        payload: {
+          userFriendRequest: userFriendRequest.map((item) => {
+            if (item.id === userData.id) {
+              item.status = 1;
+            }
+            return item;
+          }),
+          userFriendRequestCount: userFriendRequestCount - 1,
+        },
+      });
+      await dispatch(GetUserFriendList());
       Portal.remove(key);
-      if (res && res.errno === 200) {
-        Toast.success('请求已发送', 1);
-        setTimeout(() => {
-          navigation.goBack();
-        }, 1000);
-      } else {
-        Toast.fail(res?.errmsg || '网络错误', 1);
-      }
+      Toast.success('已添加', 1);
+      setTimeout(() => {
+        navigation.reset({
+          index: 1,
+          routes: [
+            {
+              name: MODULES.Recent,
+            },
+            {
+              name: MODULES.Chat,
+              params: { id: userData.uid, title: remark || userData.nickname },
+            },
+          ],
+        });
+      }, 1000);
+    } else {
+      Portal.remove(key);
+      Toast.fail(res?.errmsg || '网络错误', 1);
     }
   };
 
@@ -50,33 +75,16 @@ const ApplyToFriend: React.FC<{}> = () => {
         <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}>
           <Icon name="md-chevron-back" size={28} color={color.text} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.send} onPress={() => onAddFriend()}>
-          <Text style={styles.sendText}>发送</Text>
+        <TouchableOpacity style={styles.done} onPress={() => onAddFriend()}>
+          <Text style={styles.doneText}>完成</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.main}>
-        <View style={styles.title}>
-          <Text style={styles.titleText}>申请添加好友</Text>
+        <View>
+          <Text style={styles.titleText}>通过好友验证</Text>
         </View>
         <View style={styles.formItem}>
-          <View style={styles.tip}>
-            <Text style={styles.tipText}>发送好友申请</Text>
-          </View>
-          <View style={styles.inputWrap}>
-            <TextInput
-              autoCapitalize="none"
-              returnKeyType="done"
-              multiline
-              numberOfLines={3}
-              maxLength={50}
-              style={styles.input}
-              value={message}
-              onChangeText={(t) => setMessage(t)}
-            />
-          </View>
-        </View>
-        <View style={[styles.formItem, styles.remark]}>
-          <View style={styles.tip}>
+          <View>
             <Text style={styles.tipText}>设置备注</Text>
           </View>
           <View style={styles.inputWrap}>
@@ -88,6 +96,12 @@ const ApplyToFriend: React.FC<{}> = () => {
               value={remark}
               onChangeText={(t) => setRemark(t)}
             />
+          </View>
+          <View style={styles.message}>
+            <Text style={styles.messageText}>好友发来的消息：{userData.message}</Text>
+            <Pressable onPress={() => setRemark(userData.message)} style={styles.fill}>
+              <Text style={styles.fillText}>填入</Text>
+            </Pressable>
           </View>
         </View>
       </View>
@@ -113,14 +127,14 @@ const styles = StyleSheet.create({
     width: rpx(40),
     height: '100%',
   },
-  send: {
+  done: {
     backgroundColor: color.green,
     padding: rpx(12),
     paddingTop: rpx(5),
     paddingBottom: rpx(5),
     borderRadius: rpx(4),
   },
-  sendText: {
+  doneText: {
     fontSize: rpx(16),
     color: color.white,
     lineHeight: rpx(21),
@@ -129,7 +143,6 @@ const styles = StyleSheet.create({
     marginTop: rpx(40),
     padding: rpx(15),
   },
-  title: {},
   titleText: {
     fontSize: rpx(18),
     color: color.text,
@@ -139,10 +152,6 @@ const styles = StyleSheet.create({
   formItem: {
     marginTop: rpx(30),
   },
-  remark: {
-    marginTop: rpx(50),
-  },
-  tip: {},
   tipText: {
     color: color.lightGray,
     fontSize: rpx(14),
@@ -151,13 +160,28 @@ const styles = StyleSheet.create({
     marginTop: rpx(12),
   },
   input: {
-    // borderWidth: 0.5,
-    // borderColor: '#ccc',
     textAlignVertical: 'top',
     borderRadius: rpx(4),
     padding: rpx(12),
+    paddingBottom: rpx(6),
     backgroundColor: color.borderColor,
+  },
+  message: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: rpx(8),
+  },
+  messageText: {
+    fontSize: rpx(13),
+    color: color.gray,
+  },
+  fill: {
+    marginLeft: rpx(8),
+  },
+  fillText: {
+    fontSize: rpx(13),
+    color: color.lightBlue,
   },
 });
 
-export default ApplyToFriend;
+export default AddFriend;

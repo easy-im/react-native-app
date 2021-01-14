@@ -47,7 +47,7 @@ const Search: React.FC<{}> = () => {
           placeholder="请搜索对方手机号"
           style={styles.searchBar}
           theme="light"
-          autoFocus={true}
+          autoFocus={false}
           onSubmitEditing={onSearch}
         />
       </View>

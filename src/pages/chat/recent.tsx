@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, StatusBar, Text, Image } from 'react-native';
+import { View, StyleSheet, StatusBar, Text, Image, RefreshControl } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import SearchBar from '@/components/SearchBar';
 import Header from '@/components/Header';
 import color from '@/utils/color';
 import { RecoverMessageOnInit, GetUnreadMessage, MessageState } from '@/store/reducer/message';
-import { AutoLogin, GetUserFriendList, RecoverUserInfoOnInit, UserState } from '@/store/reducer/user';
+import {
+  AutoLogin,
+  GetUserFriendList,
+  InitUserFriendRequest,
+  RecoverUserInfoOnInit,
+  UserState,
+} from '@/store/reducer/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatTime } from '@/utils';
 import { Friend } from '@/types/interface/user';
@@ -18,6 +24,7 @@ import { Toast } from '@ant-design/react-native';
 
 const Recent: React.FC<{}> = () => {
   const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -26,34 +33,8 @@ const Recent: React.FC<{}> = () => {
   const totalMessage = useSelector((state: { message: MessageState }) => state.message.totalMessage);
   const friendMap = useSelector((state: { user: UserState }) => state.user.friendMap);
 
-  // console.log('recent', recent);
-  // console.log('messageMap', messageMap);
-  // console.log('friendMap', friendMap);
-
   useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const res: any = await dispatch(AutoLogin());
-      if (!res.success) {
-        setLoading(false);
-        Toast.info(res.errmsg);
-        navigation.reset({
-          index: 0,
-          routes: [
-            {
-              name: MODULES.Login,
-            },
-          ],
-        });
-        return;
-      }
-      await Socket.setup();
-      await dispatch(RecoverUserInfoOnInit());
-      await dispatch(RecoverMessageOnInit());
-      await dispatch(GetUserFriendList());
-      await dispatch(GetUnreadMessage());
-      setLoading(false);
-    })();
+    init();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -63,58 +44,99 @@ const Recent: React.FC<{}> = () => {
     });
   }, [navigation, totalMessage]);
 
+  const init = async () => {
+    setLoading(true);
+    const res: any = await dispatch(AutoLogin());
+    if (!res.success) {
+      setLoading(false);
+      Toast.info(res.errmsg);
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: MODULES.Login,
+          },
+        ],
+      });
+      return;
+    }
+    await dispatch(RecoverUserInfoOnInit());
+    await dispatch(RecoverMessageOnInit());
+    await Socket.setup();
+    await refresh();
+    setLoading(false);
+  };
+
+  const refresh = async () => {
+    await dispatch(InitUserFriendRequest());
+    await dispatch(GetUserFriendList());
+    await dispatch(GetUnreadMessage());
+  };
+
   const chat2user = (item: Friend) => {
     navigation.navigate(MODULES.Chat, { id: item.fid, title: item.remark || item.nickname });
+  };
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await refresh();
+    setRefreshing(false);
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
-      <Header title="KitIM" loading={loading} />
-      <View style={styles.main}>
-        <SearchBar placeholder="请输入关键字" disabled />
-        <View style={styles.list}>
-          {recent.map((item) => {
-            const { fid, last_message, unreadNumber } = item;
-            const user = friendMap[item.fid];
-            const message = messageMap[last_message];
+      <ScrollView
+        style={styles.container}
+        alwaysBounceVertical
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+      >
+        <Header title="KitIM" loading={loading} />
+        <View style={styles.main}>
+          <SearchBar placeholder="请输入关键字" disabled />
+          <View style={styles.list}>
+            {recent.map((item) => {
+              const { fid, last_message, unreadNumber } = item;
+              const user = friendMap[item.fid];
+              const message = messageMap[last_message];
 
-            if (!user || !message) {
-              return null;
-            }
+              if (!user || !message) {
+                return null;
+              }
 
-            return (
-              <TouchableWithoutFeedback onPress={() => chat2user(user)} key={fid}>
-                <View style={styles.listItem}>
-                  <View style={styles.avatar}>
-                    <Image source={{ uri: user.avatar }} style={styles.avatarImage} />
-                    {unreadNumber > 0 && (
-                      <View style={styles.badge}>
-                        <Text style={styles.badgeText}>{unreadNumber > 99 ? '99+' : unreadNumber}</Text>
+              return (
+                <TouchableWithoutFeedback onPress={() => chat2user(user)} key={fid}>
+                  <View style={styles.listItem}>
+                    <View style={styles.avatar}>
+                      <Image source={{ uri: user.avatar }} style={styles.avatarImage} />
+                      {unreadNumber > 0 && (
+                        <View style={styles.badge}>
+                          <Text style={styles.badgeText}>{unreadNumber > 99 ? '99+' : unreadNumber}</Text>
+                        </View>
+                      )}
+                    </View>
+                    <View style={styles.wrap}>
+                      <View style={styles.content}>
+                        <View>
+                          <Text style={[styles.contentText, styles.userName]}>{user.remark || user.nickname}</Text>
+                        </View>
+                        <View>
+                          <Text style={[styles.contentText, styles.message]} numberOfLines={1}>
+                            {message.content}
+                          </Text>
+                        </View>
                       </View>
-                    )}
-                  </View>
-                  <View style={styles.wrap}>
-                    <View style={styles.content}>
                       <View>
-                        <Text style={[styles.contentText, styles.userName]}>{user.remark || user.nickname}</Text>
-                      </View>
-                      <View>
-                        <Text style={[styles.contentText, styles.message]} numberOfLines={1}>
-                          {message.content}
-                        </Text>
+                        <Text style={styles.time}>{formatTime(message.create_time)}</Text>
                       </View>
                     </View>
-                    <View>
-                      <Text style={styles.time}>{formatTime(message.create_time)}</Text>
-                    </View>
                   </View>
-                </View>
-              </TouchableWithoutFeedback>
-            );
-          })}
+                </TouchableWithoutFeedback>
+              );
+            })}
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

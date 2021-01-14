@@ -10,4 +10,5 @@ export default {
   Search: 'Search',
   FriendRequest: 'FriendRequest',
   ApplyToFriend: 'ApplyToFriend',
+  AddFriend: 'AddFriend',
 };

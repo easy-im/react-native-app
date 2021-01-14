@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Image, Text, StyleSheet, StatusBar, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -9,11 +9,19 @@ import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture
 import { UserState } from '@/store/reducer/user';
 import { Friend } from '@/types/interface/user';
 import MODULES from '@/router/MODULES';
+import { rpx } from '@/utils/screen';
 
 const AddressBook: React.FC<{}> = () => {
   const navigation = useNavigation();
   const friendMap = useSelector((state: { user: UserState }) => state.user.friendMap);
   const friendList = useSelector((state: { user: UserState }) => state.user.friendList);
+  const userFriendRequestCount = useSelector((state: { user: UserState }) => state.user.userFriendRequestCount);
+
+  useEffect(() => {
+    navigation.setOptions({
+      tabBarBadge: userFriendRequestCount <= 0 ? undefined : userFriendRequestCount,
+    });
+  }, [navigation, userFriendRequestCount]);
 
   const chat2user = (friend: Friend) => {
     navigation.navigate(MODULES.Chat, { id: friend.fid, title: friend.remark || friend.nickname });
@@ -31,19 +39,28 @@ const AddressBook: React.FC<{}> = () => {
               style={[styles.groupItem, styles.apply]}
               onPress={() => navigation.navigate(MODULES.FriendRequest)}
             >
-              <View style={styles.image}>
-                <Image source={require('@/assets/images/icon/apply.png')} style={styles.icon} />
+              <View style={styles.wrap}>
+                <View style={styles.image}>
+                  <Image source={require('@/assets/images/icon/apply.png')} style={styles.icon} />
+                </View>
+                <View>
+                  <Text style={styles.groupText}>好友申请</Text>
+                </View>
               </View>
-              <View>
-                <Text style={styles.groupText}>好友申请</Text>
-              </View>
+              {userFriendRequestCount > 0 && (
+                <View style={styles.count}>
+                  <Text style={styles.countText}>{userFriendRequestCount}</Text>
+                </View>
+              )}
             </TouchableOpacity>
             <TouchableOpacity style={[styles.groupItem]}>
-              <View style={[styles.image, styles.groupImage]}>
-                <Image source={require('@/assets/images/icon/group.png')} style={styles.icon} />
-              </View>
-              <View>
-                <Text style={styles.groupText}>我的群组</Text>
+              <View style={styles.wrap}>
+                <View style={[styles.image, styles.groupImage]}>
+                  <Image source={require('@/assets/images/icon/group.png')} style={styles.icon} />
+                </View>
+                <View>
+                  <Text style={styles.groupText}>我的群组</Text>
+                </View>
               </View>
             </TouchableOpacity>
           </View>
@@ -109,6 +126,11 @@ const styles = StyleSheet.create({
     borderTopColor: color.borderLightColor,
     borderTopWidth: 1,
   },
+  wrap: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   apply: {
     borderTopWidth: 0,
   },
@@ -126,6 +148,19 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     borderRadius: 4,
+  },
+  count: {
+    backgroundColor: color.red,
+    height: rpx(18),
+    paddingLeft: rpx(6),
+    paddingRight: rpx(6),
+    borderRadius: rpx(9),
+    justifyContent: 'center',
+  },
+  countText: {
+    fontSize: rpx(11),
+    lineHeight: rpx(11),
+    color: color.white,
   },
   groupText: {
     fontSize: 16,

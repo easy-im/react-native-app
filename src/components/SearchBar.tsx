@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleProp, ViewStyle, StyleSheet, GestureResponderEvent } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { View, TextInput, StyleProp, ViewStyle, StyleSheet, GestureResponderEvent, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { rpx } from '@/utils/screen';
 import color from '@/utils/color';
@@ -21,10 +20,7 @@ const SearchBar: React.FC<Props> = (props) => {
 
   return (
     <View style={style}>
-      <TouchableWithoutFeedback
-        style={[styles.container, theme === 'dark' ? styles.dark : styles.light]}
-        onPress={onPress}
-      >
+      <Pressable style={[styles.container, theme === 'dark' ? styles.dark : styles.light]} onPress={onPress}>
         <Icon name="search1" size={16} color="#909399" />
         <TextInput
           returnKeyType="search"
@@ -38,7 +34,7 @@ const SearchBar: React.FC<Props> = (props) => {
           onChangeText={(text) => setValue(text)}
           onSubmitEditing={() => onSubmitEditing && onSubmitEditing(value)}
         />
-      </TouchableWithoutFeedback>
+      </Pressable>
     </View>
   );
 };

@@ -8,6 +8,6 @@ export const UserRegister = (mobile: string, password: string) => request.post('
 export const UserSearch = (mobile: number) => request.post('/user/search', { mobile });
 export const RequestToBeFriend = (payload: { fid: number; remark: string; message: string }) =>
   request.post('/user/requestToBeFriend', payload);
-export const DealFriendRequest = (id: number, agree: boolean, remark: string) =>
+export const DealFriendRequest = (id: number, agree: boolean, remark?: string) =>
   request.post('/user/dealFriendRequest', { id, agree, remark });
-export const UserFriendRequest = () => request.get('/user/friendRequest');
+export const GetUserFriendRequest = () => request.get('/user/friendRequest');

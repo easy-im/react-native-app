@@ -2,34 +2,50 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dispatch } from 'redux';
 import FriendStorage, { FriendInfo } from '@/storage/user';
 import UserFriendStorage from '@/storage/userFriend';
-import { Friend, User } from '@/types/interface/user';
+import { Friend, User, UserFriendRequest } from '@/types/interface/user';
 import { IAction } from '@/types/interface/redux';
 import { CURRENT_USER_KEY } from '@/storage';
-import { GetUserInfo, GetUserFriend, UserSign, UserLogout } from '@/service';
+import { GetUserInfo, GetUserFriend, UserSign, UserLogout, GetUserFriendRequest } from '@/service';
 import { ResetMessageStore } from './message';
 
 export interface UserState {
   currentUser?: User;
   friendMap: Record<number, Friend>;
   friendList: { key: string; list: number[] }[];
+  userFriendRequest: UserFriendRequest[];
+  userFriendRequestCount: number;
 }
 
 const initialState: UserState = {
   currentUser: undefined,
   friendMap: {},
   friendList: [],
+  userFriendRequest: [],
+  userFriendRequestCount: 0,
 };
 
 export const SET_CURRENT_USER = 'USER/SET_CURRENT_USER';
 export const SET_FRIEND_MAP = 'USER/SET_FRIEND_MAP';
 export const SET_FRIEND_LIST = 'USER/SET_FRIEND_LIST';
+export const SET_USER_FRIEND_REQUEST = 'USER/SET_USER_FRIEND_REQUEST';
 export const INIT_USER_STATE = 'USER/INIT_USER_STATE';
 
+// 退出清空数据
 export const ResetUserStore = async (dispatch: Dispatch) => {
   await AsyncStorage.removeItem(CURRENT_USER_KEY);
-  dispatch({ type: INIT_USER_STATE, payload: { currentUser: undefined, friendMap: {}, friendList: [] } });
+  dispatch({
+    type: INIT_USER_STATE,
+    payload: {
+      currentUser: undefined,
+      friendMap: {},
+      friendList: [],
+      userFriendRequest: [],
+      userFriendRequestCount: 0,
+    },
+  });
 };
 
+// 初始化恢复
 export const RecoverUserInfoOnInit = () => {
   return async (dispatch: Dispatch, getState: any) => {
     const { user } = getState();
@@ -127,6 +143,26 @@ export const GetUserFriendList = () => {
         dispatch({ type: SET_FRIEND_MAP, payload: { friendMap: map } });
         dispatch({ type: SET_FRIEND_LIST, payload: { friendList: list } });
       }
+      return { success: true, errmsg: '' };
+    }
+    return { success: false, errmsg: res?.errmsg || '网络错误' };
+  };
+};
+
+export const InitUserFriendRequest = () => {
+  return async (dispatch: Dispatch) => {
+    const res = await GetUserFriendRequest();
+    if (res && res.errno === 200) {
+      let userFriendRequestCount = 0;
+      (res.data || []).forEach((item: any) => {
+        if (item.status === 0) {
+          userFriendRequestCount += 1;
+        }
+      });
+      dispatch({
+        type: SET_USER_FRIEND_REQUEST,
+        payload: { userFriendRequest: res.data || [], userFriendRequestCount },
+      });
       return { success: true, errmsg: '' };
     }
     return { success: false, errmsg: res?.errmsg || '网络错误' };

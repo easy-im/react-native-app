@@ -1,86 +1,97 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Image, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { Portal, Toast } from '@ant-design/react-native';
-import color from '@/utils/color';
-import { rpx } from '@/utils/screen';
-import SearchBar from '@/components/SearchBar';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { isPhoneNumber } from '@/utils';
-import { UserSearch } from '@/service';
+import SearchBar from '@/components/SearchBar';
+import { rpx } from '@/utils/screen';
+import color from '@/utils/color';
+import MODULES from '@/router/MODULES';
+import { SET_USER_FRIEND_REQUEST, UserState } from '@/store/reducer/user';
+import { DealFriendRequest } from '@/service';
+import { Portal, Toast } from '@ant-design/react-native';
+import { UserFriendRequest } from '@/types/interface/user';
 
-interface SearchUser {
-  id: number;
-  nickname: string;
-  mobile: number;
-  avatar: string;
-  status: 0 | 1;
-}
-const Search: React.FC<{}> = () => {
-  const [user, setUser] = useState<SearchUser | null | undefined>(undefined);
+const RequestList: React.FC<{}> = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const userFriendRequest = useSelector((state: { user: UserState }) => state.user.userFriendRequest);
+  const userFriendRequestCount = useSelector((state: { user: UserState }) => state.user.userFriendRequestCount);
 
-  const onSearch = async (text: string) => {
-    if (!isPhoneNumber(text)) {
-      Toast.info('手机号不正确', 1);
-      return;
-    }
-    const key = Toast.loading('正在查找联系人');
-    const res = await UserSearch(+text);
-    Portal.remove(key);
-    if (res && res.errno === 200) {
-      setUser(res.data);
+  const handle = async (record: UserFriendRequest, agree: boolean) => {
+    if (agree) {
+      navigation.navigate(MODULES.AddFriend, { userData: record });
     } else {
-      setUser(null);
+      const key = Toast.loading('正在处理');
+      const res = await DealFriendRequest(record.id, agree);
+      if (res && res.errno === 200) {
+        await dispatch({
+          type: SET_USER_FRIEND_REQUEST,
+          payload: {
+            userFriendRequest: userFriendRequest.map((item) => {
+              if (item.id === record.id) {
+                item.status = 2;
+              }
+              return item;
+            }),
+            userFriendRequestCount: userFriendRequestCount - 1,
+          },
+        });
+        Portal.remove(key);
+        Toast.success('已回绝', 1);
+      } else {
+        Portal.remove(key);
+        Toast.fail(res?.errmsg || '网络错误', 1);
+      }
     }
-  };
-
-  const onAddFriend = (data: SearchUser) => {
-    console.log(data);
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={color.background} />
       <View style={styles.searchWrap}>
-        <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}>
-          <Icon name="md-chevron-back" size={28} color={color.text} />
-        </TouchableOpacity>
         <SearchBar
-          placeholder="请搜索对方手机号"
+          placeholder="搜索对方手机号"
           style={styles.searchBar}
           theme="light"
-          autoFocus={true}
-          onSubmitEditing={onSearch}
+          disabled={true}
+          onPress={() => navigation.navigate(MODULES.Search)}
         />
       </View>
-      {user === null && (
-        <View style={styles.empty}>
-          <Text style={styles.emptyText}>用户不存在</Text>
-        </View>
-      )}
-      {user && (
+      {userFriendRequest && userFriendRequest.length > 0 && (
         <View style={styles.result}>
-          <View style={styles.item}>
-            <Image source={{ uri: user.avatar }} style={styles.avatar} />
-            <View style={styles.content}>
-              <View>
-                <Text style={[styles.contentText, styles.name]}>{user.nickname}</Text>
+          {userFriendRequest.map((item, index) => {
+            return (
+              <View style={styles.item} key={index}>
+                <Image source={{ uri: item.avatar }} style={styles.avatar} />
+                <View style={styles.contentWrap}>
+                  <View style={styles.content}>
+                    <View>
+                      <Text style={[styles.contentText, styles.name]}>{item.nickname}</Text>
+                    </View>
+                    <View>
+                      <Text style={[styles.contentText, styles.message]} ellipsizeMode="tail" numberOfLines={1}>
+                        {item.message}
+                      </Text>
+                    </View>
+                  </View>
+                  {item.status === 0 && (
+                    <View style={styles.buttonList}>
+                      <TouchableOpacity style={styles.refuseButton} onPress={() => handle(item, false)}>
+                        <Text style={styles.refuseButtonText}>拒绝</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.agreeButton} onPress={() => handle(item, true)}>
+                        <Text style={styles.agreeButtonText}>同意</Text>
+                      </TouchableOpacity>
+                    </View>
+                  )}
+                  {item.status === 1 && <Text style={styles.processedText}>已添加</Text>}
+                  {item.status === 2 && <Text style={styles.processedText}>已回绝</Text>}
+                </View>
               </View>
-              <View>
-                <Text style={[styles.contentText, styles.mobile]}>手机号：{user.mobile}</Text>
-              </View>
-            </View>
-            <TouchableOpacity
-              style={[styles.add, user.status !== 1 && styles.disabled]}
-              onPress={() => onAddFriend(user)}
-              disabled={user.status !== 1}
-            >
-              <Text style={styles.addText}>添加</Text>
-            </TouchableOpacity>
-          </View>
+            );
+          })}
         </View>
       )}
     </SafeAreaView>
@@ -100,25 +111,13 @@ const styles = StyleSheet.create({
     paddingRight: rpx(15),
     height: rpx(34),
   },
-  back: {
-    width: rpx(40),
-    height: '100%',
-  },
   searchBar: {
     flex: 1,
   },
-  empty: {
-    height: rpx(160),
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  emptyText: {
-    fontSize: rpx(14),
-    color: color.lightGray,
-  },
   result: {
     marginTop: rpx(15),
-    padding: rpx(15),
+    paddingLeft: rpx(15),
+    paddingRight: rpx(15),
     backgroundColor: color.white,
   },
   item: {
@@ -130,6 +129,15 @@ const styles = StyleSheet.create({
     height: rpx(42),
     marginRight: rpx(12),
     borderRadius: rpx(4),
+  },
+  contentWrap: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomColor: color.borderLightColor,
+    borderBottomWidth: 0.5,
+    paddingTop: rpx(10),
+    paddingBottom: rpx(10),
   },
   content: {
     flex: 1,
@@ -143,25 +151,45 @@ const styles = StyleSheet.create({
     color: color.text,
     fontWeight: '600',
   },
-  mobile: {
+  message: {
     fontSize: rpx(13),
     color: color.gray,
   },
-  add: {
-    backgroundColor: color.green,
-    padding: rpx(12),
-    paddingTop: rpx(5),
-    paddingBottom: rpx(5),
-    borderRadius: rpx(6),
+  buttonList: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  addText: {
-    fontSize: rpx(16),
+  refuseButton: {
+    backgroundColor: color.white,
+    padding: rpx(10),
+    paddingTop: rpx(4),
+    paddingBottom: rpx(4),
+    borderRadius: rpx(4),
+    borderColor: color.gray,
+    borderWidth: 0.5,
+  },
+  refuseButtonText: {
+    fontSize: rpx(14),
+    color: color.lightGray,
+    lineHeight: rpx(21),
+  },
+  agreeButton: {
+    backgroundColor: color.green,
+    padding: rpx(10),
+    paddingTop: rpx(4),
+    paddingBottom: rpx(4),
+    borderRadius: rpx(4),
+    marginLeft: rpx(8),
+  },
+  agreeButtonText: {
+    fontSize: rpx(14),
     color: color.white,
     lineHeight: rpx(21),
   },
-  disabled: {
-    backgroundColor: color.gray,
+  processedText: {
+    fontSize: rpx(14),
+    color: color.lightGray,
   },
 });
 
-export default Search;
+export default RequestList;

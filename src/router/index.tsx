@@ -14,6 +14,7 @@ import Login from '@/pages/user/login';
 import Register from '@/pages/user/register';
 import Profile from '@/pages/user/profile';
 import ApplyToFriend from '@/pages/chat/applyToFriend';
+import AddFriend from '@/pages/chat/addFriend';
 
 export default {
   tabBar: {
@@ -104,6 +105,15 @@ export default {
             height: Platform.OS === 'android' ? 44 : undefined, // ios设置会错乱
             backgroundColor: Colors.background,
           },
+        },
+      },
+
+      {
+        name: MODULES.AddFriend,
+        component: AddFriend,
+        options: {
+          title: '通过验证',
+          headerShown: false,
         },
       },
     ],
