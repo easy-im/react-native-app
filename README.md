@@ -8,16 +8,13 @@
 
 基于`react-native` + `typescript` 开发高性能的即时通讯系统。已完成基础 UI 开发，已支持点到点通讯，计划支持群聊天，上下线等事件通知。
 
+**本项目仅限交流学习，不可用于商业。**
+
 ## DEMO
 
-暂无！
+请于 [releases](https://gitee.com/kitim/kitim-react-native/releases) 下载对应 apk。
 
 ## 开发
-
-客户端测试账号密码：
-
-账号：13600000003
-密码：admin
 
 ```shell
 # 克隆项目
