@@ -81,7 +81,7 @@ const AddressBook: React.FC<{}> = () => {
                               <Image source={{ uri: friend?.avatar }} style={styles.avatarImage} />
                             </View>
                             <View style={[styles.userName, index === 0 && styles.firstUserName]}>
-                              <Text style={styles.userNameText}>{friend?.nickname}</Text>
+                              <Text style={styles.userNameText}>{friend?.remark || friend?.nickname}</Text>
                             </View>
                           </View>
                         </TouchableWithoutFeedback>

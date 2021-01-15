@@ -10,8 +10,8 @@ import MODULES from '@/router/MODULES';
 import { rpx } from '@/utils/screen';
 
 const Login: React.FC<{}> = () => {
-  const [mobile, setMobile] = useState('13600000003');
-  const [password, setPassword] = useState('admin');
+  const [mobile, setMobile] = useState('');
+  const [password, setPassword] = useState('');
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -34,10 +34,8 @@ const Login: React.FC<{}> = () => {
   };
 
   const isValid = () => {
-    return isPhoneNumber(+mobile) && password.length >= 5 && password.length < 20;
+    return isPhoneNumber(+mobile) && password.length >= 6 && password.length <= 18;
   };
-
-  const valid = isValid();
 
   return (
     <View style={styles.container}>
@@ -70,7 +68,7 @@ const Login: React.FC<{}> = () => {
           <View style={styles.inputWrap}>
             <TextInput
               keyboardType="default"
-              placeholder="请输入5-20位密码"
+              placeholder="请输入6-18位密码"
               value={password}
               style={styles.input}
               secureTextEntry={true}
@@ -79,7 +77,7 @@ const Login: React.FC<{}> = () => {
           </View>
         </View>
         <View style={styles.submit}>
-          <Button type="primary" onPress={doLogin} disabled={!valid}>
+          <Button type="primary" onPress={doLogin} disabled={!isValid()}>
             登录
           </Button>
         </View>
@@ -128,18 +126,16 @@ const styles = StyleSheet.create({
     color: '#444',
   },
   inputWrap: {
-    padding: rpx(10),
-    paddingLeft: 0,
-    paddingRight: 0,
-    height: rpx(40),
+    height: rpx(44),
     borderBottomColor: color.borderColor,
     borderBottomWidth: 0.5,
   },
   input: {
     fontSize: rpx(15),
     backgroundColor: 'transparent',
-    padding: 0,
-    height: '100%',
+    padding: rpx(10),
+    paddingLeft: 0,
+    paddingRight: 0,
   },
   submit: {
     marginTop: rpx(40),

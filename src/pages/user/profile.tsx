@@ -9,11 +9,11 @@ import color from '@/utils/color';
 import { Modal, Portal, Toast } from '@ant-design/react-native';
 import { rpx } from '@/utils/screen';
 import { useNavigation } from '@react-navigation/native';
-import { Logout } from '@/store/reducer/user';
+import { Logout, UserState } from '@/store/reducer/user';
 import MODULES from '@/router/MODULES';
 
 const Profile: React.FC<{}> = () => {
-  const currentUser = useSelector((state: any) => state.user.currentUser);
+  const currentUser = useSelector((state: { user: UserState }) => state.user.currentUser);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -41,12 +41,12 @@ const Profile: React.FC<{}> = () => {
         text: '确定',
         onPress: async () => {
           const key = Toast.loading('处理中...');
-          const res: any = await dispatch(Logout());
+          await dispatch(Logout());
           Portal.remove(key);
-          if (!res.success) {
-            Toast.info(res.errmsg);
-            return;
-          }
+          // if (!res.success) {
+          //   Toast.info(res.errmsg);
+          //   return;
+          // }
           navigation.reset({
             index: 0,
             routes: [
@@ -81,7 +81,7 @@ const Profile: React.FC<{}> = () => {
               <Text style={styles.nameText}>{currentUser.nickname}</Text>
             </View>
             <View style={styles.id}>
-              <Text style={styles.idText}>kitimID：{currentUser.id}</Text>
+              <Text style={styles.idText}>手机号：{currentUser.mobile}</Text>
             </View>
           </View>
           {/* <View style={styles.more}>

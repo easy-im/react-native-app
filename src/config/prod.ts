@@ -1,7 +1,7 @@
 export default {
-  baseUrl: 'http://app.speedy-im.com/api',
+  baseUrl: 'https://app.speedy-im.com/api',
   ws: {
-    host: 'http://app.speedy-im.com',
+    host: 'https://app.speedy-im.com',
     namespace: 'chat',
   },
 };

@@ -10,6 +10,7 @@ import { rpx } from '@/utils/screen';
 
 const Register: React.FC<{}> = () => {
   const [mobile, setMobile] = useState('');
+  const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
   const navigation = useNavigation();
@@ -17,13 +18,13 @@ const Register: React.FC<{}> = () => {
   const register = async () => {
     if (!isPhoneNumber(mobile)) {
       Toast.fail('手机号不正确', 1);
-    } else if (!password || password.length < 5 || password.length > 18) {
+    } else if (!password || password.length < 6 || password.length > 18) {
       Toast.fail('密码格式不正确', 1);
     } else if (password !== password2) {
       Toast.fail('两次密码不相同', 1);
     } else {
       const key = Toast.loading('正在加载');
-      const res = await UserRegister(mobile, password);
+      const res = await UserRegister(mobile, nickname, password);
       Portal.remove(key);
       if (res && res.errno === 200) {
         Toast.success('注册成功，请登录', 1);
@@ -34,6 +35,12 @@ const Register: React.FC<{}> = () => {
         Toast.fail(res?.errmsg || '网络错误', 1);
       }
     }
+  };
+
+  const isValid = () => {
+    return (
+      isPhoneNumber(+mobile) && password.length >= 6 && password.length <= 18 && password === password2 && nickname
+    );
   };
 
   return (
@@ -62,12 +69,25 @@ const Register: React.FC<{}> = () => {
         </View>
         <View style={styles.formItem}>
           <View>
+            <Text style={styles.title}>昵称</Text>
+          </View>
+          <View style={styles.inputWrap}>
+            <TextInput
+              placeholder="请输入昵称"
+              style={styles.input}
+              value={nickname}
+              onChangeText={(text) => setNickname(text)}
+            />
+          </View>
+        </View>
+        <View style={styles.formItem}>
+          <View>
             <Text style={styles.title}>密码</Text>
           </View>
           <View style={styles.inputWrap}>
             <TextInput
               keyboardType="default"
-              placeholder="请输入5-18位密码"
+              placeholder="请输入6-18位密码"
               style={styles.input}
               secureTextEntry={true}
               value={password}
@@ -82,7 +102,7 @@ const Register: React.FC<{}> = () => {
           <View style={styles.inputWrap}>
             <TextInput
               keyboardType="default"
-              placeholder="请输入5-18位密码"
+              placeholder="请输入6-18位密码"
               style={styles.input}
               secureTextEntry={true}
               value={password2}
@@ -91,7 +111,7 @@ const Register: React.FC<{}> = () => {
           </View>
         </View>
         <View style={styles.submit}>
-          <Button type="primary" onPress={register}>
+          <Button type="primary" onPress={register} disabled={!isValid()}>
             注册
           </Button>
         </View>
@@ -140,18 +160,16 @@ const styles = StyleSheet.create({
     color: '#444',
   },
   inputWrap: {
-    padding: rpx(10),
-    paddingLeft: 0,
-    paddingRight: 0,
-    height: rpx(40),
+    height: rpx(44),
     borderBottomColor: color.borderColor,
     borderBottomWidth: 0.5,
   },
   input: {
     fontSize: rpx(15),
     backgroundColor: 'transparent',
-    padding: 0,
-    height: '100%',
+    padding: rpx(10),
+    paddingLeft: 0,
+    paddingRight: 0,
   },
   submit: {
     marginTop: rpx(40),
