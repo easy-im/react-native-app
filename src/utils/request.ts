@@ -20,7 +20,7 @@ import config from '../config';
 //   504: '网关超时。',
 // };
 
-const TIMEOUT = 120000;
+const TIMEOUT = 60000;
 
 const request = async (url: string, options: RequestInit) => {
   const userStr = await AsyncStorage.getItem(CURRENT_USER_KEY);

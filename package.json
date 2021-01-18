@@ -8,7 +8,9 @@
     "start": "react-native start",
     "react-devtools": "react-devtools",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "android:build": "cd android && ./gradlew assembleRelease",
+    "android:bundle": "cd android && ./gradlew bundleRelease"
   },
   "dependencies": {
     "@ant-design/icons-react-native": "^2.2.1",
@@ -26,7 +28,6 @@
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.16.1",
     "react-native-splash-screen": "^3.2.0",
-    "react-native-svg": "^12.1.0",
     "react-native-vector-icons": "^7.1.0",
     "react-redux": "^7.2.2",
     "realm": "^10.1.2",

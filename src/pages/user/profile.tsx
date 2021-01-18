@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, StatusBar, Image, Platform } from 'react-native
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { SvgUri } from 'react-native-svg';
 import { useDispatch, useSelector } from 'react-redux';
 import color from '@/utils/color';
 import { Modal, Portal, Toast } from '@ant-design/react-native';
@@ -20,15 +19,15 @@ const Profile: React.FC<{}> = () => {
   const setting = [
     {
       name: '钱包',
-      url: 'https://im.wangcai.me/speedy_wallet.svg',
+      url: 'https://im.wangcai.me/kitim_wallet.png',
     },
     {
       name: '收藏',
-      url: 'https://im.wangcai.me/speedy_collect.svg',
+      url: 'https://im.wangcai.me/kitim_collect.png',
     },
     {
       name: '设置',
-      url: 'https://im.wangcai.me/speedy_setting.svg',
+      url: 'https://im.wangcai.me/kitim_setting.png',
     },
   ];
 
@@ -92,7 +91,7 @@ const Profile: React.FC<{}> = () => {
           {setting.map((item, index) => {
             return (
               <View style={[styles.settingItem, index === 0 && styles.settingFirstItem]} key={index}>
-                <SvgUri uri={item.url} width={rpx(25)} height={rpx(25)} />
+                <Image source={{ uri: item.url }} style={styles.settingImage} />
                 <View style={styles.settingName}>
                   <Text style={styles.settingNameText}>{item.name}</Text>
                 </View>
@@ -168,6 +167,10 @@ const styles = StyleSheet.create({
   },
   settingFirstItem: {
     borderTopWidth: 0,
+  },
+  settingImage: {
+    width: rpx(25),
+    height: rpx(25),
   },
   settingName: {
     marginLeft: rpx(10),
