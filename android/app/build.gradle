@@ -177,6 +177,10 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            applicationIdSuffix ".debug"
+            manifestPlaceholders = [
+                APP_NAME: "@string/app_name_debug"
+            ]
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
@@ -184,6 +188,9 @@ android {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release
+            manifestPlaceholders = [
+                APP_NAME: "@string/app_name"
+            ]
         }
     }
 

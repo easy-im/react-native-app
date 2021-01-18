@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "postinstall": "patch-package",
+    "android": "react-native run-android --appIdSuffix=debug",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "react-devtools": "react-devtools",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "react-devtools": "react-devtools",
     "android:build": "cd android && ./gradlew assembleRelease",
     "android:bundle": "cd android && ./gradlew bundleRelease"
   },
@@ -53,6 +54,7 @@
     "eslint": "^6.5.1",
     "jest": "^25.1.0",
     "metro-react-native-babel-preset": "^0.59.0",
+    "patch-package": "^6.2.2",
     "react-devtools": "^4.10.1",
     "react-test-renderer": "16.13.1",
     "typescript": "^3.8.3"

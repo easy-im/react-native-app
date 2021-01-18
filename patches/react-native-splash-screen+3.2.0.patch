@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-native-splash-screen/android/src/main/AndroidManifest.xml b/node_modules/react-native-splash-screen/android/src/main/AndroidManifest.xml
+index 7726ee1..6c74cfb 100644
+--- a/node_modules/react-native-splash-screen/android/src/main/AndroidManifest.xml
++++ b/node_modules/react-native-splash-screen/android/src/main/AndroidManifest.xml
+@@ -2,7 +2,7 @@
+     package="org.devio.rn.splashscreen">
+ 
+     <application
+-        android:label="@string/app_name">
++        android:label="${APP_NAME}">
+ 
+     </application>
+ 
