@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
-import { View, Image, Text, TextInput, StyleSheet, StatusBar, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Image,
+  Text,
+  TextInput,
+  StyleSheet,
+  StatusBar,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { Button, Toast, Portal } from '@ant-design/react-native';
@@ -38,61 +49,66 @@ const Login: React.FC<{}> = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior={Platform.select({ ios: 'padding', android: 'height' })}>
       <StatusBar barStyle="dark-content" backgroundColor={color.white} />
-      <View style={styles.logo}>
-        <Image source={require('@/assets/images/logo.png')} style={styles.image} />
-      </View>
-      <View style={styles.welcome}>
-        <Text style={styles.welcomeText}>欢迎使用KitIM</Text>
-      </View>
-      <View style={styles.form}>
-        <View style={styles.formItem}>
-          <View>
-            <Text style={styles.title}>手机号码</Text>
+      <ScrollView style={styles.main} keyboardShouldPersistTaps="always" showsVerticalScrollIndicator={false}>
+        <View style={styles.logo}>
+          <Image source={require('@/assets/images/logo.png')} style={styles.image} />
+        </View>
+        <View style={styles.welcome}>
+          <Text style={styles.welcomeText}>欢迎使用KitIM</Text>
+        </View>
+        <View style={styles.form}>
+          <View style={styles.formItem}>
+            <View>
+              <Text style={styles.title}>手机号码</Text>
+            </View>
+            <View style={styles.inputWrap}>
+              <TextInput
+                keyboardType="phone-pad"
+                placeholder="请输入手机号码"
+                style={styles.input}
+                value={mobile}
+                onChangeText={(t) => setMobile(t)}
+              />
+            </View>
           </View>
-          <View style={styles.inputWrap}>
-            <TextInput
-              keyboardType="phone-pad"
-              placeholder="请输入手机号码"
-              style={styles.input}
-              value={mobile}
-              onChangeText={(t) => setMobile(t)}
-            />
+          <View style={styles.formItem}>
+            <View>
+              <Text style={styles.title}>密码</Text>
+            </View>
+            <View style={styles.inputWrap}>
+              <TextInput
+                keyboardType="default"
+                placeholder="请输入6-18位密码"
+                value={password}
+                style={styles.input}
+                secureTextEntry={true}
+                onChangeText={(t) => setPassword(t)}
+              />
+            </View>
+          </View>
+          <View style={styles.submit}>
+            <Button type="primary" onPress={doLogin} disabled={!isValid()}>
+              登录
+            </Button>
+          </View>
+          <View style={styles.helpWrap}>
+            <TouchableOpacity style={styles.help} onPress={() => navigation.navigate(MODULES.Register)}>
+              <Text style={styles.helpText}>注册账号</Text>
+            </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.formItem}>
-          <View>
-            <Text style={styles.title}>密码</Text>
-          </View>
-          <View style={styles.inputWrap}>
-            <TextInput
-              keyboardType="default"
-              placeholder="请输入6-18位密码"
-              value={password}
-              style={styles.input}
-              secureTextEntry={true}
-              onChangeText={(t) => setPassword(t)}
-            />
-          </View>
-        </View>
-        <View style={styles.submit}>
-          <Button type="primary" onPress={doLogin} disabled={!isValid()}>
-            登录
-          </Button>
-        </View>
-        <View style={styles.helpWrap}>
-          <TouchableOpacity style={styles.help} onPress={() => navigation.navigate(MODULES.Register)}>
-            <Text style={styles.helpText}>注册账号</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  main: {
     flex: 1,
     paddingLeft: rpx(40),
     paddingRight: rpx(40),
@@ -102,11 +118,11 @@ const styles = StyleSheet.create({
     marginTop: rpx(100),
   },
   image: {
-    width: rpx(48),
-    height: rpx(48),
+    width: rpx(60),
+    height: rpx(60),
     borderWidth: 0.5,
     borderColor: color.borderColor,
-    borderRadius: rpx(24),
+    borderRadius: rpx(30),
   },
   welcome: {
     marginTop: rpx(20),
