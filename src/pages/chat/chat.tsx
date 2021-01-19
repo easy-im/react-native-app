@@ -167,9 +167,6 @@ const ChatPage: React.FC<{}> = () => {
           multiline={true}
           blurOnSubmit={false}
           enablesReturnKeyAutomatically={true}
-          onSubmitEditing={() => {
-            // console.log(messageText);
-          }}
           onContentSizeChange={(e) => {
             setInputHeight(e.nativeEvent.contentSize.height);
           }}
