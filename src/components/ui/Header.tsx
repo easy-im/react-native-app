@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import color from '@/components/library/style/theme';
+import color from '@/components/library/style';
 import { rpx } from '@/utils/screen';
 import MenuLayer from './MenuLayer';
 

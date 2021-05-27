@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Button, Portal, Toast } from '@ant-design/react-native';
-import color from '@/components/library/style/theme';
+import color from '@/components/library/style';
 import MODULES from '@/router/MODULES';
 import { isPhoneNumber } from '@/utils';
 import { UserRegister } from '@/service';

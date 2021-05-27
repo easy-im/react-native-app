@@ -14,7 +14,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { Button, Toast, Portal } from '@ant-design/react-native';
-import color from '@/components/library/style/theme';
+import color from '@/components/library/style';
 import { isPhoneNumber } from '@/utils';
 import { UserLogin } from '@/store/reducer/user';
 import MODULES from '@/router/MODULES';

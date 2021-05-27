@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, StyleProp, ViewStyle, StyleSheet, GestureResponderEvent, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { rpx } from '@/utils/screen';
-import color from '@/components/library/style/theme';
+import color from '@/components/library/style';
 
 interface Props {
   placeholder?: string;

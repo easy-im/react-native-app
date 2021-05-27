@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, StatusBar, Image, Platform } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useDispatch, useSelector } from 'react-redux';
-import color from '@/components/library/style/theme';
-import { Modal, Portal, Toast } from '@ant-design/react-native';
+import { Portal, Toast } from '@ant-design/react-native';
+import color from '@/components/library/style';
+import Modal from '@/components/library/modal/modal';
 import { rpx } from '@/utils/screen';
 import { useNavigation } from '@react-navigation/native';
 import { Logout, UserState } from '@/store/reducer/user';
 import MODULES from '@/router/MODULES';
 
 const Profile: React.FC<{}> = () => {
+  const [modalShow, setModalShow] = useState(false);
   const currentUser = useSelector((state: { user: UserState }) => state.user.currentUser);
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -32,27 +34,18 @@ const Profile: React.FC<{}> = () => {
   ];
 
   const signOut = async () => {
-    Modal.alert('提示', '确认退出登录？', [
-      {
-        text: '取消',
-      },
-      {
-        text: '确定',
-        onPress: async () => {
-          const key = Toast.loading('处理中...');
-          await dispatch(Logout());
-          Portal.remove(key);
-          navigation.reset({
-            index: 0,
-            routes: [
-              {
-                name: MODULES.Login,
-              },
-            ],
-          });
+    setModalShow(false);
+    const key = Toast.loading('处理中...');
+    await dispatch(Logout());
+    Portal.remove(key);
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: MODULES.Login,
         },
-      },
-    ]);
+      ],
+    });
   };
 
   if (!currentUser) {
@@ -63,6 +56,13 @@ const Profile: React.FC<{}> = () => {
     // eslint-disable-next-line react-native/no-inline-styles
     <SafeAreaView style={[styles.container, Platform.OS === 'ios' && { paddingBottom: -34 }]}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
+      <Modal
+        visible={modalShow}
+        title="提示"
+        content="确认退出登录？"
+        onClose={() => setModalShow(false)}
+        onConfirm={signOut}
+      />
       <View style={styles.main}>
         <View style={styles.info}>
           <View style={styles.avatar}>
@@ -99,7 +99,7 @@ const Profile: React.FC<{}> = () => {
           })}
         </View>
         <View style={styles.logout}>
-          <TouchableOpacity style={styles.button} activeOpacity={0.6} onPress={signOut}>
+          <TouchableOpacity style={styles.button} activeOpacity={0.6} onPress={() => setModalShow(true)}>
             <Text style={styles.buttonText}>退出登录</Text>
           </TouchableOpacity>
         </View>

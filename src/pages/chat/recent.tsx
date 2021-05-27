@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import SearchBar from '@/components/ui/SearchBar';
 import Header from '@/components/ui/Header';
-import color from '@/components/library/style/theme';
+import color from '@/components/library/style';
 import { RecoverMessageOnInit, GetUnreadMessage, MessageState } from '@/store/reducer/message';
 import {
   AutoLogin,

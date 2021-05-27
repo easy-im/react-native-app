@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import SearchBar from '@/components/ui/SearchBar';
 import { rpx } from '@/utils/screen';
-import color from '@/components/library/style/theme';
+import color from '@/components/library/style';
 import MODULES from '@/router/MODULES';
 import { SET_USER_FRIEND_REQUEST, UserState } from '@/store/reducer/user';
 import { DealFriendRequest } from '@/service';

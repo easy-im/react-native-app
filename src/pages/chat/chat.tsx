@@ -3,7 +3,7 @@ import { View, ScrollView, Text, Image, StyleSheet, StatusBar, TextInput, Keyboa
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import color from '@/components/library/style/theme';
+import color from '@/components/library/style';
 import { rpx } from '@/utils/screen';
 import { useDispatch, useSelector } from 'react-redux';
 import {

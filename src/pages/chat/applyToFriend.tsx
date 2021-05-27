@@ -6,7 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Portal, Toast } from '@ant-design/react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import color from '@/components/library/style/theme';
+import color from '@/components/library/style';
 import { rpx } from '@/utils/screen';
 import { RequestToBeFriend } from '@/service';
 import { SearchUser } from '@/types/interface/user';

@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 import Header from '@/components/ui/Header';
-import color from '@/components/library/style/theme';
+import color from '@/components/library/style';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { UserState } from '@/store/reducer/user';
 import { Friend } from '@/types/interface/user';

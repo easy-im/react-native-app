@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Portal, Toast } from '@ant-design/react-native';
-import color from '@/components/library/style/theme';
+import color from '@/components/library/style';
 import { rpx } from '@/utils/screen';
 import SearchBar from '@/components/ui/SearchBar';
 import { useNavigation } from '@react-navigation/native';
