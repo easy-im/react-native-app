@@ -3,9 +3,9 @@ import { View, StyleSheet, StatusBar, Text, Image, RefreshControl } from 'react-
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import SearchBar from '@/components/SearchBar';
-import Header from '@/components/Header';
-import color from '@/utils/color';
+import SearchBar from '@/components/ui/SearchBar';
+import Header from '@/components/ui/Header';
+import color from '@/components/library/style/theme';
 import { RecoverMessageOnInit, GetUnreadMessage, MessageState } from '@/store/reducer/message';
 import {
   AutoLogin,
@@ -144,7 +144,7 @@ const Recent: React.FC<{}> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.white,
+    backgroundColor: color.color_text_base_inverse,
   },
   main: {
     padding: rpx(15),
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   badgeText: {
     fontSize: rpx(11),
     lineHeight: rpx(11),
-    color: color.white,
+    color: color.color_text_base_inverse,
   },
   avatarImage: {
     width: '100%',
@@ -201,15 +201,15 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: rpx(16),
-    color: color.text,
+    color: color.color_text_paragraph,
     fontWeight: '600',
   },
   message: {
     fontSize: rpx(13),
-    color: color.gray,
+    color: color.color_text_disabled,
   },
   time: {
-    color: color.gray,
+    color: color.color_text_disabled,
     marginLeft: rpx(13),
   },
 });

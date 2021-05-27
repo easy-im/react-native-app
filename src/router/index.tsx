@@ -4,7 +4,7 @@ import { TransitionPresets } from '@react-navigation/stack';
 import { Platform } from 'react-native';
 import TabIcon from './TabIcon';
 import MODULES from './MODULES';
-import Colors from '@/utils/color';
+import Colors from '@/components/library/style/theme';
 import AddressBook from '@/pages/address-book';
 import Recent from '@/pages/chat/recent';
 import Chat from '@/pages/chat/chat';

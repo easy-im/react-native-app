@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, StyleProp, ViewStyle, StyleSheet, GestureResponderEvent, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { rpx } from '@/utils/screen';
-import color from '@/utils/color';
+import color from '@/components/library/style/theme';
 
 interface Props {
   placeholder?: string;
@@ -54,10 +54,10 @@ const styles = StyleSheet.create({
     padding: 0,
     marginLeft: rpx(6),
     fontSize: rpx(14),
-    color: color.text,
+    color: color.color_text_paragraph,
   },
   light: {
-    backgroundColor: color.white,
+    backgroundColor: color.color_text_base_inverse,
   },
   dark: {
     backgroundColor: 'rgb(242, 242, 242)',

@@ -4,9 +4,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Portal, Toast } from '@ant-design/react-native';
-import color from '@/utils/color';
+import color from '@/components/library/style/theme';
 import { rpx } from '@/utils/screen';
-import SearchBar from '@/components/SearchBar';
+import SearchBar from '@/components/ui/SearchBar';
 import { useNavigation } from '@react-navigation/native';
 import { isPhoneNumber } from '@/utils';
 import { UserSearch } from '@/service';
@@ -38,10 +38,10 @@ const Search: React.FC<{}> = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor={color.background} />
+      <StatusBar barStyle="dark-content" backgroundColor={color.fill_body} />
       <View style={styles.searchWrap}>
         <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}>
-          <Icon name="md-chevron-back" size={28} color={color.text} />
+          <Icon name="md-chevron-back" size={28} color={color.color_text_paragraph} />
         </TouchableOpacity>
         <SearchBar
           placeholder="请搜索对方手机号"
@@ -85,7 +85,7 @@ const Search: React.FC<{}> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: color.fill_body,
   },
   searchWrap: {
     flexDirection: 'row',
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   result: {
     marginTop: rpx(15),
     padding: rpx(15),
-    backgroundColor: color.white,
+    backgroundColor: color.color_text_base_inverse,
   },
   item: {
     flexDirection: 'row',
@@ -135,12 +135,12 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: rpx(16),
-    color: color.text,
+    color: color.color_text_paragraph,
     fontWeight: '600',
   },
   mobile: {
     fontSize: rpx(13),
-    color: color.gray,
+    color: color.color_text_disabled,
   },
   add: {
     backgroundColor: color.green,
@@ -151,11 +151,11 @@ const styles = StyleSheet.create({
   },
   addText: {
     fontSize: rpx(16),
-    color: color.white,
+    color: color.color_text_base_inverse,
     lineHeight: rpx(21),
   },
   disabled: {
-    backgroundColor: color.gray,
+    backgroundColor: color.color_text_disabled,
   },
 });
 

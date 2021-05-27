@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import color from '@/utils/color';
+import color from '@/components/library/style/theme';
 import { rpx } from '@/utils/screen';
 import MenuLayer from './MenuLayer';
 
@@ -19,10 +19,10 @@ const Header: React.FC<Props> = (props) => {
       <View style={styles.header}>
         <View style={styles.appName}>
           <Text style={styles.appNameText}>{title}</Text>
-          {loading && <ActivityIndicator size="small" color={color.blue} style={styles.loading} />}
+          {loading && <ActivityIndicator size="small" color={color.color_link} style={styles.loading} />}
         </View>
         <View style={styles.appOperate}>
-          <Icon name="pluscircleo" size={20} color={color.text} onPress={() => setShowMenu(true)} />
+          <Icon name="pluscircleo" size={20} color={color.color_text_paragraph} onPress={() => setShowMenu(true)} />
         </View>
       </View>
       <MenuLayer visible={showMenu} onClose={() => setShowMenu(!showMenu)} />
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: rpx(15),
     paddingRight: rpx(15),
-    backgroundColor: color.white,
+    backgroundColor: color.color_text_base_inverse,
     height: rpx(48),
     borderBottomColor: color.borderColor,
     borderBottomWidth: 0.5,

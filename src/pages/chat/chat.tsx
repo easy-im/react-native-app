@@ -3,7 +3,7 @@ import { View, ScrollView, Text, Image, StyleSheet, StatusBar, TextInput, Keyboa
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import color from '@/utils/color';
+import color from '@/components/library/style/theme';
 import { rpx } from '@/utils/screen';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -174,10 +174,18 @@ const ChatPage: React.FC<{}> = () => {
           value={messageText}
         />
         <View style={styles.chatToolIcons}>
-          <Icon name="meh" size={rpx(23)} color={color.text} style={styles.icon} />
-          {!messageText.trim() && <Icon name="pluscircleo" size={rpx(23)} color={color.text} style={styles.icon} />}
+          <Icon name="meh" size={rpx(23)} color={color.color_text_paragraph} style={styles.icon} />
+          {!messageText.trim() && (
+            <Icon name="pluscircleo" size={rpx(23)} color={color.color_text_paragraph} style={styles.icon} />
+          )}
           {!!messageText.trim() && (
-            <FeatherIcon onPress={sendMessage} name="send" size={rpx(25)} color={color.blue} style={styles.icon} />
+            <FeatherIcon
+              onPress={sendMessage}
+              name="send"
+              size={rpx(25)}
+              color={color.color_link}
+              style={styles.icon}
+            />
           )}
         </View>
       </View>
@@ -247,7 +255,7 @@ const styles = StyleSheet.create({
     padding: rpx(8),
     paddingLeft: rpx(15),
     paddingRight: rpx(15),
-    backgroundColor: color.white,
+    backgroundColor: color.color_text_base_inverse,
     borderRadius: rpx(4),
   },
   chatMineContent: {
@@ -255,11 +263,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(18, 183, 245)',
   },
   chatContentText: {
-    color: color.text,
+    color: color.color_text_paragraph,
     fontSize: rpx(16),
   },
   chatMineContentText: {
-    color: color.white,
+    color: color.color_text_base_inverse,
   },
   chatBubble: {
     position: 'absolute',
@@ -271,8 +279,8 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderLeftColor: 'transparent',
     borderBottomColor: 'transparent',
-    borderRightColor: color.white,
-    borderTopColor: color.white,
+    borderRightColor: color.color_text_base_inverse,
+    borderTopColor: color.color_text_base_inverse,
     overflow: 'hidden',
   },
   chatMineBubble: {
@@ -300,7 +308,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    backgroundColor: color.white,
+    backgroundColor: color.color_text_base_inverse,
     borderColor: color.borderColor,
     borderWidth: 0.5,
     borderRadius: rpx(5),

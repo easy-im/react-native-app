@@ -12,7 +12,7 @@ import {
   Platform,
 } from 'react-native';
 import { rpx } from '@/utils/screen';
-import color from '@/utils/color';
+import color from '@/components/library/style/theme';
 import { useNavigation } from '@react-navigation/native';
 import MODULES from '@/router/MODULES';
 
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 2,
     right: rpx(8),
-    backgroundColor: color.white,
+    backgroundColor: color.color_text_base_inverse,
     borderRadius: rpx(6),
     borderWidth: 0.5,
     borderColor: color.borderLightColor,
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     marginRight: rpx(15),
   },
   text: {
-    color: color.text,
+    color: color.color_text_paragraph,
     fontSize: rpx(16),
   },
 });

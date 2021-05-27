@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useDispatch, useSelector } from 'react-redux';
-import color from '@/utils/color';
+import color from '@/components/library/style/theme';
 import { Modal, Portal, Toast } from '@ant-design/react-native';
 import { rpx } from '@/utils/screen';
 import { useNavigation } from '@react-navigation/native';
@@ -42,10 +42,6 @@ const Profile: React.FC<{}> = () => {
           const key = Toast.loading('处理中...');
           await dispatch(Logout());
           Portal.remove(key);
-          // if (!res.success) {
-          //   Toast.info(res.errmsg);
-          //   return;
-          // }
           navigation.reset({
             index: 0,
             routes: [
@@ -115,18 +111,18 @@ const Profile: React.FC<{}> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.white,
+    backgroundColor: color.color_text_base_inverse,
   },
   main: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: color.fill_body,
   },
   info: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: rpx(20),
     paddingRight: rpx(10),
-    backgroundColor: color.white,
+    backgroundColor: color.color_text_base_inverse,
   },
   avatar: {
     width: rpx(60),
@@ -156,7 +152,7 @@ const styles = StyleSheet.create({
   },
   setting: {
     marginTop: rpx(10),
-    backgroundColor: color.white,
+    backgroundColor: color.color_text_base_inverse,
   },
   settingItem: {
     flexDirection: 'row',
@@ -192,7 +188,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: rpx(44),
     lineHeight: rpx(44),
-    backgroundColor: color.white,
+    backgroundColor: color.color_text_base_inverse,
     borderRadius: rpx(4),
   },
   buttonText: {

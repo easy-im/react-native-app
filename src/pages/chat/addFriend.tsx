@@ -6,7 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Portal, Toast } from '@ant-design/react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import color from '@/utils/color';
+import color from '@/components/library/style/theme';
 import { rpx } from '@/utils/screen';
 import { UserFriendRequest } from '@/types/interface/user';
 import { GetUserFriendList, SET_USER_FRIEND_REQUEST, UserState } from '@/store/reducer/user';
@@ -70,10 +70,10 @@ const AddFriend: React.FC<{}> = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor={color.background} />
+      <StatusBar barStyle="dark-content" backgroundColor={color.fill_body} />
       <View style={styles.headerWrap}>
         <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}>
-          <Icon name="md-chevron-back" size={28} color={color.text} />
+          <Icon name="md-chevron-back" size={28} color={color.color_text_paragraph} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.done} onPress={() => onAddFriend()}>
           <Text style={styles.doneText}>完成</Text>
@@ -112,7 +112,7 @@ const AddFriend: React.FC<{}> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: color.fill_body,
   },
   headerWrap: {
     flexDirection: 'row',
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   },
   doneText: {
     fontSize: rpx(16),
-    color: color.white,
+    color: color.color_text_base_inverse,
     lineHeight: rpx(21),
   },
   main: {
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: rpx(18),
-    color: color.text,
+    color: color.color_text_paragraph,
     textAlign: 'center',
     fontWeight: 'bold',
   },
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   },
   messageText: {
     fontSize: rpx(13),
-    color: color.gray,
+    color: color.color_text_disabled,
   },
   fill: {
     marginLeft: rpx(8),

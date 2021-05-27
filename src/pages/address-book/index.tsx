@@ -3,8 +3,8 @@ import { View, Image, Text, StyleSheet, StatusBar, Platform } from 'react-native
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
-import Header from '@/components/Header';
-import color from '@/utils/color';
+import Header from '@/components/ui/Header';
+import color from '@/components/library/style/theme';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { UserState } from '@/store/reducer/user';
 import { Friend } from '@/types/interface/user';
@@ -101,14 +101,14 @@ const AddressBook: React.FC<{}> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.white,
+    backgroundColor: color.color_text_base_inverse,
   },
   main: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: color.fill_body,
   },
   card: {
-    backgroundColor: color.white,
+    backgroundColor: color.color_text_base_inverse,
     borderTopColor: color.borderLightColor,
     borderTopWidth: 1,
     borderBottomColor: color.borderLightColor,
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   countText: {
     fontSize: rpx(11),
     lineHeight: rpx(11),
-    color: color.white,
+    color: color.color_text_base_inverse,
   },
   groupText: {
     fontSize: 16,

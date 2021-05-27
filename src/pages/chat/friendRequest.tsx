@@ -4,9 +4,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import SearchBar from '@/components/SearchBar';
+import SearchBar from '@/components/ui/SearchBar';
 import { rpx } from '@/utils/screen';
-import color from '@/utils/color';
+import color from '@/components/library/style/theme';
 import MODULES from '@/router/MODULES';
 import { SET_USER_FRIEND_REQUEST, UserState } from '@/store/reducer/user';
 import { DealFriendRequest } from '@/service';
@@ -49,7 +49,7 @@ const RequestList: React.FC<{}> = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor={color.background} />
+      <StatusBar barStyle="dark-content" backgroundColor={color.fill_body} />
       <View style={styles.searchWrap}>
         <SearchBar
           placeholder="搜索对方手机号"
@@ -101,7 +101,7 @@ const RequestList: React.FC<{}> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: color.fill_body,
   },
   searchWrap: {
     flexDirection: 'row',
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     marginTop: rpx(15),
     paddingLeft: rpx(15),
     paddingRight: rpx(15),
-    backgroundColor: color.white,
+    backgroundColor: color.color_text_base_inverse,
   },
   item: {
     flexDirection: 'row',
@@ -148,24 +148,24 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: rpx(16),
-    color: color.text,
+    color: color.color_text_paragraph,
     fontWeight: '600',
   },
   message: {
     fontSize: rpx(13),
-    color: color.gray,
+    color: color.color_text_disabled,
   },
   buttonList: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   refuseButton: {
-    backgroundColor: color.white,
+    backgroundColor: color.color_text_base_inverse,
     padding: rpx(10),
     paddingTop: rpx(4),
     paddingBottom: rpx(4),
     borderRadius: rpx(4),
-    borderColor: color.gray,
+    borderColor: color.color_text_disabled,
     borderWidth: 0.5,
   },
   refuseButtonText: {
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   },
   agreeButtonText: {
     fontSize: rpx(14),
-    color: color.white,
+    color: color.color_text_base_inverse,
     lineHeight: rpx(21),
   },
   processedText: {

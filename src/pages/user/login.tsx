@@ -14,7 +14,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { Button, Toast, Portal } from '@ant-design/react-native';
-import color from '@/utils/color';
+import color from '@/components/library/style/theme';
 import { isPhoneNumber } from '@/utils';
 import { UserLogin } from '@/store/reducer/user';
 import MODULES from '@/router/MODULES';
@@ -50,7 +50,7 @@ const Login: React.FC<{}> = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.select({ ios: 'padding', android: 'height' })}>
-      <StatusBar barStyle="dark-content" backgroundColor={color.white} />
+      <StatusBar barStyle="dark-content" backgroundColor={color.color_text_base_inverse} />
       <ScrollView style={styles.main} keyboardShouldPersistTaps="always" showsVerticalScrollIndicator={false}>
         <View style={styles.logo}>
           <Image source={require('@/assets/images/logo.png')} style={styles.image} />
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: rpx(40),
     paddingRight: rpx(40),
-    backgroundColor: color.white,
+    backgroundColor: color.color_text_base_inverse,
   },
   logo: {
     marginTop: rpx(100),
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     fontSize: rpx(20),
-    color: color.text,
+    color: color.color_text_paragraph,
   },
   form: {
     marginTop: rpx(25),
