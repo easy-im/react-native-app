@@ -48,7 +48,7 @@ export default {
       },
     }),
     tabBarOptions: {
-      activeTintColor: Colors.blue,
+      activeTintColor: Colors.lightBlue,
       inactiveTintColor: Colors.lightGray,
       labelStyle: { marginBottom: 4 },
     },
@@ -76,7 +76,7 @@ export default {
           title: '对话',
           headerStyle: {
             height: Platform.OS === 'android' ? 44 : undefined, // ios设置会错乱
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.fill_base,
           },
         },
       },
@@ -103,7 +103,7 @@ export default {
           title: '新的朋友',
           headerStyle: {
             height: Platform.OS === 'android' ? 44 : undefined, // ios设置会错乱
-            backgroundColor: Colors.background,
+            backgroundColor: Colors.fill_body,
           },
         },
       },
@@ -120,7 +120,7 @@ export default {
     screenOptions: {
       headerStyle: {
         height: 44,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.fill_base,
       },
       gestureEnabled: true,
       ...TransitionPresets.SlideFromRightIOS,
