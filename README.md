@@ -1,4 +1,4 @@
-# KitIM
+# Easy IM
 
 [![QQ群](https://img.shields.io/badge/QQ%E7%BE%A4-207879913-yellowgreen.svg)](https://jq.qq.com/?_wv=1027&k=9f25XGCW)
 
@@ -71,13 +71,15 @@ UI 库：@ant-design/react-native
 
 ## 联系作者
 
-- [qq 群](https://jq.qq.com/?_wv=1027&k=9f25XGCW)
-- 公众号，欢迎关注，不定时更新
+欢迎关注作者公众号`前端方程式`，如果您有任何问题，也可以通过该公众号联系作者。
 
-![前端方程式](https://i.loli.net/2020/05/28/CNcjhm17d9zfvkQ.jpg)
+<img src="https://img.qiuzhihu.cn/mp/%E5%85%AC%E4%BC%97%E5%8F%B7.png" title="前端方程式" style="height:150px;" />
 
-### 捐助与支持
+## 捐助与支持
 
 如果您觉得我们的开源软件对你有所帮助，请帮作者点一个免费的 Star, 或者扫下方二维码打赏我们一杯咖啡。
 
-<img src="https://images.gitee.com/uploads/images/2021/0105/120317_1bea64c8_592960.png" width="300" height="300" align="bottom" />
+<div style="display:flex; align-items: center;">
+  <img src="https://img.qiuzhihu.cn/mp/%E5%BE%AE%E4%BF%A1%E8%B5%9E%E8%B5%8F.png" title="微信赞赏" style="height:350px;" />
+  <img src="https://img.qiuzhihu.cn/mp/%E6%94%AF%E4%BB%98%E5%AE%9D.png" title="支付宝赞赏" style="height:350px;margin-left: 50px;" />
+</div>
