@@ -1,5 +1,5 @@
 {
-  "name": "kitim",
+  "name": "easy-im",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -23,7 +23,7 @@
     "@react-navigation/stack": "^5.12.8",
     "md5": "^2.3.0",
     "react": "17.0.2",
-    "react-native": "0.64.1",
+    "react-native": "0.66.3",
     "react-native-gesture-handler": "^1.9.0",
     "react-native-reanimated": "^1.13.2",
     "react-native-safe-area-context": "^3.1.9",
@@ -53,10 +53,10 @@
     "babel-plugin-root-import": "^6.6.0",
     "eslint": "^6.5.1",
     "jest": "^25.1.0",
-    "metro-react-native-babel-preset": "^0.59.0",
+    "metro-react-native-babel-preset": "^0.66.2",
     "patch-package": "^6.2.2",
     "react-devtools": "^4.10.1",
-    "react-test-renderer": "16.13.1",
+    "react-test-renderer": "17.0.2",
     "typescript": "^3.8.3"
   },
   "jest": {
