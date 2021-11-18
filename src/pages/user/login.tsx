@@ -69,6 +69,7 @@ const Login: React.FC<{}> = () => {
                 placeholder="请输入手机号码"
                 style={styles.input}
                 value={mobile}
+                maxLength={11}
                 onChangeText={(t) => setMobile(t)}
               />
             </View>

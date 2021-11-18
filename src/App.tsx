@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import router from '@/router';
 import store from '@/store';
 import { User } from '@/types/interface/user';
-import { CURRENT_USER_KEY } from './storage';
+import { CURRENT_USER_KEY } from '@/storage';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -26,7 +26,6 @@ export default function App() {
       }
       setLoaded(true);
     })();
-    // return Storage.;
   }, []);
 
   const TabScreen = () => {
