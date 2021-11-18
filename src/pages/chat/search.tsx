@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Image, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { Portal, Toast } from '@ant-design/react-native';
 import color from '@/components/library/style';
 import { rpx } from '@/utils/screen';
@@ -41,7 +40,7 @@ const Search: React.FC<{}> = () => {
       <StatusBar barStyle="dark-content" backgroundColor={color.fill_body} />
       <View style={styles.searchWrap}>
         <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}>
-          <Icon name="md-chevron-back" size={28} color={color.color_text_paragraph} />
+          {/* <Icon name="md-chevron-back" size={28} color={color.color_text_paragraph} /> */}
         </TouchableOpacity>
         <SearchBar
           placeholder="请搜索对方手机号"

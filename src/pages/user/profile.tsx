@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, StatusBar, Image, Platform } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/AntDesign';
 import { useDispatch, useSelector } from 'react-redux';
 import { Portal, Toast } from '@ant-design/react-native';
 import color from '@/components/library/style';
@@ -91,9 +90,7 @@ const Profile: React.FC<{}> = () => {
                 <View style={styles.settingName}>
                   <Text style={styles.settingNameText}>{item.name}</Text>
                 </View>
-                <View style={styles.more}>
-                  <Icon name="right" size={rpx(18)} color={color.lightText} />
-                </View>
+                <View style={styles.more}>{/* <Icon name="right" size={rpx(18)} color={color.lightText} /> */}</View>
               </View>
             );
           })}

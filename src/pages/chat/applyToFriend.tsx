@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { StatusBar, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { Portal, Toast } from '@ant-design/react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import color from '@/components/library/style';
@@ -48,7 +47,7 @@ const ApplyToFriend: React.FC<{}> = () => {
       <StatusBar barStyle="dark-content" backgroundColor={color.fill_body} />
       <View style={styles.headerWrap}>
         <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}>
-          <Icon name="md-chevron-back" size={28} color={color.color_text_paragraph} />
+          {/* <Icon name="md-chevron-back" size={28} color={color.color_text_paragraph} /> */}
         </TouchableOpacity>
         <TouchableOpacity style={styles.send} onPress={() => onAddFriend()}>
           <Text style={styles.sendText}>发送</Text>

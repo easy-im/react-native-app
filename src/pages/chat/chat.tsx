@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, ScrollView, Text, Image, StyleSheet, StatusBar, TextInput, Keyboard, KeyboardEvent } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/AntDesign';
-import FeatherIcon from 'react-native-vector-icons/Feather';
 import color from '@/components/library/style';
 import { rpx } from '@/utils/screen';
 import { useDispatch, useSelector } from 'react-redux';
@@ -174,7 +172,7 @@ const ChatPage: React.FC<{}> = () => {
           value={messageText}
         />
         <View style={styles.chatToolIcons}>
-          <Icon name="meh" size={rpx(23)} color={color.color_text_paragraph} style={styles.icon} />
+          {/* <Icon name="meh" size={rpx(23)} color={color.color_text_paragraph} style={styles.icon} />
           {!messageText.trim() && (
             <Icon name="pluscircleo" size={rpx(23)} color={color.color_text_paragraph} style={styles.icon} />
           )}
@@ -186,7 +184,7 @@ const ChatPage: React.FC<{}> = () => {
               color={color.color_link}
               style={styles.icon}
             />
-          )}
+          )} */}
         </View>
       </View>
     </View>

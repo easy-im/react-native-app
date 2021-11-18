@@ -1,4 +1,3 @@
 <resources>
-    <string name="app_name">KitIM</string>
-    <string name="app_name_debug">KitIM_测试版</string>
+    <string name="app_name">easyim</string>
 </resources>

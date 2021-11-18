@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleProp, ViewStyle, StyleSheet, GestureResponderEvent, Pressable } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
 import { rpx } from '@/utils/screen';
 import color from '@/components/library/style';
 
@@ -21,7 +20,7 @@ const SearchBar: React.FC<Props> = (props) => {
   return (
     <View style={style}>
       <Pressable style={[styles.container, theme === 'dark' ? styles.dark : styles.light]} onPress={onPress}>
-        <Icon name="search1" size={16} color="#909399" />
+        {/* <Icon name="search1" size={16} color="#909399" /> */}
         <TextInput
           returnKeyType="search"
           autoCapitalize="none"

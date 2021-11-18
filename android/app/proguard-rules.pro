@@ -8,6 +8,3 @@
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 # Add any project specific keep options here:
-
-# 防止realm闪崩
--keep class io.realm.react.**
