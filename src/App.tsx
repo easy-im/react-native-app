@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import SplashScreen from 'react-native-splash-screen';
 import { Provider as ReduxProvider } from 'react-redux';
 import { Provider as AntProvider } from '@ant-design/react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -22,7 +21,6 @@ export default function App() {
     (async () => {
       const userStr = await AsyncStorage.getItem(CURRENT_USER_KEY);
       const user = userStr ? JSON.parse(userStr) : null;
-      SplashScreen.hide();
       if (user) {
         setCurrentUser(user);
       }
