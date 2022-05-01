@@ -2,6 +2,15 @@ import dev from './dev';
 import prod from './prod';
 
 type EnvType = 'local' | 'development' | 'production';
+type Config = {
+  appName: string;
+  baseUrl: string;
+  ws: {
+    host: string;
+    namespace: string;
+  };
+};
+
 const env: EnvType = (process.env.NODE_ENV as EnvType) || 'local';
 
 const configMap = {
@@ -11,14 +20,15 @@ const configMap = {
 };
 
 const defaults = {
-  baseUrl: 'http://10.12.164.123:8360/api',
+  appName: 'KitIM',
+  baseUrl: 'http://10.12.163.254:8360/api',
   ws: {
-    host: 'http://10.12.164.123:8360',
+    host: 'http://10.12.163.254:8360',
     namespace: 'chat',
   },
 };
 
-const config: any = {
+const config: Config = {
   ...defaults,
   ...(configMap[env] || {}),
 };

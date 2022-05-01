@@ -1,21 +1,28 @@
 import React, { useEffect } from 'react';
-import { View, Image, Text, StyleSheet, StatusBar, Platform } from 'react-native';
+import {
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  StatusBar,
+  Platform,
+  SafeAreaView,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useSelector } from 'react-redux';
+import { observer } from 'mobx-react-lite';
 import Header from '@/components/ui/Header';
 import color from '@/components/library/style';
-import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { UserState } from '@/store/reducer/user';
+import store from '@/store';
 import { Friend } from '@/types/interface/user';
 import MODULES from '@/router/MODULES';
 import { rpx } from '@/utils/screen';
 
 const AddressBook: React.FC<{}> = () => {
   const navigation = useNavigation();
-  const friendMap = useSelector((state: { user: UserState }) => state.user.friendMap);
-  const friendList = useSelector((state: { user: UserState }) => state.user.friendList);
-  const userFriendRequestCount = useSelector((state: { user: UserState }) => state.user.userFriendRequestCount);
+  const { userStore } = store;
+  const { friendMap, friendList, userFriendRequestCount } = userStore;
 
   useEffect(() => {
     navigation.setOptions({
@@ -203,4 +210,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddressBook;
+export default observer(AddressBook);

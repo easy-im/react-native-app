@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import color from '@/components/library/style';
 import { rpx } from '@/utils/screen';
 import MenuLayer from './MenuLayer';
+import { Icon } from 'react-native-ui-view';
 
 interface Props {
   title: string;
@@ -21,7 +22,7 @@ const Header: React.FC<Props> = (props) => {
           {loading && <ActivityIndicator size="small" color={color.color_link} style={styles.loading} />}
         </View>
         <View style={styles.appOperate}>
-          {/* <Icon name="pluscircleo" size={20} color={color.color_text_paragraph} onPress={() => setShowMenu(true)} /> */}
+          <Icon name="plus-circle" size={24} color={color.color_text_paragraph} onPress={() => setShowMenu(true)} />
         </View>
       </View>
       <MenuLayer visible={showMenu} onClose={() => setShowMenu(!showMenu)} />

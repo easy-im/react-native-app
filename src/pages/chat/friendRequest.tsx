@@ -12,6 +12,7 @@ import { SET_USER_FRIEND_REQUEST, UserState } from '@/store/reducer/user';
 import { DealFriendRequest } from '@/service';
 import { Portal, Toast } from '@ant-design/react-native';
 import { UserFriendRequest } from '@/types/interface/user';
+import { observer } from 'mobx-react-lite';
 
 const RequestList: React.FC<{}> = () => {
   const navigation = useNavigation();
@@ -192,4 +193,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RequestList;
+export default observer(RequestList);

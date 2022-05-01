@@ -1,6 +1,8 @@
 import 'react-native-gesture-handler';
-import { AppRegistry } from 'react-native';
+import { AppRegistry, LogBox } from 'react-native';
 import { appName } from './app.json';
-import App from './src/App';
+import App from './src/app';
+
+LogBox.ignoreLogs(['Require cycle']);
 
 AppRegistry.registerComponent(appName, () => App);

@@ -1,37 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, StatusBar, Text, Image, RefreshControl } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  StatusBar,
+  Text,
+  Image,
+  RefreshControl,
+  SafeAreaView,
+  ScrollView,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { observer } from 'mobx-react-lite';
 import SearchBar from '@/components/ui/SearchBar';
 import Header from '@/components/ui/Header';
 import color from '@/components/library/style';
-import { RecoverMessageOnInit, GetUnreadMessage, MessageState } from '@/store/reducer/message';
-import {
-  AutoLogin,
-  GetUserFriendList,
-  InitUserFriendRequest,
-  RecoverUserInfoOnInit,
-  UserState,
-} from '@/store/reducer/user';
-import { useDispatch, useSelector } from 'react-redux';
 import { formatTime } from '@/utils';
 import { Friend } from '@/types/interface/user';
 import MODULES from '@/router/MODULES';
 import { rpx } from '@/utils/screen';
 import Socket from '@/socket/chat';
-import { Toast } from '@ant-design/react-native';
+import store from '@/store';
+import config from '@/config';
 
 const Recent: React.FC<{}> = () => {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
-  const dispatch = useDispatch();
+  const { userStore, messageStore } = store;
   const navigation = useNavigation();
-  const recent = useSelector((state: { message: MessageState }) => state.message.recent);
-  const messageMap = useSelector((state: { message: MessageState }) => state.message.messageMap);
-  const totalMessage = useSelector((state: { message: MessageState }) => state.message.totalMessage);
-  const friendMap = useSelector((state: { user: UserState }) => state.user.friendMap);
+
+  const { friendMap } = userStore;
+  const { recent, messageMap, totalMessage } = messageStore;
 
   useEffect(() => {
     init();
@@ -46,31 +46,15 @@ const Recent: React.FC<{}> = () => {
 
   const init = async () => {
     setLoading(true);
-    const res: any = await dispatch(AutoLogin());
-    if (!res.success) {
-      setLoading(false);
-      Toast.info(res.errmsg);
-      navigation.reset({
-        index: 0,
-        routes: [
-          {
-            name: MODULES.Login,
-          },
-        ],
-      });
-      return;
-    }
-    await dispatch(RecoverUserInfoOnInit());
-    await dispatch(RecoverMessageOnInit());
     await Socket.setup();
     await refresh();
     setLoading(false);
   };
 
   const refresh = async () => {
-    await dispatch(InitUserFriendRequest());
-    await dispatch(GetUserFriendList());
-    await dispatch(GetUnreadMessage());
+    await userStore.initUserFriendRequest();
+    await userStore.getUserFriendList();
+    await messageStore.getUnreadMessage();
   };
 
   const chat2user = (item: Friend) => {
@@ -91,7 +75,7 @@ const Recent: React.FC<{}> = () => {
         alwaysBounceVertical
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       >
-        <Header title="KitIM" loading={loading} />
+        <Header title={config.appName} loading={loading} />
         <View style={styles.main}>
           <SearchBar placeholder="请输入关键字" disabled />
           <View style={styles.list}>
@@ -214,4 +198,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Recent;
+export default observer(Recent);

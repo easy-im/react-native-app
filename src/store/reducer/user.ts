@@ -5,7 +5,7 @@ import UserFriendStorage from '@/storage/userFriend';
 import { Friend, User, UserFriendRequest } from '@/types/interface/user';
 import { IAction } from '@/types/interface/redux';
 import { CURRENT_USER_KEY } from '@/storage';
-import { GetUserInfo, GetUserFriend, UserSign, UserLogout, GetUserFriendRequest } from '@/service';
+import { GetUserInfo, GetUserFriend, UserLogin, UserLogout, GetUserFriendRequest } from '@/service';
 import { ResetMessageStore } from './message';
 
 export interface UserState {
@@ -93,7 +93,7 @@ export const AutoLogin = () => {
 export const UserLogin = (payload: { mobile: string; password: string }) => {
   return async (dispatch: Dispatch) => {
     const { mobile, password } = payload;
-    const res = await UserSign(mobile, password);
+    const res = await UserLogin(mobile, password);
     if (res && res.errno === 200) {
       AsyncStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res.data));
       dispatch({ type: SET_CURRENT_USER, payload: { currentUser: res.data } });

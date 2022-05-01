@@ -10,26 +10,32 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Platform,
+  Keyboard,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
-import { Button, Toast, Portal } from '@ant-design/react-native';
+import { Button } from '@ant-design/react-native';
+import { observer } from 'mobx-react-lite';
+import { Toast } from 'react-native-ui-view';
 import color from '@/components/library/style';
 import { isPhoneNumber } from '@/utils';
-import { UserLogin } from '@/store/reducer/user';
+
 import MODULES from '@/router/MODULES';
 import { rpx } from '@/utils/screen';
+import store from '@/store';
+import config from '@/config';
 
 const Login: React.FC<{}> = () => {
   const [mobile, setMobile] = useState('');
   const [password, setPassword] = useState('');
+
   const navigation = useNavigation();
-  const dispatch = useDispatch();
+  const { userStore } = store;
 
   const doLogin = async () => {
-    const key = Toast.loading('正在加载');
-    const res: any = await dispatch(UserLogin({ mobile, password }));
-    Portal.remove(key);
+    Keyboard.dismiss();
+    const key = await Toast.loading('登陆中');
+    const res: any = await userStore.login(mobile, password);
+    Toast.hideLoading(key);
     if (!res.success) {
       Toast.info(res.errmsg);
       return;
@@ -56,7 +62,7 @@ const Login: React.FC<{}> = () => {
           <Image source={require('@/assets/images/logo.png')} style={styles.image} />
         </View>
         <View style={styles.welcome}>
-          <Text style={styles.welcomeText}>欢迎使用KitIM</Text>
+          <Text style={styles.welcomeText}>欢迎使用{config.appName}</Text>
         </View>
         <View style={styles.form}>
           <View style={styles.formItem}>
@@ -172,4 +178,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default observer(Login);

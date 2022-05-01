@@ -10,6 +10,7 @@ import { rpx } from '@/utils/screen';
 import { RequestToBeFriend } from '@/service';
 import { SearchUser } from '@/types/interface/user';
 import { UserState } from '@/store/reducer/user';
+import { observer } from 'mobx-react-lite';
 
 const ApplyToFriend: React.FC<{}> = () => {
   const [message, setMessage] = useState('');
@@ -159,4 +160,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ApplyToFriend;
+export default observer(ApplyToFriend);

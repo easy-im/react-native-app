@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Button, Portal, Toast } from '@ant-design/react-native';
@@ -17,7 +18,8 @@ import MODULES from '@/router/MODULES';
 import { isPhoneNumber } from '@/utils';
 import { UserRegister } from '@/service';
 import { rpx } from '@/utils/screen';
-import { ScrollView } from 'react-native-gesture-handler';
+import config from '@/config';
+import { observer } from 'mobx-react-lite';
 
 const Register: React.FC<{}> = () => {
   const [mobile, setMobile] = useState('');
@@ -62,7 +64,7 @@ const Register: React.FC<{}> = () => {
           <Image source={require('@/assets/images/logo.png')} style={styles.image} />
         </View>
         <View style={styles.welcome}>
-          <Text style={styles.welcomeText}>欢迎注册KitIM账号</Text>
+          <Text style={styles.welcomeText}>欢迎注册{config.appName}账号</Text>
         </View>
         <View style={styles.form}>
           <View style={styles.formItem}>
@@ -205,4 +207,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Register;
+export default observer(Register);

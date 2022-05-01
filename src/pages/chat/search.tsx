@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import { Image, StatusBar, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Portal, Toast } from '@ant-design/react-native';
+import { Image, StatusBar, StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
 import color from '@/components/library/style';
 import { rpx } from '@/utils/screen';
 import SearchBar from '@/components/ui/SearchBar';
@@ -11,6 +8,8 @@ import { isPhoneNumber } from '@/utils';
 import { UserSearch } from '@/service';
 import MODULES from '@/router/MODULES';
 import { SearchUser } from '@/types/interface/user';
+import { observer } from 'mobx-react-lite';
+import { Toast } from 'react-native-ui-view';
 
 const Search: React.FC<{}> = () => {
   const [userData, setUserData] = useState<SearchUser | null | undefined>(undefined);
@@ -21,9 +20,9 @@ const Search: React.FC<{}> = () => {
       Toast.info('手机号不正确', 1);
       return;
     }
-    const key = Toast.loading('正在查找联系人');
+    const key = await Toast.loading('正在查找联系人');
     const res = await UserSearch(+text);
-    Portal.remove(key);
+    Toast.hideLoading(key);
     if (res && res.errno === 200) {
       setUserData(res.data);
     } else {
@@ -158,4 +157,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Search;
+export default observer(Search);

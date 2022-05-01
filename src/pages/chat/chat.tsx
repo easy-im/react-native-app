@@ -1,65 +1,59 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, ScrollView, Text, Image, StyleSheet, StatusBar, TextInput, Keyboard, KeyboardEvent } from 'react-native';
+import { View, Text, Image, StyleSheet, StatusBar, TextInput, Keyboard, KeyboardEvent } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import color from '@/components/library/style';
 import { rpx } from '@/utils/screen';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  MessageState,
-  RESET_CHAT_UNREAD_NUMBER,
-  UPDATE_CURRENT_CHAT_USER,
-  RECLAIM_USER_MESSAGE,
-} from '@/store/reducer/message';
-import { UserState } from '@/store/reducer/user';
 import Chat from '@/socket/chat';
-import { User } from '@/types/interface/user';
+import store from '@/store';
+import { UserInfo } from '@/types/interface/user';
+import { observer } from 'mobx-react-lite';
 
 const ChatPage: React.FC<{}> = () => {
   const $scroll = useRef<ScrollView | null>(null);
   const scrollOffset = useRef<number>(0);
   const keyboardHeight = useRef<number>(0);
+
   const [messageText, setMessageText] = useState('');
   const [inputHeight, setInputHeight] = useState(0);
   const [loaded, setLoaded] = useState(false);
 
-  const dispatch = useDispatch();
-  const statusBarHeight = StatusBar.currentHeight || 0;
+  const { userStore, messageStore } = store;
   const navigation = useNavigation();
   const route = useRoute();
+
   const { params = {} }: any = route;
   const { id, title } = params;
   const fid = Number.isNaN(id) ? 0 : +id;
 
-  const friendMap = useSelector((state: { user: UserState }) => state.user.friendMap);
-  const currentUser = useSelector((state: { user: UserState }) => state.user.currentUser);
-  const messageMap = useSelector((state: { message: MessageState }) => state.message.messageMap);
-  const messages = useSelector((state: { message: MessageState }) => state.message.messages);
+  const statusBarHeight = StatusBar.currentHeight || 0;
+
+  const { friendMap, userInfo } = userStore;
+  const { messageMap, messages } = messageStore;
 
   const friendInfo = friendMap[fid];
   const list = messages[fid] || [];
-
-  // console.log(list, messageMap, currentUser, friendInfo);
 
   useEffect(() => {
     title &&
       navigation.setOptions({
         title: title,
       });
-    // 重置未读消息
-    dispatch({ type: RESET_CHAT_UNREAD_NUMBER, payload: { fid, currentUserId: currentUser?.id } });
-    // 设置当前用户为在聊用户
-    dispatch({ type: UPDATE_CURRENT_CHAT_USER, payload: { currentChatUserId: fid } });
+    const showEvent = Keyboard.addListener('keyboardDidShow', handleKeyboardShow);
+    const hideEvent = Keyboard.addListener('keyboardDidHide', handleKeyboardHide);
 
-    Keyboard.addListener('keyboardDidShow', handleKeyboardShow);
-    Keyboard.addListener('keyboardDidHide', handleKeyboardHide);
-    setLoaded(true);
+    (async () => {
+      await messageStore.resetChatUnreadNumber(fid);
+      await messageStore.setCurrentChatUserId(fid);
+      setLoaded(true);
+    })();
 
     return () => {
-      dispatch({ type: UPDATE_CURRENT_CHAT_USER, payload: { currentChatUserId: 0 } });
-      dispatch({ type: RECLAIM_USER_MESSAGE, payload: { fid } });
+      messageStore.setCurrentChatUserId(0);
+      messageStore.reclaimUserMessage(fid);
 
-      Keyboard.removeListener('keyboardDidShow', handleKeyboardShow);
-      Keyboard.removeListener('keyboardDidHide', handleKeyboardHide);
+      showEvent.remove();
+      hideEvent.remove();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -95,7 +89,7 @@ const ChatPage: React.FC<{}> = () => {
       return false;
     }
     Chat.sendMessage(text, {
-      userInfo: currentUser as User,
+      userInfo: userInfo as UserInfo,
       friendInfo,
       isGroup: false,
     });
@@ -131,7 +125,7 @@ const ChatPage: React.FC<{}> = () => {
             >
               <View style={[styles.chatAvatar, is_owner ? styles.chatMineAvatar : false]}>
                 <Image
-                  source={{ uri: is_owner ? currentUser?.avatar : friendInfo.avatar }}
+                  source={{ uri: is_owner ? userInfo?.avatar : friendInfo.avatar }}
                   style={styles.chatAvatarImage}
                 />
               </View>
@@ -161,8 +155,8 @@ const ChatPage: React.FC<{}> = () => {
           autoCapitalize="none"
           textAlignVertical="top"
           style={[styles.input, { height: Math.max(rpx(42), Math.min(rpx(84.3), inputHeight)) }]}
-          maxLength={1000}
-          multiline={true}
+          // maxLength={1000}
+          // multiline={true}
           blurOnSubmit={false}
           enablesReturnKeyAutomatically={true}
           onContentSizeChange={(e) => {
@@ -172,6 +166,7 @@ const ChatPage: React.FC<{}> = () => {
           value={messageText}
         />
         <View style={styles.chatToolIcons}>
+          {/* 发送附件 */}
           {/* <Icon name="meh" size={rpx(23)} color={color.color_text_paragraph} style={styles.icon} />
           {!messageText.trim() && (
             <Icon name="pluscircleo" size={rpx(23)} color={color.color_text_paragraph} style={styles.icon} />
@@ -326,4 +321,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChatPage;
+export default observer(ChatPage);

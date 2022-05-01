@@ -1,42 +1,42 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, StatusBar, Image, Platform } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useDispatch, useSelector } from 'react-redux';
-import { Portal, Toast } from '@ant-design/react-native';
+import { View, Text, StyleSheet, StatusBar, Image, Platform, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Toast } from 'react-native-ui-view';
+import { observer } from 'mobx-react-lite';
 import color from '@/components/library/style';
 import Modal from '@/components/library/modal/modal';
 import { rpx } from '@/utils/screen';
 import { useNavigation } from '@react-navigation/native';
-import { Logout, UserState } from '@/store/reducer/user';
 import MODULES from '@/router/MODULES';
+import store from '@/store';
 
 const Profile: React.FC<{}> = () => {
   const [modalShow, setModalShow] = useState(false);
-  const currentUser = useSelector((state: { user: UserState }) => state.user.currentUser);
+
   const navigation = useNavigation();
-  const dispatch = useDispatch();
+  const { userStore } = store;
+
+  const { userInfo } = userStore;
 
   const setting = [
     {
       name: '钱包',
-      url: 'https://im.wangcai.me/kitim_wallet.png',
+      url: require('@/assets/images/wallet.png'),
     },
     {
       name: '收藏',
-      url: 'https://im.wangcai.me/kitim_collect.png',
+      url: require('@/assets/images/collect.png'),
     },
     {
       name: '设置',
-      url: 'https://im.wangcai.me/kitim_setting.png',
+      url: require('@/assets/images/setting.png'),
     },
   ];
 
-  const signOut = async () => {
+  const logout = async () => {
     setModalShow(false);
-    const key = Toast.loading('处理中...');
-    await dispatch(Logout());
-    Portal.remove(key);
+    const key = await Toast.loading('处理中...');
+    await userStore.logout();
+    Toast.hideLoading(key);
     navigation.reset({
       index: 0,
       routes: [
@@ -47,7 +47,7 @@ const Profile: React.FC<{}> = () => {
     });
   };
 
-  if (!currentUser) {
+  if (!userInfo) {
     return null;
   }
 
@@ -60,22 +60,22 @@ const Profile: React.FC<{}> = () => {
         title="提示"
         content="确认退出登录？"
         onClose={() => setModalShow(false)}
-        onConfirm={signOut}
+        onConfirm={logout}
       />
       <View style={styles.main}>
         <View style={styles.info}>
           <View style={styles.avatar}>
             <Image
-              source={{ uri: `${currentUser.avatar}?imageView2/1/w/150/h/150/format/jpg/interlace/1/q/75` }}
+              source={{ uri: `${userInfo.avatar}?imageView2/1/w/150/h/150/format/jpg/interlace/1/q/75` }}
               style={styles.avatarImage}
             />
           </View>
           <View style={styles.content}>
             <View>
-              <Text style={styles.nameText}>{currentUser.nickname}</Text>
+              <Text style={styles.nameText}>{userInfo.nickname}</Text>
             </View>
             <View style={styles.id}>
-              <Text style={styles.idText}>手机号：{currentUser.mobile}</Text>
+              <Text style={styles.idText}>手机号：{userInfo.mobile}</Text>
             </View>
           </View>
           {/* <View style={styles.more}>
@@ -86,7 +86,7 @@ const Profile: React.FC<{}> = () => {
           {setting.map((item, index) => {
             return (
               <View style={[styles.settingItem, index === 0 && styles.settingFirstItem]} key={index}>
-                <Image source={{ uri: item.url }} style={styles.settingImage} />
+                <Image source={item.url} style={styles.settingImage} />
                 <View style={styles.settingName}>
                   <Text style={styles.settingNameText}>{item.name}</Text>
                 </View>
@@ -194,4 +194,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
+export default observer(Profile);

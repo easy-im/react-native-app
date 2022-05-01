@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Pressable, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -8,43 +7,43 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import color from '@/components/library/style';
 import { rpx } from '@/utils/screen';
 import { UserFriendRequest } from '@/types/interface/user';
-import { GetUserFriendList, SET_USER_FRIEND_REQUEST, UserState } from '@/store/reducer/user';
 import { DealFriendRequest } from '@/service';
 import MODULES from '@/router/MODULES';
+import { observer } from 'mobx-react-lite';
+import store from '@/store';
 
 const AddFriend: React.FC<{}> = () => {
   const [remark, setRemark] = useState('');
 
-  const dispatch = useDispatch();
   const navigation = useNavigation();
+  const { userStore } = store;
   const route = useRoute();
+
   const { params = {} }: any = route;
   const { userData }: { userData: UserFriendRequest } = params;
-  const userFriendRequest = useSelector((state: { user: UserState }) => state.user.userFriendRequest);
-  const userFriendRequestCount = useSelector((state: { user: UserState }) => state.user.userFriendRequestCount);
-  const currentUser = useSelector((state: { user: UserState }) => state.user.currentUser);
+
+  const { userFriendRequest, userFriendRequestCount } = userStore;
 
   useEffect(() => {
     setRemark(userData?.nickname);
-  }, [currentUser, userData]);
+  }, [userData]);
 
   const onAddFriend = async () => {
     const key = Toast.loading('正在处理');
+
     const res = await DealFriendRequest(userData.id, true, remark);
     if (res && res.errno === 200) {
-      await dispatch({
-        type: SET_USER_FRIEND_REQUEST,
-        payload: {
-          userFriendRequest: userFriendRequest.map((item) => {
-            if (item.id === userData.id) {
-              item.status = 1;
-            }
-            return item;
-          }),
-          userFriendRequestCount: userFriendRequestCount - 1,
-        },
-      });
-      await dispatch(GetUserFriendList());
+      await userStore.setUserFriendRequest(
+        userFriendRequest.map((item) => {
+          if (item.id === userData.id) {
+            item.status = 1;
+          }
+          return item;
+        }),
+      );
+      await userStore.setUserFriendRequestCount(userFriendRequestCount - 1);
+      await userStore.getUserFriendList();
+
       Portal.remove(key);
       Toast.success('已添加', 1);
       setTimeout(() => {
@@ -183,4 +182,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddFriend;
+export default observer(AddFriend);

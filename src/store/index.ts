@@ -1,13 +1,14 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-import thunkMiddleware from 'redux-thunk';
-import user from './reducer/user';
-import message from './reducer/message';
+import { createContext, useContext } from 'react';
+import userStore from './user';
+import messageStore from './message';
 
-const reducer = combineReducers({
-  user,
-  message,
-});
+const store = {
+  userStore,
+  messageStore,
+};
 
-const store = createStore(reducer, applyMiddleware(thunkMiddleware));
+const storeContext = createContext(store);
+
+export const useStores = () => useContext(storeContext);
 
 export default store;

@@ -88,34 +88,33 @@ export default {
           headerShown: false,
         },
       },
-      {
-        name: MODULES.ApplyToFriend,
-        component: ApplyToFriend,
-        options: {
-          title: '好友申请',
-          headerShown: false,
-        },
-      },
-      {
-        name: MODULES.FriendRequest,
-        component: FriendRequest,
-        options: {
-          title: '新的朋友',
-          headerStyle: {
-            height: Platform.OS === 'android' ? 44 : undefined, // ios设置会错乱
-            backgroundColor: Colors.fill_body,
-          },
-        },
-      },
-
-      {
-        name: MODULES.AddFriend,
-        component: AddFriend,
-        options: {
-          title: '通过验证',
-          headerShown: false,
-        },
-      },
+      // {
+      //   name: MODULES.ApplyToFriend,
+      //   component: ApplyToFriend,
+      //   options: {
+      //     title: '好友申请',
+      //     headerShown: false,
+      //   },
+      // },
+      // {
+      //   name: MODULES.FriendRequest,
+      //   component: FriendRequest,
+      //   options: {
+      //     title: '新的朋友',
+      //     headerStyle: {
+      //       height: Platform.OS === 'android' ? 44 : undefined, // ios设置会错乱
+      //       backgroundColor: Colors.fill_body,
+      //     },
+      //   },
+      // },
+      // {
+      //   name: MODULES.AddFriend,
+      //   component: AddFriend,
+      //   options: {
+      //     title: '通过验证',
+      //     headerShown: false,
+      //   },
+      // },
     ],
     screenOptions: {
       headerStyle: {
