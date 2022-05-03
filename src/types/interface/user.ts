@@ -24,6 +24,10 @@ export interface Friend {
   status: number;
 }
 
+export type FriendInfo = Friend & {
+  uid: number;
+};
+
 export interface SearchUser {
   id: number;
   nickname: string;

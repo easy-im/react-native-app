@@ -1,24 +1,20 @@
 import React from 'react';
-import { Image, StatusBar, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useDispatch, useSelector } from 'react-redux';
+import { Image, StatusBar, StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import SearchBar from '@/components/ui/SearchBar';
 import { rpx } from '@/utils/screen';
 import color from '@/components/library/style';
 import MODULES from '@/router/MODULES';
-import { SET_USER_FRIEND_REQUEST, UserState } from '@/store/reducer/user';
 import { DealFriendRequest } from '@/service';
 import { Portal, Toast } from '@ant-design/react-native';
 import { UserFriendRequest } from '@/types/interface/user';
 import { observer } from 'mobx-react-lite';
+import store from '@/store';
 
 const RequestList: React.FC<{}> = () => {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
-  const userFriendRequest = useSelector((state: { user: UserState }) => state.user.userFriendRequest);
-  const userFriendRequestCount = useSelector((state: { user: UserState }) => state.user.userFriendRequestCount);
+  const { userStore } = store;
+  const { userFriendRequest, userFriendRequestCount } = userStore;
 
   const handle = async (record: UserFriendRequest, agree: boolean) => {
     if (agree) {
@@ -27,18 +23,15 @@ const RequestList: React.FC<{}> = () => {
       const key = Toast.loading('正在处理');
       const res = await DealFriendRequest(record.id, agree);
       if (res && res.errno === 200) {
-        await dispatch({
-          type: SET_USER_FRIEND_REQUEST,
-          payload: {
-            userFriendRequest: userFriendRequest.map((item) => {
-              if (item.id === record.id) {
-                item.status = 2;
-              }
-              return item;
-            }),
-            userFriendRequestCount: userFriendRequestCount - 1,
-          },
-        });
+        await userStore.setUserFriendRequest(
+          userFriendRequest.map((item) => {
+            if (item.id === record.id) {
+              item.status = 2;
+            }
+            return item;
+          }),
+        );
+        await userStore.setUserFriendRequestCount(userFriendRequestCount - 1);
         Portal.remove(key);
         Toast.success('已回绝', 1);
       } else {

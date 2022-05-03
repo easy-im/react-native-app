@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { StatusBar, StyleSheet, Text, TextInput, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StatusBar, StyleSheet, Text, TextInput, View, SafeAreaView, TouchableOpacity } from 'react-native';
 import { Portal, Toast } from '@ant-design/react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import color from '@/components/library/style';
 import { rpx } from '@/utils/screen';
 import { RequestToBeFriend } from '@/service';
 import { SearchUser } from '@/types/interface/user';
-import { UserState } from '@/store/reducer/user';
 import { observer } from 'mobx-react-lite';
+import store from '@/store';
 
 const ApplyToFriend: React.FC<{}> = () => {
   const [message, setMessage] = useState('');
@@ -18,14 +15,17 @@ const ApplyToFriend: React.FC<{}> = () => {
 
   const navigation = useNavigation();
   const route = useRoute();
+  const { userStore } = store;
+
   const { params = {} }: any = route;
   const { userData }: { userData: SearchUser } = params;
-  const currentUser = useSelector((state: { user: UserState }) => state.user.currentUser);
+
+  const { userInfo } = userStore;
 
   useEffect(() => {
-    setMessage(`我是${currentUser?.nickname}`);
+    setMessage(`我是${userInfo?.nickname}`);
     setRemark(userData?.nickname);
-  }, [currentUser, userData]);
+  }, [userInfo, userData]);
 
   const onAddFriend = async () => {
     if (userData.status === 0) {

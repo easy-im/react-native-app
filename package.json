@@ -34,10 +34,6 @@
     "react-native-screens": "^2.16.1",
     "react-native-svg": "^12.3.0",
     "react-native-ui-view": "^0.0.8",
-    "react-redux": "^7.2.2",
-    "realm": "^10.1.2",
-    "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0",
     "socket.io-client": "^3.0.5"
   },
   "devDependencies": {
@@ -47,7 +43,6 @@
     "@types/jest": "^25.2.3",
     "@types/md5": "^2.2.1",
     "@types/react-native": "^0.63.2",
-    "@types/react-redux": "^7.1.15",
     "@types/react-test-renderer": "^16.9.2",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",

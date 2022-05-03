@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, Image, StyleSheet, StatusBar, TextInput, Keyboard, KeyboardEvent } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { View, Text, Image, StyleSheet, StatusBar, TextInput, Keyboard, KeyboardEvent, ScrollView } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import color from '@/components/library/style';
 import { rpx } from '@/utils/screen';

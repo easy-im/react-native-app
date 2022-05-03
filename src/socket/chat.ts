@@ -4,18 +4,18 @@ import md5 from 'md5';
 import config from '@/config';
 import { ENUM_MESSAGE_CONTENT_TYPE, ENUM_MESSAGE_DIST_TYPE, ENUM_SOCKET_MESSAGE_TYPE } from '@/types/enum/message';
 import { CHAT_MESSAGE, RESPONSE_MESSAGE, SOCKET_RESPONSE } from '@/types/interface/response';
-import { Friend, User } from '@/types/interface/user';
+import { Friend, UserInfo } from '@/types/interface/user';
 import { Message, MessageRecord } from '@/types/interface/entity';
-import Store from '@/store';
-import { UPDATE_MESSAGE_SENDING_STATUS, UPDATE_MESSAGE_LIST } from '@/store/reducer/message';
-import { CURRENT_USER_KEY } from '@/storage';
+import { CURRENT_USER_KEY } from '@/constant';
+import store from '@/store';
 
 const { ws } = config;
+const { messageStore } = store;
 
 class Chat {
   private static instance: Chat;
   private socket!: Socket;
-  private userInfo!: User;
+  private userInfo!: UserInfo;
 
   public static getInstance() {
     if (!this.instance) {
@@ -68,7 +68,7 @@ class Chat {
   public async onMessage(data: CHAT_MESSAGE) {
     const { type, messages } = data;
     if (type === ENUM_MESSAGE_DIST_TYPE.PRIVATE) {
-      Store.dispatch({ type: UPDATE_MESSAGE_LIST, payload: { list: messages, currentUserId: this.userInfo.id } });
+      messageStore.updateMessageList(messages, false);
     }
   }
 
@@ -79,7 +79,7 @@ class Chat {
    * @param options.friendInfo {User} 接收者信息
    * @param options.is_group {boolean} 是否是群消息
    */
-  public async sendMessage(content: string, options: { userInfo: User; friendInfo: Friend; isGroup: boolean }) {
+  public async sendMessage(content: string, options: { userInfo: UserInfo; friendInfo: Friend; isGroup: boolean }) {
     if (!this.socket) {
       return;
     }
@@ -104,10 +104,7 @@ class Chat {
     };
     this.socket.emit('message', { message });
 
-    Store.dispatch({
-      type: UPDATE_MESSAGE_LIST,
-      payload: { list: [record], isRead: true, currentUserId: this.userInfo.id },
-    });
+    messageStore.updateMessageList([record], true);
   }
 
   /**
@@ -115,7 +112,7 @@ class Chat {
    * @param message { RESPONSE_MESSAGE } 收到的消息
    */
   public async onConfirmMessage(message: RESPONSE_MESSAGE) {
-    Store.dispatch({ type: UPDATE_MESSAGE_SENDING_STATUS, payload: message });
+    await messageStore.updateMessageSendingStatus(message.data.hash, message.data.succeeded);
   }
 }
 

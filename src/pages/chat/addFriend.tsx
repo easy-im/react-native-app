@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Pressable, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Pressable, StatusBar, StyleSheet, Text, TextInput, View, SafeAreaView, TouchableOpacity } from 'react-native';
 import { Portal, Toast } from '@ant-design/react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import color from '@/components/library/style';

@@ -141,7 +141,7 @@ class Message {
 
   // 更新本地消息已发送状态
   @action
-  updateMessageSendingStatus(fid: number, hash: string, succeeded: boolean) {
+  updateMessageSendingStatus(hash: string, succeeded: boolean) {
     const { messageMap } = this;
     if (messageMap[hash] && succeeded) {
       messageMap[hash].is_sent = 1;
