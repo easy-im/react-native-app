@@ -12,7 +12,7 @@ import {
   Platform,
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import color from '@/components/library/style';
+import COLORS from '@/core/color';
 import { rpx } from '@/utils/screen';
 import Chat from '@/socket/chat';
 import store from '@/store';
@@ -179,16 +179,16 @@ const ChatPage: React.FC<{}> = () => {
         />
         <View style={styles.chatToolIcons}>
           {/* 发送附件 */}
-          {/* <Icon name="meh" size={rpx(23)} color={color.color_text_paragraph} style={styles.icon} />
+          {/* <Icon name="meh" size={rpx(23)} color={COLORS.color_text_paragraph} style={styles.icon} />
           {!messageText.trim() && (
-            <Icon name="pluscircleo" size={rpx(23)} color={color.color_text_paragraph} style={styles.icon} />
+            <Icon name="pluscircleo" size={rpx(23)} color={COLORS.color_text_paragraph} style={styles.icon} />
           )}
           {!!messageText.trim() && (
             <FeatherIcon
               onPress={sendMessage}
               name="send"
               size={rpx(25)}
-              color={color.color_link}
+              color={COLORS.color_link}
               style={styles.icon}
             />
           )} */}
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   chatNameText: {
-    color: color.lightGray,
+    color: COLORS.lightGray,
     fontSize: rpx(13),
   },
   chatContent: {
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     padding: rpx(8),
     paddingLeft: rpx(15),
     paddingRight: rpx(15),
-    backgroundColor: color.color_text_base_inverse,
+    backgroundColor: COLORS.color_text_base_inverse,
     borderRadius: rpx(4),
   },
   chatMineContent: {
@@ -268,11 +268,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(18, 183, 245)',
   },
   chatContentText: {
-    color: color.color_text_paragraph,
+    color: COLORS.color_text_paragraph,
     fontSize: rpx(16),
   },
   chatMineContentText: {
-    color: color.color_text_base_inverse,
+    color: COLORS.color_text_base_inverse,
   },
   chatBubble: {
     position: 'absolute',
@@ -284,8 +284,8 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderLeftColor: 'transparent',
     borderBottomColor: 'transparent',
-    borderRightColor: color.color_text_base_inverse,
-    borderTopColor: color.color_text_base_inverse,
+    borderRightColor: COLORS.color_text_base_inverse,
+    borderTopColor: COLORS.color_text_base_inverse,
     overflow: 'hidden',
   },
   chatMineBubble: {
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
   chatFooter: {
     flexDirection: 'row',
     backgroundColor: '#f6f6f6',
-    borderTopColor: color.borderColor,
+    borderTopColor: COLORS.borderColor,
     borderTopWidth: 0.5,
     padding: rpx(10),
     paddingLeft: rpx(12),
@@ -313,8 +313,8 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    backgroundColor: color.color_text_base_inverse,
-    borderColor: color.borderColor,
+    backgroundColor: COLORS.color_text_base_inverse,
+    borderColor: COLORS.borderColor,
     borderWidth: 0.5,
     borderRadius: rpx(5),
     padding: rpx(8),
@@ -337,6 +337,6 @@ PageContainer(MODULES.Chat, observer(ChatPage), {
   title: '对话',
   headerStyle: {
     height: Platform.OS === 'android' ? 44 : undefined, // ios设置会错乱
-    backgroundColor: color.fill_base,
+    backgroundColor: COLORS.fill_base,
   },
 });

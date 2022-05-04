@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, StackNavigationOptions, TransitionPresets } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Colors from '@/components/library/style';
+import COLORS from '@/core/color';
 import tabbar from '@/router/tabbar';
 
 const Tab = createBottomTabNavigator();
@@ -42,7 +42,7 @@ export const Router: React.FC<{ initialRouteName: string }> = ({ initialRouteNam
         screenOptions={{
           headerStyle: {
             height: 44,
-            backgroundColor: Colors.fill_base,
+            backgroundColor: COLORS.fill_base,
           },
           gestureEnabled: true,
           ...TransitionPresets.SlideFromRightIOS,

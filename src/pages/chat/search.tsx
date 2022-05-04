@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { Image, StatusBar, StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
-import color from '@/components/library/style';
-import { rpx } from '@/utils/screen';
-import SearchBar from '@/components/ui/SearchBar';
 import { useNavigation } from '@react-navigation/native';
+import { observer } from 'mobx-react-lite';
+import { Icon, Toast } from 'react-native-ui-view';
+
+import COLORS from '@/core/color';
+import { rpx } from '@/utils/screen';
+import SearchBar from '@/components/SearchBar';
 import { isPhoneNumber } from '@/utils';
 import { UserSearch } from '@/service';
 import { MODULES } from '@/core/constant';
 import { SearchUser } from '@/types/user';
-import { observer } from 'mobx-react-lite';
-import { Icon, Toast } from 'react-native-ui-view';
 import { PageContainer } from '@/router';
 
 const Search: React.FC<{}> = () => {
@@ -37,10 +38,10 @@ const Search: React.FC<{}> = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor={color.fill_body} />
+      <StatusBar barStyle="dark-content" backgroundColor={COLORS.fill_body} />
       <View style={styles.searchWrap}>
         <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}>
-          <Icon name="arrow-left" size={28} color={color.color_text_paragraph} />
+          <Icon name="arrow-left" size={28} color={COLORS.color_text_paragraph} />
         </TouchableOpacity>
         <SearchBar
           placeholder="请搜索对方手机号"
@@ -84,7 +85,7 @@ const Search: React.FC<{}> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.fill_body,
+    backgroundColor: COLORS.fill_body,
   },
   searchWrap: {
     flexDirection: 'row',
@@ -108,12 +109,12 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: rpx(14),
-    color: color.lightGray,
+    color: COLORS.lightGray,
   },
   result: {
     marginTop: rpx(15),
     padding: rpx(15),
-    backgroundColor: color.color_text_base_inverse,
+    backgroundColor: COLORS.color_text_base_inverse,
   },
   item: {
     flexDirection: 'row',
@@ -134,15 +135,15 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: rpx(16),
-    color: color.color_text_paragraph,
+    color: COLORS.color_text_paragraph,
     fontWeight: '600',
   },
   mobile: {
     fontSize: rpx(13),
-    color: color.color_text_disabled,
+    color: COLORS.color_text_disabled,
   },
   add: {
-    backgroundColor: color.green,
+    backgroundColor: COLORS.green,
     padding: rpx(12),
     paddingTop: rpx(5),
     paddingBottom: rpx(5),
@@ -150,11 +151,11 @@ const styles = StyleSheet.create({
   },
   addText: {
     fontSize: rpx(16),
-    color: color.color_text_base_inverse,
+    color: COLORS.color_text_base_inverse,
     lineHeight: rpx(21),
   },
   disabled: {
-    backgroundColor: color.color_text_disabled,
+    backgroundColor: COLORS.color_text_disabled,
   },
 });
 

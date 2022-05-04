@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, StatusBar, Image, Platform, TouchableOpacity, SafeAreaView } from 'react-native';
-import { Toast } from 'react-native-ui-view';
+import React from 'react';
+import { View, Text, StyleSheet, StatusBar, Image, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Toast, Modal } from 'react-native-ui-view';
 import { observer } from 'mobx-react-lite';
-import color from '@/components/library/style';
-import Modal from '@/components/library/modal/modal';
+import COLORS from '@/core/color';
+
 import { rpx } from '@/utils/screen';
 import { useNavigation } from '@react-navigation/native';
 import { MODULES } from '@/core/constant';
 import store from '@/store';
 
 const Profile: React.FC<{}> = () => {
-  const [modalShow, setModalShow] = useState(false);
-
   const navigation = useNavigation();
   const { userStore } = store;
 
@@ -33,7 +31,6 @@ const Profile: React.FC<{}> = () => {
   ];
 
   const logout = async () => {
-    setModalShow(false);
     const key = await Toast.loading('处理中...');
     await userStore.logout();
     Toast.hideLoading(key);
@@ -52,16 +49,8 @@ const Profile: React.FC<{}> = () => {
   }
 
   return (
-    // eslint-disable-next-line react-native/no-inline-styles
-    <SafeAreaView style={[styles.container, Platform.OS === 'ios' && { paddingBottom: -34 }]}>
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
-      <Modal
-        visible={modalShow}
-        title="提示"
-        content="确认退出登录？"
-        onClose={() => setModalShow(false)}
-        onConfirm={logout}
-      />
       <View style={styles.main}>
         <View style={styles.info}>
           <View style={styles.avatar}>
@@ -79,7 +68,7 @@ const Profile: React.FC<{}> = () => {
             </View>
           </View>
           {/* <View style={styles.more}>
-          <Icon name="right" size={18} color={color.lightText} />
+          <Icon name="right" size={18} color={COLORS.lightText} />
         </View> */}
         </View>
         <View style={styles.setting}>
@@ -90,13 +79,21 @@ const Profile: React.FC<{}> = () => {
                 <View style={styles.settingName}>
                   <Text style={styles.settingNameText}>{item.name}</Text>
                 </View>
-                <View style={styles.more}>{/* <Icon name="right" size={rpx(18)} color={color.lightText} /> */}</View>
+                <View style={styles.more}>{/* <Icon name="right" size={rpx(18)} color={COLORS.lightText} /> */}</View>
               </View>
             );
           })}
         </View>
         <View style={styles.logout}>
-          <TouchableOpacity style={styles.button} activeOpacity={0.6} onPress={() => setModalShow(true)}>
+          <TouchableOpacity
+            style={styles.button}
+            activeOpacity={0.6}
+            onPress={() => {
+              Modal.show('提示', '确认退出登录？', {
+                onConfirm: logout,
+              });
+            }}
+          >
             <Text style={styles.buttonText}>退出登录</Text>
           </TouchableOpacity>
         </View>
@@ -108,18 +105,18 @@ const Profile: React.FC<{}> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.color_text_base_inverse,
+    backgroundColor: COLORS.color_text_base_inverse,
   },
   main: {
     flex: 1,
-    backgroundColor: color.fill_body,
+    backgroundColor: COLORS.fill_body,
   },
   info: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: rpx(20),
     paddingRight: rpx(10),
-    backgroundColor: color.color_text_base_inverse,
+    backgroundColor: COLORS.color_text_base_inverse,
   },
   avatar: {
     width: rpx(60),
@@ -142,20 +139,20 @@ const styles = StyleSheet.create({
   },
   idText: {
     fontSize: rpx(13),
-    color: color.lightGray,
+    color: COLORS.lightGray,
   },
   more: {
     width: rpx(20),
   },
   setting: {
     marginTop: rpx(10),
-    backgroundColor: color.color_text_base_inverse,
+    backgroundColor: COLORS.color_text_base_inverse,
   },
   settingItem: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: rpx(15),
-    borderTopColor: color.borderLightColor,
+    borderTopColor: COLORS.borderLightColor,
     borderTopWidth: 1,
   },
   settingFirstItem: {
@@ -172,7 +169,7 @@ const styles = StyleSheet.create({
   },
   settingNameText: {
     fontSize: rpx(14),
-    color: color.lightText,
+    color: COLORS.lightText,
   },
   logout: {
     marginTop: rpx(10),
@@ -181,16 +178,16 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: color.borderLightColor,
+    borderColor: COLORS.borderLightColor,
     borderWidth: 1,
     height: rpx(44),
     lineHeight: rpx(44),
-    backgroundColor: color.color_text_base_inverse,
+    backgroundColor: COLORS.color_text_base_inverse,
     borderRadius: rpx(4),
   },
   buttonText: {
     fontSize: rpx(15),
-    color: color.red,
+    color: COLORS.red,
   },
 });
 

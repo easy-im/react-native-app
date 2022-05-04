@@ -3,7 +3,7 @@ import { Pressable, StatusBar, StyleSheet, Text, TextInput, View, SafeAreaView, 
 import { Portal, Toast } from '@ant-design/react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
-import color from '@/components/library/style';
+import COLORS from '@/core/color';
 import { rpx } from '@/utils/screen';
 import { UserFriendRequest } from '@/types/user';
 import { DealFriendRequest } from '@/service';
@@ -109,7 +109,7 @@ const AddFriend: React.FC<{}> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.fill_body,
+    backgroundColor: COLORS.fill_body,
   },
   headerWrap: {
     flexDirection: 'row',
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   done: {
-    backgroundColor: color.green,
+    backgroundColor: COLORS.green,
     padding: rpx(12),
     paddingTop: rpx(5),
     paddingBottom: rpx(5),
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   },
   doneText: {
     fontSize: rpx(16),
-    color: color.color_text_base_inverse,
+    color: COLORS.color_text_base_inverse,
     lineHeight: rpx(21),
   },
   main: {
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: rpx(18),
-    color: color.color_text_paragraph,
+    color: COLORS.color_text_paragraph,
     textAlign: 'center',
     fontWeight: 'bold',
   },
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     marginTop: rpx(30),
   },
   tipText: {
-    color: color.lightGray,
+    color: COLORS.lightGray,
     fontSize: rpx(14),
   },
   inputWrap: {
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     borderRadius: rpx(4),
     padding: rpx(12),
     paddingBottom: rpx(6),
-    backgroundColor: color.borderColor,
+    backgroundColor: COLORS.borderColor,
   },
   message: {
     flexDirection: 'row',
@@ -170,14 +170,14 @@ const styles = StyleSheet.create({
   },
   messageText: {
     fontSize: rpx(13),
-    color: color.color_text_disabled,
+    color: COLORS.color_text_disabled,
   },
   fill: {
     marginLeft: rpx(8),
   },
   fillText: {
     fontSize: rpx(13),
-    color: color.lightBlue,
+    color: COLORS.lightBlue,
   },
 });
 

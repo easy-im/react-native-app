@@ -11,9 +11,9 @@ import {
   NativeModules,
   Platform,
 } from 'react-native';
-import { rpx } from '@/utils/screen';
-import color from '@/components/library/style';
 import { useNavigation } from '@react-navigation/native';
+import { rpx } from '@/utils/screen';
+import COLORS from '@/core/color';
 import { MODULES } from '@/core/constant';
 
 const { StatusBarManager } = NativeModules;
@@ -83,10 +83,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 2,
     right: rpx(8),
-    backgroundColor: color.color_text_base_inverse,
+    backgroundColor: COLORS.color_text_base_inverse,
     borderRadius: rpx(6),
     borderWidth: 0.5,
-    borderColor: color.borderLightColor,
+    borderColor: COLORS.borderLightColor,
     elevation: 10,
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 0 },
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     padding: rpx(12),
     paddingLeft: 0,
     paddingRight: rpx(40),
-    borderTopColor: color.borderColor,
+    borderTopColor: COLORS.borderColor,
     borderTopWidth: 0.5,
   },
   pressWrap: {
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     marginRight: rpx(15),
   },
   text: {
-    color: color.color_text_paragraph,
+    color: COLORS.color_text_paragraph,
     fontSize: rpx(16),
   },
 });

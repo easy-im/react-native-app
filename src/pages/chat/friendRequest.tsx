@@ -1,9 +1,9 @@
 import React from 'react';
 import { Image, StatusBar, StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import SearchBar from '@/components/ui/SearchBar';
+import SearchBar from '@/components/SearchBar';
 import { rpx } from '@/utils/screen';
-import color from '@/components/library/style';
+import COLORS from '@/core/color';
 import { MODULES } from '@/core/constant';
 import { DealFriendRequest } from '@/service';
 import { Portal, Toast } from '@ant-design/react-native';
@@ -44,7 +44,7 @@ const RequestList: React.FC<{}> = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor={color.fill_body} />
+      <StatusBar barStyle="dark-content" backgroundColor={COLORS.fill_body} />
       <View style={styles.searchWrap}>
         <SearchBar
           placeholder="搜索对方手机号"
@@ -96,7 +96,7 @@ const RequestList: React.FC<{}> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.fill_body,
+    backgroundColor: COLORS.fill_body,
   },
   searchWrap: {
     flexDirection: 'row',
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     marginTop: rpx(15),
     paddingLeft: rpx(15),
     paddingRight: rpx(15),
-    backgroundColor: color.color_text_base_inverse,
+    backgroundColor: COLORS.color_text_base_inverse,
   },
   item: {
     flexDirection: 'row',
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomColor: color.borderLightColor,
+    borderBottomColor: COLORS.borderLightColor,
     borderBottomWidth: 0.5,
     paddingTop: rpx(10),
     paddingBottom: rpx(10),
@@ -143,33 +143,33 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: rpx(16),
-    color: color.color_text_paragraph,
+    color: COLORS.color_text_paragraph,
     fontWeight: '600',
   },
   message: {
     fontSize: rpx(13),
-    color: color.color_text_disabled,
+    color: COLORS.color_text_disabled,
   },
   buttonList: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   refuseButton: {
-    backgroundColor: color.color_text_base_inverse,
+    backgroundColor: COLORS.color_text_base_inverse,
     padding: rpx(10),
     paddingTop: rpx(4),
     paddingBottom: rpx(4),
     borderRadius: rpx(4),
-    borderColor: color.color_text_disabled,
+    borderColor: COLORS.color_text_disabled,
     borderWidth: 0.5,
   },
   refuseButtonText: {
     fontSize: rpx(14),
-    color: color.lightGray,
+    color: COLORS.lightGray,
     lineHeight: rpx(21),
   },
   agreeButton: {
-    backgroundColor: color.green,
+    backgroundColor: COLORS.green,
     padding: rpx(10),
     paddingTop: rpx(4),
     paddingBottom: rpx(4),
@@ -178,12 +178,12 @@ const styles = StyleSheet.create({
   },
   agreeButtonText: {
     fontSize: rpx(14),
-    color: color.color_text_base_inverse,
+    color: COLORS.color_text_base_inverse,
     lineHeight: rpx(21),
   },
   processedText: {
     fontSize: rpx(14),
-    color: color.lightGray,
+    color: COLORS.lightGray,
   },
 });
 
@@ -191,6 +191,6 @@ PageContainer(MODULES.FriendRequest, observer(RequestList), {
   title: '新的朋友',
   headerStyle: {
     height: Platform.OS === 'android' ? 44 : undefined, // ios设置会错乱
-    backgroundColor: color.fill_body,
+    backgroundColor: COLORS.fill_body,
   },
 });

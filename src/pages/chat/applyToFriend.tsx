@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StatusBar, StyleSheet, Text, TextInput, View, SafeAreaView, TouchableOpacity } from 'react-native';
 import { Portal, Toast } from '@ant-design/react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import color from '@/components/library/style';
+import COLORS from '@/core/color';
 import { rpx } from '@/utils/screen';
 import { RequestToBeFriend } from '@/service';
 import { SearchUser } from '@/types/user';
@@ -47,10 +47,10 @@ const ApplyToFriend: React.FC<{}> = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor={color.fill_body} />
+      <StatusBar barStyle="dark-content" backgroundColor={COLORS.fill_body} />
       <View style={styles.headerWrap}>
         <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}>
-          {/* <Icon name="md-chevron-back" size={28} color={color.color_text_paragraph} /> */}
+          {/* <Icon name="md-chevron-back" size={28} color={COLORS.color_text_paragraph} /> */}
         </TouchableOpacity>
         <TouchableOpacity style={styles.send} onPress={() => onAddFriend()}>
           <Text style={styles.sendText}>发送</Text>
@@ -100,7 +100,7 @@ const ApplyToFriend: React.FC<{}> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.fill_body,
+    backgroundColor: COLORS.fill_body,
   },
   headerWrap: {
     flexDirection: 'row',
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   send: {
-    backgroundColor: color.green,
+    backgroundColor: COLORS.green,
     padding: rpx(12),
     paddingTop: rpx(5),
     paddingBottom: rpx(5),
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   },
   sendText: {
     fontSize: rpx(16),
-    color: color.color_text_base_inverse,
+    color: COLORS.color_text_base_inverse,
     lineHeight: rpx(21),
   },
   main: {
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   title: {},
   titleText: {
     fontSize: rpx(18),
-    color: color.color_text_paragraph,
+    color: COLORS.color_text_paragraph,
     textAlign: 'center',
     fontWeight: 'bold',
   },
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   },
   tip: {},
   tipText: {
-    color: color.lightGray,
+    color: COLORS.lightGray,
     fontSize: rpx(14),
   },
   inputWrap: {
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
     borderRadius: rpx(4),
     padding: rpx(12),
-    backgroundColor: color.borderColor,
+    backgroundColor: COLORS.borderColor,
   },
 });
 

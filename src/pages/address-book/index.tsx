@@ -13,7 +13,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import Header from '@/components/Header';
-import COLORS from '@/core/color';
+import color from '@/components/library/style';
 import store from '@/store';
 import { Friend } from '@/types/user';
 import { MODULES } from '@/core/constant';
@@ -108,17 +108,17 @@ const AddressBook: React.FC<{}> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.color_text_base_inverse,
+    backgroundColor: color.color_text_base_inverse,
   },
   main: {
     flex: 1,
-    backgroundColor: COLORS.fill_body,
+    backgroundColor: color.fill_body,
   },
   card: {
-    backgroundColor: COLORS.color_text_base_inverse,
-    borderTopColor: COLORS.borderLightColor,
+    backgroundColor: color.color_text_base_inverse,
+    borderTopColor: color.borderLightColor,
     borderTopWidth: 1,
-    borderBottomColor: COLORS.borderLightColor,
+    borderBottomColor: color.borderLightColor,
     borderBottomWidth: 1,
   },
   groups: {
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     padding: 12,
     paddingLeft: 15,
     paddingRight: 15,
-    borderTopColor: COLORS.borderLightColor,
+    borderTopColor: color.borderLightColor,
     borderTopWidth: 1,
   },
   wrap: {
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   count: {
-    backgroundColor: COLORS.red,
+    backgroundColor: color.red,
     height: rpx(18),
     paddingLeft: rpx(6),
     paddingRight: rpx(6),
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   countText: {
     fontSize: rpx(11),
     lineHeight: rpx(11),
-    color: COLORS.color_text_base_inverse,
+    color: color.color_text_base_inverse,
   },
   groupText: {
     fontSize: 16,
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    borderTopColor: COLORS.borderLightColor,
+    borderTopColor: color.borderLightColor,
     borderTopWidth: 1,
     height: '100%',
     paddingRight: 15,

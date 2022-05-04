@@ -1,6 +1,6 @@
 const brandPrimary = '#108ee9';
 const brandPrimaryTap = '#1284d6';
-export default {
+const COLORS = {
   red: '#C60',
   green: '#3C6',
   lightGray: '#666',
@@ -146,3 +146,5 @@ export default {
   popup_zindex: 999,
   modal_zindex: 999,
 };
+
+export default COLORS;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Image } from 'react-native';
 import { Route } from '@react-navigation/native';
 
-import Colors from '@/components/library/style';
+import COLORS from '@/core/color';
 import { MODULES } from '@/core/constant';
 
 import AddressBook from '@/pages/tabbar/addressBook';
@@ -68,8 +68,8 @@ const tabBar = {
     },
   }),
   tabBarOptions: {
-    activeTintColor: Colors.lightBlue,
-    inactiveTintColor: Colors.lightGray,
+    activeTintColor: COLORS.lightBlue,
+    inactiveTintColor: COLORS.lightGray,
     labelStyle: { marginBottom: 4 },
   },
 };

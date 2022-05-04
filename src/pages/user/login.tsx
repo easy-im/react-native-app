@@ -16,7 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Button } from '@ant-design/react-native';
 import { observer } from 'mobx-react-lite';
 import { Toast } from 'react-native-ui-view';
-import color from '@/components/library/style';
+import COLORS from '@/core/color';
 import { isPhoneNumber } from '@/utils';
 
 import { MODULES } from '@/core/constant';
@@ -57,7 +57,7 @@ const Login: React.FC<{}> = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.select({ ios: 'padding', android: 'height' })}>
-      <StatusBar barStyle="dark-content" backgroundColor={color.color_text_base_inverse} />
+      <StatusBar barStyle="dark-content" backgroundColor={COLORS.color_text_base_inverse} />
       <ScrollView style={styles.main} keyboardShouldPersistTaps="always" showsVerticalScrollIndicator={false}>
         <View style={styles.logo}>
           <Image source={require('@/assets/images/logo.png')} style={styles.image} />
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: rpx(40),
     paddingRight: rpx(40),
-    backgroundColor: color.color_text_base_inverse,
+    backgroundColor: COLORS.color_text_base_inverse,
   },
   logo: {
     marginTop: rpx(100),
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     width: rpx(60),
     height: rpx(60),
     borderWidth: 0.5,
-    borderColor: color.borderColor,
+    borderColor: COLORS.borderColor,
     borderRadius: rpx(30),
   },
   welcome: {
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     fontSize: rpx(20),
-    color: color.color_text_paragraph,
+    color: COLORS.color_text_paragraph,
   },
   form: {
     marginTop: rpx(25),
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   },
   inputWrap: {
     height: rpx(44),
-    borderBottomColor: color.borderColor,
+    borderBottomColor: COLORS.borderColor,
     borderBottomWidth: 0.5,
   },
   input: {
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   helpText: {
-    color: color.lightGray,
+    color: COLORS.lightGray,
     fontSize: rpx(13),
   },
 });

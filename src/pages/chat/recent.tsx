@@ -14,7 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import SearchBar from '@/components/SearchBar';
 import Header from '@/components/Header';
-import COLORS from '@/core/color';
+import color from '@/components/library/style';
 import { formatTime } from '@/utils';
 import { Friend } from '@/types/user';
 import { MODULES } from '@/core/constant';
@@ -128,7 +128,7 @@ const Recent: React.FC<{}> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.color_text_base_inverse,
+    backgroundColor: color.color_text_base_inverse,
   },
   main: {
     padding: rpx(15),
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: rpx(-9),
     right: rpx(-9),
-    backgroundColor: COLORS.red,
+    backgroundColor: color.red,
     paddingTop: rpx(3),
     paddingBottom: rpx(2),
     paddingLeft: rpx(6),
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   badgeText: {
     fontSize: rpx(11),
     lineHeight: rpx(11),
-    color: COLORS.color_text_base_inverse,
+    color: color.color_text_base_inverse,
   },
   avatarImage: {
     width: '100%',
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderBottomColor: COLORS.borderLightColor,
+    borderBottomColor: color.borderLightColor,
     borderBottomWidth: 0.5,
     paddingTop: rpx(10),
     paddingBottom: rpx(10),
@@ -185,15 +185,15 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: rpx(16),
-    color: COLORS.color_text_paragraph,
+    color: color.color_text_paragraph,
     fontWeight: '600',
   },
   message: {
     fontSize: rpx(13),
-    color: COLORS.color_text_disabled,
+    color: color.color_text_disabled,
   },
   time: {
-    color: COLORS.color_text_disabled,
+    color: color.color_text_disabled,
     marginLeft: rpx(13),
   },
 });
