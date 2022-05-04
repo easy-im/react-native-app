@@ -1,128 +1,68 @@
 import React from 'react';
-import { Route } from '@react-navigation/native';
-import { TransitionPresets } from '@react-navigation/stack';
-import { Platform } from 'react-native';
-import TabIcon from './TabIcon';
-import MODULES from './MODULES';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator, StackNavigationOptions, TransitionPresets } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Colors from '@/components/library/style';
-import AddressBook from '@/pages/address-book';
-import Recent from '@/pages/chat/recent';
-import Chat from '@/pages/chat/chat';
-import Search from '@/pages/chat/search';
-import FriendRequest from '@/pages/chat/friendRequest';
-import Login from '@/pages/user/login';
-import Register from '@/pages/user/register';
-import Profile from '@/pages/user/profile';
-import ApplyToFriend from '@/pages/chat/applyToFriend';
-import AddFriend from '@/pages/chat/addFriend';
+import tabbar from '@/router/tabbar';
 
-export default {
-  tabBar: {
-    list: [
-      {
-        name: MODULES.Recent,
-        component: Recent,
-        options: {
-          tabBarLabel: '消息',
-        },
-      },
-      {
-        name: MODULES.AddressBook,
-        component: AddressBook,
-        options: {
-          tabBarLabel: '通讯录',
-        },
-      },
-      {
-        name: MODULES.Profile,
-        component: Profile,
-        options: {
-          tabBarLabel: '我',
-        },
-      },
-    ],
-    screenOptions: ({ route }: { route: Route<string, object | undefined> }) => ({
-      tabBarIcon: (props: { focused: boolean; color: string; size: number }) => {
-        const { focused, color, size } = props;
-        return <TabIcon route={route} focused={focused} color={color} size={size} />;
-      },
-    }),
-    tabBarOptions: {
-      activeTintColor: Colors.lightBlue,
-      inactiveTintColor: Colors.lightGray,
-      labelStyle: { marginBottom: 4 },
-    },
-  },
-  pages: {
-    list: [
-      {
-        name: MODULES.Login,
-        component: Login,
-        options: {
-          headerShown: false,
-        },
-      },
-      {
-        name: MODULES.Register,
-        component: Register,
-        options: {
-          headerShown: false,
-        },
-      },
-      {
-        name: MODULES.Chat,
-        component: Chat,
-        options: {
-          title: '对话',
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+const PAGE_LIST: { pageName: string; component: React.ComponentType<any>; options?: StackNavigationOptions }[] = [];
+
+export const PageContainer = (
+  pageName: string,
+  component: React.ComponentType<any>,
+  options?: StackNavigationOptions,
+) => {
+  if (!PAGE_LIST.find((item) => item.pageName === pageName)) {
+    PAGE_LIST.push({
+      pageName,
+      component,
+      options,
+    });
+  }
+};
+
+export const Router: React.FC<{ initialRouteName: string }> = ({ initialRouteName }) => {
+  const TabScreen = () => {
+    const { screenOptions, tabBarOptions, list } = tabbar;
+    return (
+      <Tab.Navigator screenOptions={screenOptions} tabBarOptions={tabBarOptions}>
+        {list.map((item, index) => {
+          return <Tab.Screen key={index} name={item.name} component={item.component} options={item.options} />;
+        })}
+      </Tab.Navigator>
+    );
+  };
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
           headerStyle: {
-            height: Platform.OS === 'android' ? 44 : undefined, // ios设置会错乱
+            height: 44,
             backgroundColor: Colors.fill_base,
           },
-        },
-      },
-      {
-        name: MODULES.Search,
-        component: Search,
-        options: {
-          title: '添加好友',
-          headerShown: false,
-        },
-      },
-      {
-        name: MODULES.ApplyToFriend,
-        component: ApplyToFriend,
-        options: {
-          title: '好友申请',
-          headerShown: false,
-        },
-      },
-      {
-        name: MODULES.FriendRequest,
-        component: FriendRequest,
-        options: {
-          title: '新的朋友',
-          headerStyle: {
-            height: Platform.OS === 'android' ? 44 : undefined, // ios设置会错乱
-            backgroundColor: Colors.fill_body,
-          },
-        },
-      },
-      {
-        name: MODULES.AddFriend,
-        component: AddFriend,
-        options: {
-          title: '通过验证',
-          headerShown: false,
-        },
-      },
-    ],
-    screenOptions: {
-      headerStyle: {
-        height: 44,
-        backgroundColor: Colors.fill_base,
-      },
-      gestureEnabled: true,
-      ...TransitionPresets.SlideFromRightIOS,
-    },
-  },
+          gestureEnabled: true,
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+        initialRouteName={initialRouteName}
+      >
+        <Stack.Screen
+          name="TabNav"
+          component={TabScreen}
+          options={{
+            headerShown: false,
+            title: '消息',
+          }}
+        />
+        {PAGE_LIST.map((item) => {
+          return (
+            <Stack.Screen name={item.pageName} component={item.component} options={item.options} key={item.pageName} />
+          );
+        })}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 };

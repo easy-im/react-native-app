@@ -19,10 +19,11 @@ import { Toast } from 'react-native-ui-view';
 import color from '@/components/library/style';
 import { isPhoneNumber } from '@/utils';
 
-import MODULES from '@/router/MODULES';
+import { MODULES } from '@/core/constant';
 import { rpx } from '@/utils/screen';
 import store from '@/store';
 import config from '@/config';
+import { PageContainer } from '@/router';
 
 const Login: React.FC<{}> = () => {
   const [mobile, setMobile] = useState('');
@@ -178,4 +179,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default observer(Login);
+PageContainer(MODULES.Login, observer(Login), {
+  headerShown: false,
+});

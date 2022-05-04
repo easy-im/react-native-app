@@ -1,1 +1,0 @@
-export const CURRENT_USER_KEY = '@STORAGE/CURRENT_USER';

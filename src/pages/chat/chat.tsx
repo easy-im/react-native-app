@@ -1,12 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, Image, StyleSheet, StatusBar, TextInput, Keyboard, KeyboardEvent, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  StatusBar,
+  TextInput,
+  Keyboard,
+  KeyboardEvent,
+  ScrollView,
+  Platform,
+} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import color from '@/components/library/style';
 import { rpx } from '@/utils/screen';
 import Chat from '@/socket/chat';
 import store from '@/store';
-import { UserInfo } from '@/types/interface/user';
+import { UserInfo } from '@/types/user';
 import { observer } from 'mobx-react-lite';
+import { PageContainer } from '@/router';
+import { MODULES } from '@/core/constant';
 
 const ChatPage: React.FC<{}> = () => {
   const $scroll = useRef<ScrollView | null>(null);
@@ -320,4 +333,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default observer(ChatPage);
+PageContainer(MODULES.Chat, observer(ChatPage), {
+  title: '对话',
+  headerStyle: {
+    height: Platform.OS === 'android' ? 44 : undefined, // ios设置会错乱
+    backgroundColor: color.fill_base,
+  },
+});

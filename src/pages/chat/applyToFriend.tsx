@@ -5,9 +5,11 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import color from '@/components/library/style';
 import { rpx } from '@/utils/screen';
 import { RequestToBeFriend } from '@/service';
-import { SearchUser } from '@/types/interface/user';
+import { SearchUser } from '@/types/user';
 import { observer } from 'mobx-react-lite';
 import store from '@/store';
+import { MODULES } from '@/core/constant';
+import { PageContainer } from '@/router';
 
 const ApplyToFriend: React.FC<{}> = () => {
   const [message, setMessage] = useState('');
@@ -160,4 +162,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default observer(ApplyToFriend);
+PageContainer(MODULES.ApplyToFriend, observer(ApplyToFriend), {
+  title: '好友申请',
+  headerShown: false,
+});

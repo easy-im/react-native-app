@@ -2,11 +2,11 @@ import { io, Socket } from 'socket.io-client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import md5 from 'md5';
 import config from '@/config';
-import { ENUM_MESSAGE_CONTENT_TYPE, ENUM_MESSAGE_DIST_TYPE, ENUM_SOCKET_MESSAGE_TYPE } from '@/types/enum/message';
-import { CHAT_MESSAGE, RESPONSE_MESSAGE, SOCKET_RESPONSE } from '@/types/interface/response';
-import { Friend, UserInfo } from '@/types/interface/user';
-import { Message, MessageRecord } from '@/types/interface/entity';
-import { CURRENT_USER_KEY } from '@/constant';
+import { ENUM_MESSAGE_CONTENT_TYPE, ENUM_MESSAGE_DIST_TYPE, ENUM_SOCKET_MESSAGE_TYPE } from '@/core/enum';
+import { CHAT_MESSAGE, RESPONSE_MESSAGE, SOCKET_RESPONSE } from '@/types/response';
+import { Friend, UserInfo } from '@/types/user';
+import { Message, MessageRecord } from '@/types/entity';
+import { CURRENT_USER_KEY } from '@/core/constant';
 import store from '@/store';
 
 const { ws } = config;

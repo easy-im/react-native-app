@@ -1,10 +1,10 @@
 import { action, makeObservable, observable, runInAction } from 'mobx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Friend, UserInfo, UserFriendRequest } from '@/types/interface/user';
-import { CURRENT_USER_KEY } from '@/constant';
+import { Friend, UserInfo, UserFriendRequest } from '@/types/user';
+import { CURRENT_USER_KEY } from '@/core/constant';
 import { GetUserFriend, GetUserFriendRequest, GetUserInfo, UserLogout, UserLogin } from '@/service';
 import messageStore from './message';
-import { FriendInfo } from '@/types/interface/user';
+import { FriendInfo } from '@/types/user';
 
 class User {
   @observable userInfo?: UserInfo;

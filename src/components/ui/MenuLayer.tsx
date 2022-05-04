@@ -14,7 +14,7 @@ import {
 import { rpx } from '@/utils/screen';
 import color from '@/components/library/style';
 import { useNavigation } from '@react-navigation/native';
-import MODULES from '@/router/MODULES';
+import { MODULES } from '@/core/constant';
 
 const { StatusBarManager } = NativeModules;
 interface Props {

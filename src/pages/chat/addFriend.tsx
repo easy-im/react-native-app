@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Pressable, StatusBar, StyleSheet, Text, TextInput, View, SafeAreaView, TouchableOpacity } from 'react-native';
 import { Portal, Toast } from '@ant-design/react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { observer } from 'mobx-react-lite';
 import color from '@/components/library/style';
 import { rpx } from '@/utils/screen';
-import { UserFriendRequest } from '@/types/interface/user';
+import { UserFriendRequest } from '@/types/user';
 import { DealFriendRequest } from '@/service';
-import MODULES from '@/router/MODULES';
-import { observer } from 'mobx-react-lite';
+import { MODULES } from '@/core/constant';
 import store from '@/store';
+import { PageContainer } from '@/router';
 
 const AddFriend: React.FC<{}> = () => {
   const [remark, setRemark] = useState('');
@@ -180,4 +181,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default observer(AddFriend);
+PageContainer(MODULES.AddFriend, observer(AddFriend), {
+  title: '通过验证',
+  headerShown: false,
+});

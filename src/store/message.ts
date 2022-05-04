@@ -1,6 +1,6 @@
-import { MessageRecord } from '@/types/interface/entity';
-import { GetUserUnreadMessage, UpdateRemoteMessageStatus } from '@/service';
 import { action, makeObservable, observable, runInAction } from 'mobx';
+import { MessageRecord } from '@/types/entity';
+import { GetUserUnreadMessage, UpdateRemoteMessageStatus } from '@/service';
 import userStore from './user';
 
 const USER_CHAT_MESSAGE_LIMIT = 50;

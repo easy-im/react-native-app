@@ -15,8 +15,8 @@ import { observer } from 'mobx-react-lite';
 import Header from '@/components/ui/Header';
 import color from '@/components/library/style';
 import store from '@/store';
-import { Friend } from '@/types/interface/user';
-import MODULES from '@/router/MODULES';
+import { Friend } from '@/types/user';
+import { MODULES } from '@/core/constant';
 import { rpx } from '@/utils/screen';
 
 const AddressBook: React.FC<{}> = () => {

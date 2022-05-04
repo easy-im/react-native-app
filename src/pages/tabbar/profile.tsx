@@ -6,7 +6,7 @@ import color from '@/components/library/style';
 import Modal from '@/components/library/modal/modal';
 import { rpx } from '@/utils/screen';
 import { useNavigation } from '@react-navigation/native';
-import MODULES from '@/router/MODULES';
+import { MODULES } from '@/core/constant';
 import store from '@/store';
 
 const Profile: React.FC<{}> = () => {

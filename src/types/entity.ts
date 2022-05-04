@@ -1,4 +1,4 @@
-import { ENUM_MESSAGE_CONTENT_TYPE, ENUM_MESSAGE_DIST_TYPE } from '../enum/message';
+import { ENUM_MESSAGE_CONTENT_TYPE, ENUM_MESSAGE_DIST_TYPE } from '@/core/enum';
 
 // 与后端一致
 export interface Message {

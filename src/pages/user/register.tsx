@@ -14,12 +14,13 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { Button, Portal, Toast } from '@ant-design/react-native';
 import color from '@/components/library/style';
-import MODULES from '@/router/MODULES';
+import { MODULES } from '@/core/constant';
 import { isPhoneNumber } from '@/utils';
 import { UserRegister } from '@/service';
 import { rpx } from '@/utils/screen';
 import config from '@/config';
 import { observer } from 'mobx-react-lite';
+import { PageContainer } from '@/router';
 
 const Register: React.FC<{}> = () => {
   const [mobile, setMobile] = useState('');
@@ -207,4 +208,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default observer(Register);
+PageContainer(MODULES.Register, observer(Register), {
+  headerShown: false,
+});

@@ -1,15 +1,16 @@
 import React from 'react';
-import { Image, StatusBar, StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
+import { Image, StatusBar, StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import SearchBar from '@/components/ui/SearchBar';
 import { rpx } from '@/utils/screen';
 import color from '@/components/library/style';
-import MODULES from '@/router/MODULES';
+import { MODULES } from '@/core/constant';
 import { DealFriendRequest } from '@/service';
 import { Portal, Toast } from '@ant-design/react-native';
-import { UserFriendRequest } from '@/types/interface/user';
+import { UserFriendRequest } from '@/types/user';
 import { observer } from 'mobx-react-lite';
 import store from '@/store';
+import { PageContainer } from '@/router';
 
 const RequestList: React.FC<{}> = () => {
   const navigation = useNavigation();
@@ -186,4 +187,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default observer(RequestList);
+PageContainer(MODULES.FriendRequest, observer(RequestList), {
+  title: '新的朋友',
+  headerStyle: {
+    height: Platform.OS === 'android' ? 44 : undefined, // ios设置会错乱
+    backgroundColor: color.fill_body,
+  },
+});

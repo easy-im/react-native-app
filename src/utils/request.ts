@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { CURRENT_USER_KEY } from '@/constant';
+import { CURRENT_USER_KEY } from '@/core/constant';
 import config from '../config';
 
 // const codeMessage = {

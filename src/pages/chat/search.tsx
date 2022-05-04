@@ -6,10 +6,11 @@ import SearchBar from '@/components/ui/SearchBar';
 import { useNavigation } from '@react-navigation/native';
 import { isPhoneNumber } from '@/utils';
 import { UserSearch } from '@/service';
-import MODULES from '@/router/MODULES';
-import { SearchUser } from '@/types/interface/user';
+import { MODULES } from '@/core/constant';
+import { SearchUser } from '@/types/user';
 import { observer } from 'mobx-react-lite';
-import { Toast } from 'react-native-ui-view';
+import { Icon, Toast } from 'react-native-ui-view';
+import { PageContainer } from '@/router';
 
 const Search: React.FC<{}> = () => {
   const [userData, setUserData] = useState<SearchUser | null | undefined>(undefined);
@@ -39,7 +40,7 @@ const Search: React.FC<{}> = () => {
       <StatusBar barStyle="dark-content" backgroundColor={color.fill_body} />
       <View style={styles.searchWrap}>
         <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}>
-          {/* <Icon name="md-chevron-back" size={28} color={color.color_text_paragraph} /> */}
+          <Icon name="arrow-left" size={28} color={color.color_text_paragraph} />
         </TouchableOpacity>
         <SearchBar
           placeholder="请搜索对方手机号"
@@ -157,4 +158,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default observer(Search);
+PageContainer(MODULES.Search, observer(Search), {
+  title: '添加好友',
+  headerShown: false,
+});
