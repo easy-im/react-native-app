@@ -24,6 +24,27 @@ const AddressBook: React.FC<{}> = () => {
   const { userStore } = store;
   const { friendMap, friendList, userFriendRequestCount } = userStore;
 
+  const entryList = [
+    {
+      image: require('@/assets/images/icon/apply.png'),
+      title: '好友申请',
+      renderRight: () => (
+        <>
+          {userFriendRequestCount > 0 && (
+            <View style={styles.count}>
+              <Text style={styles.countText}>{userFriendRequestCount}</Text>
+            </View>
+          )}
+        </>
+      ),
+      onPress: () => navigation.navigate(MODULES.FriendRequest),
+    },
+    {
+      image: require('@/assets/images/icon/group.png'),
+      title: '我的群组',
+    },
+  ];
+
   useEffect(() => {
     navigation.setOptions({
       tabBarBadge: userFriendRequestCount <= 0 ? undefined : userFriendRequestCount,
@@ -42,34 +63,25 @@ const AddressBook: React.FC<{}> = () => {
         <Header title="通讯录" />
         <View>
           <View style={[styles.card, styles.groups]}>
-            <TouchableOpacity
-              style={[styles.groupItem, styles.apply]}
-              onPress={() => navigation.navigate(MODULES.FriendRequest)}
-            >
-              <View style={styles.wrap}>
-                <View style={styles.image}>
-                  <Image source={require('@/assets/images/icon/apply.png')} style={styles.icon} />
-                </View>
-                <View>
-                  <Text style={styles.groupText}>好友申请</Text>
-                </View>
-              </View>
-              {userFriendRequestCount > 0 && (
-                <View style={styles.count}>
-                  <Text style={styles.countText}>{userFriendRequestCount}</Text>
-                </View>
-              )}
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.groupItem]}>
-              <View style={styles.wrap}>
-                <View style={[styles.image, styles.groupImage]}>
-                  <Image source={require('@/assets/images/icon/group.png')} style={styles.icon} />
-                </View>
-                <View>
-                  <Text style={styles.groupText}>我的群组</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
+            {entryList.map((item, index) => {
+              return (
+                <TouchableOpacity
+                  style={[styles.groupItem, index === 0 && styles.nonTopBorder]}
+                  onPress={item.onPress}
+                  key={index}
+                >
+                  <View style={styles.wrap}>
+                    <View style={styles.image}>
+                      <Image source={item.image} style={styles.icon} />
+                    </View>
+                    <View>
+                      <Text style={styles.groupText}>{item.title}</Text>
+                    </View>
+                  </View>
+                  {item.renderRight && item.renderRight()}
+                </TouchableOpacity>
+              );
+            })}
           </View>
           <View>
             {friendList.map((item) => {
@@ -127,9 +139,9 @@ const styles = StyleSheet.create({
   groupItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 12,
-    paddingLeft: 15,
-    paddingRight: 15,
+    padding: rpx(12),
+    paddingLeft: rpx(15),
+    paddingRight: rpx(15),
     borderTopColor: COLORS.borderLightColor,
     borderTopWidth: 1,
   },
@@ -138,15 +150,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  apply: {
+  nonTopBorder: {
     borderTopWidth: 0,
   },
   image: {
-    width: 24,
-    height: 24,
-    marginRight: 15,
+    width: rpx(24),
+    height: rpx(24),
+    marginRight: rpx(15),
     backgroundColor: '#ecbe45',
-    padding: 5,
+    padding: rpx(5),
   },
   groupImage: {
     backgroundColor: '#27e2e2',
@@ -170,18 +182,18 @@ const styles = StyleSheet.create({
     color: COLORS.color_text_base_inverse,
   },
   groupText: {
-    fontSize: 16,
-    lineHeight: 22,
+    fontSize: rpx(16),
+    lineHeight: rpx(22),
   },
   key: {
-    height: 40,
+    height: rpx(40),
     justifyContent: 'center',
-    paddingLeft: 15,
+    paddingLeft: rpx(15),
   },
   listItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 15,
+    paddingLeft: rpx(15),
   },
   userName: {
     flex: 1,
@@ -190,23 +202,23 @@ const styles = StyleSheet.create({
     borderTopColor: COLORS.borderLightColor,
     borderTopWidth: 1,
     height: '100%',
-    paddingRight: 15,
+    paddingRight: rpx(15),
   },
   userNameText: {
-    fontSize: 15,
+    fontSize: rpx(15),
   },
   firstUserName: {
     borderTopWidth: 0,
   },
   avatar: {
-    paddingTop: 8,
-    paddingBottom: 8,
-    marginRight: 12,
+    paddingTop: rpx(8),
+    paddingBottom: rpx(8),
+    marginRight: rpx(12),
   },
   avatarImage: {
-    width: 42,
-    height: 42,
-    borderRadius: 4,
+    width: rpx(42),
+    height: rpx(42),
+    borderRadius: rpx(4),
   },
 });
 

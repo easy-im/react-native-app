@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBar, StyleSheet, Text, TextInput, View, SafeAreaView, TouchableOpacity } from 'react-native';
-import { Portal, Toast } from '@ant-design/react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { Toast } from 'react-native-ui-view';
+import { observer } from 'mobx-react-lite';
 import COLORS from '@/core/color';
 import { rpx } from '@/utils/screen';
 import { RequestToBeFriend } from '@/service';
 import { SearchUser } from '@/types/user';
-import { observer } from 'mobx-react-lite';
 import store from '@/store';
 import { MODULES } from '@/core/constant';
 import { PageContainer } from '@/router';
@@ -31,16 +31,16 @@ const ApplyToFriend: React.FC<{}> = () => {
 
   const onAddFriend = async () => {
     if (userData.status === 0) {
-      const key = Toast.loading('正在发送请求');
+      const key = await Toast.loading('正在发送请求');
       const res = await RequestToBeFriend({ fid: userData.id, remark, message });
-      Portal.remove(key);
+      Toast.hideLoading(key);
       if (res && res.errno === 200) {
-        Toast.success('请求已发送', 1);
+        Toast.success('请求已发送', 1000);
         setTimeout(() => {
           navigation.goBack();
         }, 1000);
       } else {
-        Toast.fail(res?.errmsg || '网络错误', 1);
+        Toast.fail(res?.errmsg || '网络错误', 1000);
       }
     }
   };

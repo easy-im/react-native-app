@@ -12,12 +12,12 @@ import {
   Platform,
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { observer } from 'mobx-react-lite';
 import COLORS from '@/core/color';
 import { rpx } from '@/utils/screen';
 import Chat from '@/socket/chat';
 import store from '@/store';
 import { UserInfo } from '@/types/user';
-import { observer } from 'mobx-react-lite';
 import { PageContainer } from '@/router';
 import { MODULES } from '@/core/constant';
 

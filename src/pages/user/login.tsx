@@ -13,11 +13,11 @@ import {
   Keyboard,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Button } from '@ant-design/react-native';
 import { observer } from 'mobx-react-lite';
-import { Toast } from 'react-native-ui-view';
+import { Toast, Button } from 'react-native-ui-view';
 import COLORS from '@/core/color';
 import { isPhoneNumber } from '@/utils';
+import Socket from '@/socket/chat';
 
 import { MODULES } from '@/core/constant';
 import { rpx } from '@/utils/screen';
@@ -41,6 +41,8 @@ const Login: React.FC<{}> = () => {
       Toast.info(res.errmsg);
       return;
     }
+    // 登陆成功链接ws
+    await Socket.setup();
     navigation.reset({
       index: 0,
       routes: [

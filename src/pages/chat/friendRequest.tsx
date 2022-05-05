@@ -1,16 +1,16 @@
 import React from 'react';
 import { Image, StatusBar, StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { observer } from 'mobx-react-lite';
 import SearchBar from '@/components/SearchBar';
 import { rpx } from '@/utils/screen';
 import COLORS from '@/core/color';
 import { MODULES } from '@/core/constant';
 import { DealFriendRequest } from '@/service';
-import { Portal, Toast } from '@ant-design/react-native';
 import { UserFriendRequest } from '@/types/user';
-import { observer } from 'mobx-react-lite';
 import store from '@/store';
 import { PageContainer } from '@/router';
+import { Toast } from 'react-native-ui-view';
 
 const RequestList: React.FC<{}> = () => {
   const navigation = useNavigation();
@@ -21,7 +21,7 @@ const RequestList: React.FC<{}> = () => {
     if (agree) {
       navigation.navigate(MODULES.AddFriend, { userData: record });
     } else {
-      const key = Toast.loading('正在处理');
+      const key = await Toast.loading('正在处理');
       const res = await DealFriendRequest(record.id, agree);
       if (res && res.errno === 200) {
         await userStore.setUserFriendRequest(
@@ -33,11 +33,11 @@ const RequestList: React.FC<{}> = () => {
           }),
         );
         await userStore.setUserFriendRequestCount(userFriendRequestCount - 1);
-        Portal.remove(key);
-        Toast.success('已回绝', 1);
+        Toast.hideLoading(key);
+        Toast.success('已回绝', 1000);
       } else {
-        Portal.remove(key);
-        Toast.fail(res?.errmsg || '网络错误', 1);
+        Toast.hideLoading(key);
+        Toast.fail(res?.errmsg || '网络错误', 1000);
       }
     }
   };

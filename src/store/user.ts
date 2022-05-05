@@ -133,7 +133,7 @@ class User {
 
   // 好友请求
   @action
-  async initUserFriendRequest() {
+  async getUserFriendRequest() {
     const res = await GetUserFriendRequest();
     if (res && res.errno === 200) {
       let userFriendRequestCount = 0;

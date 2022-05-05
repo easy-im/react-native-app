@@ -15,7 +15,7 @@ const Profile: React.FC<{}> = () => {
 
   const { userInfo } = userStore;
 
-  const setting = [
+  const entryList = [
     {
       name: '钱包',
       url: require('@/assets/images/wallet.png'),
@@ -72,7 +72,7 @@ const Profile: React.FC<{}> = () => {
         </View> */}
         </View>
         <View style={styles.setting}>
-          {setting.map((item, index) => {
+          {entryList.map((item, index) => {
             return (
               <View style={[styles.settingItem, index === 0 && styles.settingFirstItem]} key={index}>
                 <Image source={item.url} style={styles.settingImage} />

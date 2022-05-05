@@ -19,7 +19,6 @@ import { formatTime } from '@/utils';
 import { Friend } from '@/types/user';
 import { MODULES } from '@/core/constant';
 import { rpx } from '@/utils/screen';
-import Socket from '@/socket/chat';
 import store from '@/store';
 import config from '@/config';
 
@@ -46,13 +45,12 @@ const Recent: React.FC<{}> = () => {
 
   const init = async () => {
     setLoading(true);
-    await Socket.setup();
     await refresh();
     setLoading(false);
   };
 
   const refresh = async () => {
-    await userStore.initUserFriendRequest();
+    await userStore.getUserFriendRequest();
     await userStore.getUserFriendList();
     await messageStore.getUnreadMessage();
   };
@@ -181,7 +179,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   contentText: {
-    lineHeight: 22,
+    lineHeight: rpx(22),
   },
   userName: {
     fontSize: rpx(16),

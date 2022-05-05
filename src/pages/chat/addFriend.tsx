@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Pressable, StatusBar, StyleSheet, Text, TextInput, View, SafeAreaView, TouchableOpacity } from 'react-native';
-import { Portal, Toast } from '@ant-design/react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import COLORS from '@/core/color';
@@ -10,6 +9,7 @@ import { DealFriendRequest } from '@/service';
 import { MODULES } from '@/core/constant';
 import store from '@/store';
 import { PageContainer } from '@/router';
+import { Toast } from 'react-native-ui-view';
 
 const AddFriend: React.FC<{}> = () => {
   const [remark, setRemark] = useState('');
@@ -28,7 +28,7 @@ const AddFriend: React.FC<{}> = () => {
   }, [userData]);
 
   const onAddFriend = async () => {
-    const key = Toast.loading('正在处理');
+    const key = await Toast.loading('正在处理');
 
     const res = await DealFriendRequest(userData.id, true, remark);
     if (res && res.errno === 200) {
@@ -43,8 +43,8 @@ const AddFriend: React.FC<{}> = () => {
       await userStore.setUserFriendRequestCount(userFriendRequestCount - 1);
       await userStore.getUserFriendList();
 
-      Portal.remove(key);
-      Toast.success('已添加', 1);
+      Toast.hideLoading(key);
+      Toast.success('已添加', 1000);
       setTimeout(() => {
         navigation.reset({
           index: 1,
@@ -60,14 +60,14 @@ const AddFriend: React.FC<{}> = () => {
         });
       }, 1000);
     } else {
-      Portal.remove(key);
-      Toast.fail(res?.errmsg || '网络错误', 1);
+      Toast.hideLoading(key);
+      Toast.fail(res?.errmsg || '网络错误', 1000);
     }
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor={color.fill_body} />
+      <StatusBar barStyle="dark-content" backgroundColor={COLORS.fill_body} />
       <View style={styles.headerWrap}>
         <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}>
           {/* <Icon name="md-chevron-back" size={28} color={color.color_text_paragraph} /> */}

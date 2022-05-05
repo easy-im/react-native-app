@@ -21,9 +21,9 @@ const configMap = {
 
 const defaults = {
   appName: 'KitIM',
-  baseUrl: 'http://192.168.0.102:8360/api',
+  baseUrl: 'http://10.12.165.50:8360/api',
   ws: {
-    host: 'http://192.168.0.102:8360',
+    host: 'http://10.12.165.50:8360',
     namespace: 'chat',
   },
 };

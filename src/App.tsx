@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Portal } from 'react-native-ui-view';
 import { Router } from '@/router';
 import store from '@/store';
+import Socket from '@/socket/chat';
 
 import '@/pages/user/login';
 import '@/pages/user/register';
@@ -18,8 +19,13 @@ export default function App() {
 
   useEffect(() => {
     (async () => {
+      setLoaded(false);
       const { success } = await userStore.autoLogin();
       setIsLoggedIn(success);
+      if (success) {
+        // 登陆成功链接ws
+        await Socket.setup();
+      }
       setLoaded(true);
     })();
   }, [userStore]);

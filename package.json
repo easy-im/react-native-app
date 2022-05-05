@@ -13,8 +13,6 @@
     "android:bundle": "cd android && ./gradlew bundleRelease"
   },
   "dependencies": {
-    "@ant-design/icons-react-native": "^2.2.1",
-    "@ant-design/react-native": "^4.0.6",
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/plugin-proposal-decorators": "^7.17.9",
     "@babel/plugin-transform-flow-strip-types": "^7.16.7",

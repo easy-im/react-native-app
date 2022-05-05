@@ -19,7 +19,7 @@ const Search: React.FC<{}> = () => {
 
   const onSearch = async (text: string) => {
     if (!isPhoneNumber(text)) {
-      Toast.info('手机号不正确', 1);
+      Toast.info('手机号不正确', 1000);
       return;
     }
     const key = await Toast.loading('正在查找联系人');

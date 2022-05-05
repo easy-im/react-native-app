@@ -12,14 +12,14 @@ import {
   ScrollView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Button, Portal, Toast } from '@ant-design/react-native';
+import { observer } from 'mobx-react-lite';
+import { Toast, Button } from 'react-native-ui-view';
 import COLORS from '@/core/color';
 import { MODULES } from '@/core/constant';
 import { isPhoneNumber } from '@/utils';
 import { UserRegister } from '@/service';
 import { rpx } from '@/utils/screen';
 import config from '@/config';
-import { observer } from 'mobx-react-lite';
 import { PageContainer } from '@/router';
 
 const Register: React.FC<{}> = () => {
@@ -31,22 +31,22 @@ const Register: React.FC<{}> = () => {
 
   const register = async () => {
     if (!isPhoneNumber(mobile)) {
-      Toast.fail('手机号不正确', 1);
+      Toast.fail('手机号不正确', 1000);
     } else if (!password || password.length < 6 || password.length > 18) {
-      Toast.fail('密码格式不正确', 1);
+      Toast.fail('密码格式不正确', 1000);
     } else if (password !== password2) {
-      Toast.fail('两次密码不相同', 1);
+      Toast.fail('两次密码不相同', 1000);
     } else {
-      const key = Toast.loading('正在加载');
+      const key = await Toast.loading('正在加载');
       const res = await UserRegister(mobile, nickname, password);
-      Portal.remove(key);
+      Toast.hideLoading(key);
       if (res && res.errno === 200) {
-        Toast.success('注册成功，请登录', 1);
+        Toast.success('注册成功，请登录', 1000);
         setTimeout(() => {
           navigation.navigate(MODULES.Login);
         }, 1000);
       } else {
-        Toast.fail(res?.errmsg || '网络错误', 1);
+        Toast.fail(res?.errmsg || '网络错误', 1000);
       }
     }
   };
