@@ -65,6 +65,8 @@ class User {
       return { success: true, errmsg: '' };
     } else if (res?.errno === 401) {
       await this.reset();
+      await this.logout();
+      await AsyncStorage.removeItem(CURRENT_USER_KEY);
       return { success: false, errmsg: '登陆已失效' };
     }
     return { success: false, errmsg: res?.errmsg || '登录错误' };
