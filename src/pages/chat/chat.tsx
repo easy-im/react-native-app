@@ -18,7 +18,6 @@ import COLORS from '@/core/color';
 import { rpx } from '@/utils/screen';
 import Chat from '@/socket/chat';
 import store from '@/store';
-import { UserInfo } from '@/types/user';
 import { PageContainer } from '@/router';
 import { MAX_CHAT_INPUT_HEIGHT, MODULES } from '@/core/constant';
 
@@ -79,6 +78,7 @@ const ChatPage: React.FC<{}> = () => {
 
   // 键盘弹出处理
   const handleKeyboardShow = (e: KeyboardEvent) => {
+    console.log('keyboard show');
     const { endCoordinates } = e;
     const { height } = endCoordinates;
     keyboardHeight.current = height;
@@ -102,7 +102,6 @@ const ChatPage: React.FC<{}> = () => {
       return false;
     }
     Chat.sendMessage(text, {
-      userInfo: userInfo as UserInfo,
       friendInfo,
       isGroup: false,
     });
@@ -116,7 +115,8 @@ const ChatPage: React.FC<{}> = () => {
       <ScrollView
         ref={$scroll}
         style={styles.chatBody}
-        keyboardShouldPersistTaps="always"
+        keyboardShouldPersistTaps="never"
+        keyboardDismissMode="none"
         onScroll={(event) => (scrollOffset.current = event.nativeEvent.contentOffset.y)}
         scrollEventThrottle={16}
       >
@@ -171,9 +171,10 @@ const ChatPage: React.FC<{}> = () => {
           textAlignVertical="top"
           value={messageText}
           spellCheck={false}
+          enablesReturnKeyAutomatically={true}
           blurOnSubmit={false}
           multiline={true}
-          enablesReturnKeyAutomatically={true}
+          maxLength={500}
           onContentSizeChange={(e) => {
             setInputHeight(e.nativeEvent.contentSize.height);
           }}
@@ -312,9 +313,18 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: rpx(5),
     paddingHorizontal: rpx(8),
-    paddingVertical: rpx(10),
-    fontSize: rpx(16),
-    height: rpx(42),
+    ...Platform.select({
+      android: {
+        fontSize: rpx(16),
+        height: rpx(42),
+        paddingVertical: rpx(10),
+      },
+      ios: {
+        fontSize: rpx(20),
+        paddingBottom: 0,
+        paddingTop: rpx(12),
+      },
+    }),
   },
   voiceIcon: {
     marginRight: rpx(10),

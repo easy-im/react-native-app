@@ -80,16 +80,15 @@ class Chat {
    * @param options.friendInfo {User} 接收者信息
    * @param options.isGroup {boolean} 是否是群消息
    */
-  public async sendMessage(content: string, options: { userInfo: UserInfo; friendInfo: Friend; isGroup: boolean }) {
-    if (!this.socket) {
-      return;
-    }
+  public async sendMessage(content: string, options: { friendInfo: Friend; isGroup: boolean }) {
+    const { userStore } = store;
+    const { userInfo } = userStore;
     content = content.trim();
-    if (!content) {
+    if (!this.socket || !content || !userInfo?.id) {
       return;
     }
 
-    const { userInfo, friendInfo, isGroup } = options;
+    const { friendInfo, isGroup } = options;
     const message: Message = {
       hash: md5(`${userInfo.id}_${friendInfo.fid}_${+new Date()}`),
       user_id: userInfo.id,
