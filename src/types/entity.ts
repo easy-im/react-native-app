@@ -1,4 +1,4 @@
-import { ENUM_MESSAGE_CONTENT_TYPE, ENUM_MESSAGE_DIST_TYPE } from '@/core/enum';
+import { MESSAGE_CONTENT_TYPE, CHAT_MESSAGE_TYPE } from '@/core/enum';
 
 // 与后端一致
 export interface Message {
@@ -6,8 +6,8 @@ export interface Message {
   hash: string;
   user_id: number;
   dist_id: number;
-  dist_type: ENUM_MESSAGE_DIST_TYPE;
-  content_type: ENUM_MESSAGE_CONTENT_TYPE;
+  dist_type: CHAT_MESSAGE_TYPE;
+  content_type: MESSAGE_CONTENT_TYPE;
   content: string;
   create_time: number;
   is_received?: number;

@@ -11,6 +11,7 @@ import store from '@/store';
 import { PageContainer } from '@/router';
 import { Toast } from 'react-native-ui-view';
 
+// 通过请求，添加好友
 const AddFriend: React.FC<{}> = () => {
   const [remark, setRemark] = useState('');
 

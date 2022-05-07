@@ -12,6 +12,7 @@ import store from '@/store';
 import { PageContainer } from '@/router';
 import { Toast } from 'react-native-ui-view';
 
+// 好友申请
 const RequestList: React.FC<{}> = () => {
   const navigation = useNavigation();
   const { userStore } = store;

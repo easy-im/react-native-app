@@ -11,6 +11,7 @@ import store from '@/store';
 import { MODULES } from '@/core/constant';
 import { PageContainer } from '@/router';
 
+// 申请添加好友
 const ApplyToFriend: React.FC<{}> = () => {
   const [message, setMessage] = useState('');
   const [remark, setRemark] = useState('');

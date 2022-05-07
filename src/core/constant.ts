@@ -1,4 +1,5 @@
 export const CURRENT_USER_KEY = '@STORAGE/CURRENT_USER';
+export const MAX_CHAT_INPUT_HEIGHT = 85;
 export const MODULES = {
   Home: 'Home',
   TabNav: 'TabNav',

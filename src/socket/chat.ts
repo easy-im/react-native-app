@@ -1,12 +1,10 @@
 import { io, Socket } from 'socket.io-client';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import md5 from 'md5';
 import config from '@/config';
-import { ENUM_MESSAGE_CONTENT_TYPE, ENUM_MESSAGE_DIST_TYPE, ENUM_SOCKET_MESSAGE_TYPE } from '@/core/enum';
+import { MESSAGE_CONTENT_TYPE, CHAT_MESSAGE_TYPE, SOCKET_MESSAGE_TYPE } from '@/core/enum';
 import { CHAT_MESSAGE, RESPONSE_MESSAGE, SOCKET_RESPONSE } from '@/types/response';
 import { Friend, UserInfo } from '@/types/user';
 import { Message, MessageRecord } from '@/types/entity';
-import { CURRENT_USER_KEY } from '@/core/constant';
 import store from '@/store';
 
 const { ws } = config;
@@ -15,7 +13,6 @@ const { messageStore } = store;
 class Chat {
   private static instance: Chat;
   private socket!: Socket;
-  private userInfo!: UserInfo;
 
   public static getInstance() {
     if (!this.instance) {
@@ -25,16 +22,20 @@ class Chat {
   }
 
   public async setup() {
-    const userStr = await AsyncStorage.getItem(CURRENT_USER_KEY);
-    const user = userStr ? JSON.parse(userStr) : null;
-    if (!user) {
+    const { userStore } = store;
+    const { userInfo } = userStore;
+    if (!userInfo) {
       return;
     }
-    this.userInfo = user;
+
+    // 初始化完成不需要再次初始化
+    if (this.socket) {
+      return;
+    }
 
     const socket = io(`${ws.host}/${ws.namespace}`, {
       query: {
-        token: user.token,
+        token: userInfo.token,
       },
       transports: ['websocket'],
       timeout: 5000,
@@ -45,10 +46,10 @@ class Chat {
       socket.on(id, (data: SOCKET_RESPONSE) => {
         console.log('ws 收到服务器消息：', data.message_type, data.message);
         switch (data.message_type) {
-          case ENUM_SOCKET_MESSAGE_TYPE.PRIVATE_CHAT:
+          case SOCKET_MESSAGE_TYPE.PRIVATE_CHAT:
             this.onMessage(data.message as CHAT_MESSAGE);
             break;
-          case ENUM_SOCKET_MESSAGE_TYPE.MESSAGE_STATUS_CONFIRM:
+          case SOCKET_MESSAGE_TYPE.MESSAGE_STATUS_CONFIRM:
             this.onConfirmMessage(data.message as RESPONSE_MESSAGE);
             break;
         }
@@ -67,7 +68,7 @@ class Chat {
    */
   public async onMessage(data: CHAT_MESSAGE) {
     const { type, messages } = data;
-    if (type === ENUM_MESSAGE_DIST_TYPE.PRIVATE) {
+    if (type === CHAT_MESSAGE_TYPE.PRIVATE) {
       messageStore.updateMessageList(messages, false);
     }
   }
@@ -77,7 +78,7 @@ class Chat {
    * @param content {string} 发送内容
    * @param options.userInfo {User} 发送者信息
    * @param options.friendInfo {User} 接收者信息
-   * @param options.is_group {boolean} 是否是群消息
+   * @param options.isGroup {boolean} 是否是群消息
    */
   public async sendMessage(content: string, options: { userInfo: UserInfo; friendInfo: Friend; isGroup: boolean }) {
     if (!this.socket) {
@@ -93,8 +94,8 @@ class Chat {
       hash: md5(`${userInfo.id}_${friendInfo.fid}_${+new Date()}`),
       user_id: userInfo.id,
       dist_id: friendInfo.fid,
-      dist_type: isGroup ? ENUM_MESSAGE_DIST_TYPE.GROUP : ENUM_MESSAGE_DIST_TYPE.PRIVATE,
-      content_type: ENUM_MESSAGE_CONTENT_TYPE.TEXT,
+      dist_type: isGroup ? CHAT_MESSAGE_TYPE.GROUP : CHAT_MESSAGE_TYPE.PRIVATE,
+      content_type: MESSAGE_CONTENT_TYPE.TEXT,
       content,
       create_time: +new Date(),
     };
