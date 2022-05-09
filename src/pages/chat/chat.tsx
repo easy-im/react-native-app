@@ -19,7 +19,7 @@ import { rpx } from '@/utils/screen';
 import Chat from '@/socket/chat';
 import store from '@/store';
 import { PageContainer } from '@/router';
-import { MAX_CHAT_INPUT_HEIGHT, MODULES } from '@/core/constant';
+import { MAX_CHAT_INPUT_HEIGHT, P_CHAT } from '@/core/constant';
 
 const ChatPage: React.FC<{}> = () => {
   const $scroll = useRef<ScrollView | null>(null);
@@ -336,7 +336,7 @@ const styles = StyleSheet.create({
   },
 });
 
-PageContainer(MODULES.Chat, observer(ChatPage), {
+PageContainer(P_CHAT, observer(ChatPage), {
   title: '对话',
   headerStyle: {
     height: Platform.OS === 'android' ? 44 : undefined, // ios设置会错乱

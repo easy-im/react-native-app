@@ -4,6 +4,7 @@ import { createStackNavigator, StackNavigationOptions, TransitionPresets } from 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import COLORS from '@/core/color';
 import tabbar from '@/router/tabbar';
+import { P_HOME } from '@/core/constant';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -26,9 +27,9 @@ export const PageContainer = (
 
 export const Router: React.FC<{ initialRouteName: string }> = ({ initialRouteName }) => {
   const TabScreen = () => {
-    const { screenOptions, tabBarOptions, list } = tabbar;
+    const { screenOptions, list } = tabbar;
     return (
-      <Tab.Navigator screenOptions={screenOptions} tabBarOptions={tabBarOptions}>
+      <Tab.Navigator screenOptions={screenOptions}>
         {list.map((item, index) => {
           return <Tab.Screen key={index} name={item.name} component={item.component} options={item.options} />;
         })}
@@ -50,7 +51,7 @@ export const Router: React.FC<{ initialRouteName: string }> = ({ initialRouteNam
         initialRouteName={initialRouteName}
       >
         <Stack.Screen
-          name="TabNav"
+          name={P_HOME}
           component={TabScreen}
           options={{
             headerShown: false,

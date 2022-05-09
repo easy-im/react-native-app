@@ -19,7 +19,7 @@ import COLORS from '@/core/color';
 import { isPhoneNumber } from '@/utils';
 import Socket from '@/socket/chat';
 
-import { MODULES } from '@/core/constant';
+import { P_HOME, P_LOGIN, P_REGISTER, ScreenProp } from '@/core/constant';
 import { rpx } from '@/utils/screen';
 import store from '@/store';
 import config from '@/config';
@@ -29,7 +29,7 @@ const Login: React.FC<{}> = () => {
   const [mobile, setMobile] = useState('');
   const [password, setPassword] = useState('');
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenProp>();
   const { userStore } = store;
 
   const doLogin = async () => {
@@ -47,7 +47,7 @@ const Login: React.FC<{}> = () => {
       index: 0,
       routes: [
         {
-          name: MODULES.TabNav,
+          name: P_HOME,
         },
       ],
     });
@@ -104,7 +104,7 @@ const Login: React.FC<{}> = () => {
             </Button>
           </View>
           <View style={styles.helpWrap}>
-            <TouchableOpacity style={styles.help} onPress={() => navigation.navigate(MODULES.Register)}>
+            <TouchableOpacity style={styles.help} onPress={() => navigation.navigate(P_REGISTER)}>
               <Text style={styles.helpText}>注册账号</Text>
             </TouchableOpacity>
           </View>
@@ -181,6 +181,6 @@ const styles = StyleSheet.create({
   },
 });
 
-PageContainer(MODULES.Login, observer(Login), {
+PageContainer(P_LOGIN, observer(Login), {
   headerShown: false,
 });

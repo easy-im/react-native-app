@@ -9,13 +9,13 @@ import { rpx } from '@/utils/screen';
 import SearchBar from '@/components/SearchBar';
 import { isPhoneNumber } from '@/utils';
 import { UserSearch } from '@/service';
-import { MODULES } from '@/core/constant';
+import { P_APPLY_TO_FRIEND, P_SEARCH, ScreenProp } from '@/core/constant';
 import { SearchUser } from '@/types/user';
 import { PageContainer } from '@/router';
 
 const Search: React.FC<{}> = () => {
   const [userData, setUserData] = useState<SearchUser | null | undefined>(undefined);
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenProp>();
 
   const onSearch = async (text: string) => {
     if (!isPhoneNumber(text)) {
@@ -33,14 +33,20 @@ const Search: React.FC<{}> = () => {
   };
 
   const onAddFriend = async (data: SearchUser) => {
-    navigation.navigate(MODULES.ApplyToFriend, { userData: data });
+    navigation.navigate(P_APPLY_TO_FRIEND, { userData: data });
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={COLORS.fill_body} />
       <View style={styles.searchWrap}>
-        <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          style={styles.back}
+          onPress={() => {
+            console.log(11);
+            navigation.goBack();
+          }}
+        >
           <Icon name="arrow-left" size={28} color={COLORS.color_text_paragraph} />
         </TouchableOpacity>
         <SearchBar
@@ -159,7 +165,7 @@ const styles = StyleSheet.create({
   },
 });
 
-PageContainer(MODULES.Search, observer(Search), {
+PageContainer(P_SEARCH, observer(Search), {
   title: '添加好友',
   headerShown: false,
 });

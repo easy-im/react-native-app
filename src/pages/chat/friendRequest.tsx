@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import SearchBar from '@/components/SearchBar';
 import { rpx } from '@/utils/screen';
 import COLORS from '@/core/color';
-import { MODULES } from '@/core/constant';
+import { P_ADD_FRIEND, P_FRIEND_REQUEST, P_SEARCH, ScreenProp } from '@/core/constant';
 import { DealFriendRequest } from '@/service';
 import { UserFriendRequest } from '@/types/user';
 import store from '@/store';
@@ -14,13 +14,13 @@ import { Toast } from 'react-native-ui-view';
 
 // 好友申请
 const RequestList: React.FC<{}> = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenProp>();
   const { userStore } = store;
   const { userFriendRequest, userFriendRequestCount } = userStore;
 
   const handle = async (record: UserFriendRequest, agree: boolean) => {
     if (agree) {
-      navigation.navigate(MODULES.AddFriend, { userData: record });
+      navigation.navigate(P_ADD_FRIEND, { userData: record });
     } else {
       const key = await Toast.loading('正在处理');
       const res = await DealFriendRequest(record.id, agree);
@@ -52,7 +52,7 @@ const RequestList: React.FC<{}> = () => {
           style={styles.searchBar}
           theme="light"
           disabled={true}
-          onPress={() => navigation.navigate(MODULES.Search)}
+          onPress={() => navigation.navigate(P_SEARCH)}
         />
       </View>
       {userFriendRequest && userFriendRequest.length > 0 && (
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   },
 });
 
-PageContainer(MODULES.FriendRequest, observer(RequestList), {
+PageContainer(P_FRIEND_REQUEST, observer(RequestList), {
   title: '新的朋友',
   headerStyle: {
     height: Platform.OS === 'android' ? 44 : undefined, // ios设置会错乱

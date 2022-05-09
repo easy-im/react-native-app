@@ -16,11 +16,11 @@ import Header from '@/components/Header';
 import COLORS from '@/core/color';
 import store from '@/store';
 import { Friend } from '@/types/user';
-import { MODULES } from '@/core/constant';
+import { P_CHAT, P_FRIEND_REQUEST, ScreenProp } from '@/core/constant';
 import { rpx } from '@/utils/screen';
 
 const AddressBook: React.FC<{}> = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenProp>();
   const { userStore } = store;
   const { friendMap, friendList, userFriendRequestCount } = userStore;
 
@@ -37,7 +37,7 @@ const AddressBook: React.FC<{}> = () => {
           )}
         </>
       ),
-      onPress: () => navigation.navigate(MODULES.FriendRequest),
+      onPress: () => navigation.navigate(P_FRIEND_REQUEST),
     },
     {
       image: require('@/assets/images/icon/group.png'),
@@ -47,12 +47,13 @@ const AddressBook: React.FC<{}> = () => {
 
   useEffect(() => {
     navigation.setOptions({
+      // @ts-ignore
       tabBarBadge: userFriendRequestCount <= 0 ? undefined : userFriendRequestCount,
     });
   }, [navigation, userFriendRequestCount]);
 
   const chat2user = (friend: Friend) => {
-    navigation.navigate(MODULES.Chat, { id: friend.fid, title: friend.remark || friend.nickname });
+    navigation.navigate(P_CHAT, { id: friend.fid, title: friend.remark || friend.nickname });
   };
 
   return (

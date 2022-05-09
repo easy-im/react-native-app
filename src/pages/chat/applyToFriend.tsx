@@ -8,7 +8,7 @@ import { rpx } from '@/utils/screen';
 import { RequestToBeFriend } from '@/service';
 import { SearchUser } from '@/types/user';
 import store from '@/store';
-import { MODULES } from '@/core/constant';
+import { P_APPLY_TO_FRIEND } from '@/core/constant';
 import { PageContainer } from '@/router';
 
 // 申请添加好友
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   },
 });
 
-PageContainer(MODULES.ApplyToFriend, observer(ApplyToFriend), {
+PageContainer(P_APPLY_TO_FRIEND, observer(ApplyToFriend), {
   title: '好友申请',
   headerShown: false,
 });

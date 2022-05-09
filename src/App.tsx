@@ -11,6 +11,7 @@ import '@/pages/chat/applyToFriend';
 import '@/pages/chat/chat';
 import '@/pages/chat/friendRequest';
 import '@/pages/chat/search';
+import { P_HOME, P_LOGIN } from './core/constant';
 
 export default function App() {
   const [loaded, setLoaded] = useState(false);
@@ -35,7 +36,7 @@ export default function App() {
   }
 
   // 已登录就显示tab，否者显示登录页面
-  const initialRouteName = isLoggedIn ? 'TabNav' : 'Login';
+  const initialRouteName = isLoggedIn ? P_HOME : P_LOGIN;
 
   return (
     <Portal>

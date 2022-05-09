@@ -17,7 +17,7 @@ import Header from '@/components/Header';
 import COLORS from '@/core/color';
 import { formatTime } from '@/utils';
 import { Friend } from '@/types/user';
-import { MODULES } from '@/core/constant';
+import { P_CHAT, ScreenProp } from '@/core/constant';
 import { rpx } from '@/utils/screen';
 import store from '@/store';
 import config from '@/config';
@@ -27,7 +27,7 @@ const Recent: React.FC<{}> = () => {
   const [refreshing, setRefreshing] = useState(false);
 
   const { userStore, messageStore } = store;
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenProp>();
 
   const { friendMap } = userStore;
   const { recent, messageMap, totalMessage } = messageStore;
@@ -39,6 +39,7 @@ const Recent: React.FC<{}> = () => {
 
   useEffect(() => {
     navigation.setOptions({
+      // @ts-ignore
       tabBarBadge: totalMessage <= 0 ? undefined : totalMessage,
     });
   }, [navigation, totalMessage]);
@@ -56,7 +57,7 @@ const Recent: React.FC<{}> = () => {
   };
 
   const chat2user = (item: Friend) => {
-    navigation.navigate(MODULES.Chat, { id: item.fid, title: item.remark || item.nickname });
+    navigation.navigate(P_CHAT, { id: item.fid, title: item.remark || item.nickname });
   };
 
   const onRefresh = async () => {

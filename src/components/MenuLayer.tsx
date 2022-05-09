@@ -14,7 +14,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { rpx } from '@/utils/screen';
 import COLORS from '@/core/color';
-import { MODULES } from '@/core/constant';
+import { P_SEARCH, ScreenProp } from '@/core/constant';
 
 const { StatusBarManager } = NativeModules;
 interface Props {
@@ -24,7 +24,7 @@ interface Props {
 
 const MenuLayer: React.FC<Props> = (props) => {
   const [statusBarHeight, setStatusBarHeight] = useState(0);
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenProp>();
   const { visible, onClose } = props;
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const MenuLayer: React.FC<Props> = (props) => {
 
   const searchUser = () => {
     onClose();
-    navigation.navigate(MODULES.Search);
+    navigation.navigate(P_SEARCH);
   };
 
   return (

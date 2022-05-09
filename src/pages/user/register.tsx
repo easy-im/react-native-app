@@ -15,7 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { Toast, Button } from 'react-native-ui-view';
 import COLORS from '@/core/color';
-import { MODULES } from '@/core/constant';
+import { P_LOGIN, P_REGISTER, ScreenProp } from '@/core/constant';
 import { isPhoneNumber } from '@/utils';
 import { UserRegister } from '@/service';
 import { rpx } from '@/utils/screen';
@@ -27,7 +27,7 @@ const Register: React.FC<{}> = () => {
   const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenProp>();
 
   const register = async () => {
     if (!isPhoneNumber(mobile)) {
@@ -43,7 +43,7 @@ const Register: React.FC<{}> = () => {
       if (res && res.errno === 200) {
         Toast.success('注册成功，请登录', 1000);
         setTimeout(() => {
-          navigation.navigate(MODULES.Login);
+          navigation.navigate(P_LOGIN);
         }, 1000);
       } else {
         Toast.fail(res?.errmsg || '网络错误', 1000);
@@ -131,7 +131,7 @@ const Register: React.FC<{}> = () => {
             </Button>
           </View>
           <View style={styles.helpWrap}>
-            <TouchableOpacity style={styles.help} onPress={() => navigation.navigate(MODULES.Login)}>
+            <TouchableOpacity style={styles.help} onPress={() => navigation.navigate(P_LOGIN)}>
               <Text style={styles.helpText}>已有账号？去登陆</Text>
             </TouchableOpacity>
           </View>
@@ -208,6 +208,6 @@ const styles = StyleSheet.create({
   },
 });
 
-PageContainer(MODULES.Register, observer(Register), {
+PageContainer(P_REGISTER, observer(Register), {
   headerShown: false,
 });

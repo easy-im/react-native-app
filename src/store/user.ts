@@ -56,6 +56,7 @@ class User {
     }
 
     const res = await GetUserInfo();
+    console.log('auto login result', res);
 
     if (res && res.errno === 200) {
       AsyncStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res.data));

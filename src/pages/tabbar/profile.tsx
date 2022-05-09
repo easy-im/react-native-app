@@ -6,11 +6,11 @@ import COLORS from '@/core/color';
 
 import { rpx } from '@/utils/screen';
 import { useNavigation } from '@react-navigation/native';
-import { MODULES } from '@/core/constant';
+import { P_LOGIN, ScreenProp } from '@/core/constant';
 import store from '@/store';
 
 const Profile: React.FC<{}> = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenProp>();
   const { userStore } = store;
 
   const { userInfo } = userStore;
@@ -38,7 +38,7 @@ const Profile: React.FC<{}> = () => {
       index: 0,
       routes: [
         {
-          name: MODULES.Login,
+          name: P_LOGIN,
         },
       ],
     });

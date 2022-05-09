@@ -3,7 +3,7 @@ import { Image } from 'react-native';
 import { Route } from '@react-navigation/native';
 
 import COLORS from '@/core/color';
-import { MODULES } from '@/core/constant';
+import { P_ADDRESS_BOOK, P_PROFILE, P_RECENT } from '@/core/constant';
 
 import AddressBook from '@/pages/tabbar/addressBook';
 import Recent from '@/pages/tabbar/recent';
@@ -11,15 +11,15 @@ import Profile from '@/pages/tabbar/profile';
 
 const TabIcon: React.FC<any> = ({ route, focused, size }) => {
   const list: Record<string, { iconPath: any; selectedIconPath: any }> = {
-    [MODULES.Recent]: {
+    [P_RECENT]: {
       iconPath: require('../assets/images/tab/chat.png'),
       selectedIconPath: require('../assets/images/tab/chat-active.png'),
     },
-    [MODULES.AddressBook]: {
+    [P_ADDRESS_BOOK]: {
       iconPath: require('../assets/images/tab/address-book.png'),
       selectedIconPath: require('../assets/images/tab/address-book-active.png'),
     },
-    [MODULES.Profile]: {
+    [P_PROFILE]: {
       iconPath: require('../assets/images/tab/user.png'),
       selectedIconPath: require('../assets/images/tab/user-active.png'),
     },
@@ -40,24 +40,27 @@ const TabIcon: React.FC<any> = ({ route, focused, size }) => {
 const tabBar = {
   list: [
     {
-      name: MODULES.Recent,
+      name: P_RECENT,
       component: Recent,
       options: {
         tabBarLabel: '消息',
+        headerShown: false,
       },
     },
     {
-      name: MODULES.AddressBook,
+      name: P_ADDRESS_BOOK,
       component: AddressBook,
       options: {
         tabBarLabel: '通讯录',
+        headerShown: false,
       },
     },
     {
-      name: MODULES.Profile,
+      name: P_PROFILE,
       component: Profile,
       options: {
         tabBarLabel: '我',
+        headerShown: false,
       },
     },
   ],
@@ -66,12 +69,10 @@ const tabBar = {
       const { focused, color, size } = props;
       return <TabIcon route={route} focused={focused} color={color} size={size} />;
     },
-  }),
-  tabBarOptions: {
-    activeTintColor: COLORS.lightBlue,
-    inactiveTintColor: COLORS.lightGray,
+    tabBarActiveTintColor: COLORS.lightBlue,
+    tabBarInactiveTintColor: COLORS.lightGray,
     labelStyle: { marginBottom: 4 },
-  },
+  }),
 };
 
 export default tabBar;

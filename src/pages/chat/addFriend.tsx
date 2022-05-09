@@ -6,7 +6,7 @@ import COLORS from '@/core/color';
 import { rpx } from '@/utils/screen';
 import { UserFriendRequest } from '@/types/user';
 import { DealFriendRequest } from '@/service';
-import { MODULES } from '@/core/constant';
+import { P_ADD_FRIEND, P_CHAT, P_RECENT, ScreenProp } from '@/core/constant';
 import store from '@/store';
 import { PageContainer } from '@/router';
 import { Toast } from 'react-native-ui-view';
@@ -15,7 +15,7 @@ import { Toast } from 'react-native-ui-view';
 const AddFriend: React.FC<{}> = () => {
   const [remark, setRemark] = useState('');
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenProp>();
   const { userStore } = store;
   const route = useRoute();
 
@@ -51,10 +51,10 @@ const AddFriend: React.FC<{}> = () => {
           index: 1,
           routes: [
             {
-              name: MODULES.Recent,
+              name: P_RECENT,
             },
             {
-              name: MODULES.Chat,
+              name: P_CHAT,
               params: { id: userData.uid, title: remark || userData.nickname },
             },
           ],
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
   },
 });
 
-PageContainer(MODULES.AddFriend, observer(AddFriend), {
+PageContainer(P_ADD_FRIEND, observer(AddFriend), {
   title: '通过验证',
   headerShown: false,
 });
