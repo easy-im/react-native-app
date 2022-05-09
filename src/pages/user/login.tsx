@@ -41,8 +41,6 @@ const Login: React.FC<{}> = () => {
       Toast.info(res.errmsg);
       return;
     }
-    // 登陆成功链接ws
-    await Socket.setup();
     navigation.reset({
       index: 0,
       routes: [

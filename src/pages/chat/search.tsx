@@ -43,7 +43,6 @@ const Search: React.FC<{}> = () => {
         <TouchableOpacity
           style={styles.back}
           onPress={() => {
-            console.log(11);
             navigation.goBack();
           }}
         >

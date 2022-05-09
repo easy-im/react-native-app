@@ -3,12 +3,12 @@ import md5 from 'md5';
 import config from '@/config';
 import { MESSAGE_CONTENT_TYPE, CHAT_MESSAGE_TYPE, SOCKET_MESSAGE_TYPE } from '@/core/enum';
 import { CHAT_MESSAGE, RESPONSE_MESSAGE, SOCKET_RESPONSE } from '@/types/response';
-import { Friend, UserInfo } from '@/types/user';
+import { Friend } from '@/types/user';
 import { Message, MessageRecord } from '@/types/entity';
-import store from '@/store';
+import messageStore from '@/store/message';
+import userStore from '@/store/user';
 
 const { ws } = config;
-const { messageStore } = store;
 
 class Chat {
   private static instance: Chat;
@@ -22,7 +22,6 @@ class Chat {
   }
 
   public async setup() {
-    const { userStore } = store;
     const { userInfo } = userStore;
     if (!userInfo) {
       return;
@@ -81,7 +80,6 @@ class Chat {
    * @param options.isGroup {boolean} 是否是群消息
    */
   public async sendMessage(content: string, options: { friendInfo: Friend; isGroup: boolean }) {
-    const { userStore } = store;
     const { userInfo } = userStore;
     content = content.trim();
     if (!this.socket || !content || !userInfo?.id) {

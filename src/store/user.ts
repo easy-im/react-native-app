@@ -3,10 +3,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Friend, UserInfo, UserFriendRequest } from '@/types/user';
 import { CURRENT_USER_KEY } from '@/core/constant';
 import { GetUserFriend, GetUserFriendRequest, GetUserInfo, UserLogout, UserLogin } from '@/service';
-import messageStore from './message';
 import { FriendInfo } from '@/types/user';
+import Socket from '@/socket/chat';
+import messageStore from './message';
 
 class User {
+  @observable isLoggedIn: boolean = false;
   @observable userInfo?: UserInfo;
   @observable friendMap: Record<number, Friend> = {};
   @observable friendList: { key: string; list: number[] }[] = [];
@@ -22,6 +24,7 @@ class User {
   async reset() {
     await AsyncStorage.removeItem(CURRENT_USER_KEY);
     runInAction(() => {
+      this.isLoggedIn = false;
       this.userInfo = undefined;
       this.friendMap = {};
       this.friendList = [];
@@ -52,22 +55,28 @@ class User {
     const user: UserInfo | null = userStr ? JSON.parse(userStr) : null;
 
     if (!user) {
-      return { success: false, errmsg: '登陆已失效' };
+      await this.logout();
+      return { success: false, result: false, errmsg: '登陆已失效' };
     }
+
+    // 本地有数据，先用本地数据顶一下
+    runInAction(async () => {
+      this.userInfo = user;
+    });
 
     const res = await GetUserInfo();
     console.log('auto login result', res);
 
     if (res && res.errno === 200) {
-      AsyncStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res.data));
-      runInAction(() => {
+      runInAction(async () => {
         this.userInfo = res.data;
+        this.isLoggedIn = true;
+        await AsyncStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res.data));
+        await Socket.setup();
       });
       return { success: true, errmsg: '' };
     } else if (res?.errno === 401) {
-      await this.reset();
       await this.logout();
-      await AsyncStorage.removeItem(CURRENT_USER_KEY);
       return { success: false, errmsg: '登陆已失效' };
     }
     return { success: false, errmsg: res?.errmsg || '登录错误' };
@@ -77,9 +86,11 @@ class User {
   async login(mobile: string, password: string) {
     const res = await UserLogin(mobile, password);
     if (res && res.errno === 200) {
-      AsyncStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res.data));
-      runInAction(() => {
+      runInAction(async () => {
         this.userInfo = res.data;
+        this.isLoggedIn = true;
+        await AsyncStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res.data));
+        await Socket.setup();
       });
       return { success: true, errmsg: '' };
     }
@@ -88,14 +99,10 @@ class User {
 
   @action
   async logout() {
-    const res = await UserLogout();
-
-    if (res) {
-      await this.reset();
-      await messageStore.reset();
-      return { success: true, errmsg: '' };
-    }
-    return { success: false, errmsg: res?.errmsg || '网络错误' };
+    await UserLogout();
+    await this.reset();
+    await messageStore.reset();
+    return { success: true, errmsg: '' };
   }
 
   @action
