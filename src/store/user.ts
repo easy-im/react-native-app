@@ -56,7 +56,9 @@ class User {
 
     if (!user) {
       await this.logout();
-      return { success: false, result: false, errmsg: '登陆已失效' };
+      // success 数据获取成功
+      // result 登陆成功
+      return { success: true, result: false, errmsg: '登陆已失效' };
     }
 
     // 本地有数据，先用本地数据顶一下
@@ -74,12 +76,12 @@ class User {
         await AsyncStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res.data));
         await Socket.setup();
       });
-      return { success: true, errmsg: '' };
+      return { success: true, result: true, errmsg: '' };
     } else if (res?.errno === 401) {
       await this.logout();
-      return { success: false, errmsg: '登陆已失效' };
+      return { success: true, result: false, errmsg: '登陆已失效' };
     }
-    return { success: false, errmsg: res?.errmsg || '登录错误' };
+    return { success: false, result: false, errmsg: res?.errmsg || '登录错误' };
   }
 
   @action

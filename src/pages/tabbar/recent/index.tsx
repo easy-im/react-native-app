@@ -21,6 +21,7 @@ import { P_CHAT, ScreenProp } from '@/core/constant';
 import { rpx } from '@/utils/screen';
 import store from '@/store';
 import config from '@/config';
+import Connecting from './connecting';
 
 const Recent: React.FC<{}> = () => {
   const [loading, setLoading] = useState(false);
@@ -75,6 +76,7 @@ const Recent: React.FC<{}> = () => {
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       >
         <Header title={config.appName} loading={loading} />
+        <Connecting />
         <View style={styles.main}>
           <SearchBar placeholder="请输入关键字" disabled />
           <View style={styles.list}>

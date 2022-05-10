@@ -41,6 +41,7 @@ const Login: React.FC<{}> = () => {
       Toast.info(res.errmsg);
       return;
     }
+    // 登陆成功跳转到首页
     navigation.reset({
       index: 0,
       routes: [
