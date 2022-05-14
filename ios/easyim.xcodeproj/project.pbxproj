@@ -12,8 +12,8 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		D7E28C7F9AA26F5558A742BB /* libPods-easyim-easyimTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B369AF8F4BD5AFFB907774E /* libPods-easyim-easyimTests.a */; };
-		F4CEEF5590F7AB6EA4F5EA09 /* libPods-easyim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E6D00E9EB6874AC3732CD3E /* libPods-easyim.a */; };
+		AEB0E59427E3167A376E5FA7 /* libPods-easyim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 573ABEA7C2DABC5131DA71FB /* libPods-easyim.a */; };
+		E2803C89F808DDC7BDC3774A /* libPods-easyim-easyimTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 717906F2385F575204490DDB /* libPods-easyim-easyimTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,13 +36,13 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = easyim/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = easyim/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = easyim/main.m; sourceTree = "<group>"; };
-		2BB3A7FAF1D2EE3C5F46C374 /* Pods-easyim-easyimTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easyim-easyimTests.release.xcconfig"; path = "Target Support Files/Pods-easyim-easyimTests/Pods-easyim-easyimTests.release.xcconfig"; sourceTree = "<group>"; };
-		5A09C4B2FAFD1A59B7E158B1 /* Pods-easyim-easyimTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easyim-easyimTests.debug.xcconfig"; path = "Target Support Files/Pods-easyim-easyimTests/Pods-easyim-easyimTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5B369AF8F4BD5AFFB907774E /* libPods-easyim-easyimTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-easyim-easyimTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E6D00E9EB6874AC3732CD3E /* libPods-easyim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-easyim.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C68F10D6FEE94521EEE01A5 /* Pods-easyim-easyimTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easyim-easyimTests.release.xcconfig"; path = "Target Support Files/Pods-easyim-easyimTests/Pods-easyim-easyimTests.release.xcconfig"; sourceTree = "<group>"; };
+		44ADAFA7534672C75C230696 /* Pods-easyim.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easyim.release.xcconfig"; path = "Target Support Files/Pods-easyim/Pods-easyim.release.xcconfig"; sourceTree = "<group>"; };
+		4BDE6C76BFF354C241182CA6 /* Pods-easyim.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easyim.debug.xcconfig"; path = "Target Support Files/Pods-easyim/Pods-easyim.debug.xcconfig"; sourceTree = "<group>"; };
+		573ABEA7C2DABC5131DA71FB /* libPods-easyim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-easyim.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		717906F2385F575204490DDB /* libPods-easyim-easyimTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-easyim-easyimTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = easyim/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		87DA9ED5EDE334BFF67C3CBB /* Pods-easyim.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easyim.debug.xcconfig"; path = "Target Support Files/Pods-easyim/Pods-easyim.debug.xcconfig"; sourceTree = "<group>"; };
-		A92FB823D2B34E40AF537183 /* Pods-easyim.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easyim.release.xcconfig"; path = "Target Support Files/Pods-easyim/Pods-easyim.release.xcconfig"; sourceTree = "<group>"; };
+		9041ABC8CBD650DA87AC0331 /* Pods-easyim-easyimTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easyim-easyimTests.debug.xcconfig"; path = "Target Support Files/Pods-easyim-easyimTests/Pods-easyim-easyimTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -51,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7E28C7F9AA26F5558A742BB /* libPods-easyim-easyimTests.a in Frameworks */,
+				E2803C89F808DDC7BDC3774A /* libPods-easyim-easyimTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4CEEF5590F7AB6EA4F5EA09 /* libPods-easyim.a in Frameworks */,
+				AEB0E59427E3167A376E5FA7 /* libPods-easyim.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,26 +96,26 @@
 			name = easyim;
 			sourceTree = "<group>";
 		};
+		207050C11865C41A65A728FB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4BDE6C76BFF354C241182CA6 /* Pods-easyim.debug.xcconfig */,
+				44ADAFA7534672C75C230696 /* Pods-easyim.release.xcconfig */,
+				9041ABC8CBD650DA87AC0331 /* Pods-easyim-easyimTests.debug.xcconfig */,
+				1C68F10D6FEE94521EEE01A5 /* Pods-easyim-easyimTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				6E6D00E9EB6874AC3732CD3E /* libPods-easyim.a */,
-				5B369AF8F4BD5AFFB907774E /* libPods-easyim-easyimTests.a */,
+				573ABEA7C2DABC5131DA71FB /* libPods-easyim.a */,
+				717906F2385F575204490DDB /* libPods-easyim-easyimTests.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		71E12DC0D4317269411D4600 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				87DA9ED5EDE334BFF67C3CBB /* Pods-easyim.debug.xcconfig */,
-				A92FB823D2B34E40AF537183 /* Pods-easyim.release.xcconfig */,
-				5A09C4B2FAFD1A59B7E158B1 /* Pods-easyim-easyimTests.debug.xcconfig */,
-				2BB3A7FAF1D2EE3C5F46C374 /* Pods-easyim-easyimTests.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -133,7 +133,7 @@
 				00E356EF1AD99517003FC87E /* easyimTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				71E12DC0D4317269411D4600 /* Pods */,
+				207050C11865C41A65A728FB /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -156,12 +156,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "easyimTests" */;
 			buildPhases = (
-				8E7CD4216E350E0563BADFA0 /* [CP] Check Pods Manifest.lock */,
+				44079F8252D0E7BE02CDE31B /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				62E39EE373F25021FFA5F58C /* [CP] Embed Pods Frameworks */,
-				CC77536A2D80831A9E910AD2 /* [CP] Copy Pods Resources */,
+				B824B5FB68C04A06AE115F59 /* [CP] Embed Pods Frameworks */,
+				3EFFADFE41E5B58FA0E0B916 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -177,14 +177,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "easyim" */;
 			buildPhases = (
-				7E5A05EDED96C393F19111A4 /* [CP] Check Pods Manifest.lock */,
+				04461A58D7976D357E7DC69C /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				AE6D2628BE63C65A001A34F2 /* [CP] Embed Pods Frameworks */,
-				A631157511682036BC44D008 /* [CP] Copy Pods Resources */,
+				DE1E0B21F45E3D55D2FF005A /* [CP] Embed Pods Frameworks */,
+				ECD752D9C2E7C503DFAF4DA4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -265,24 +265,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		62E39EE373F25021FFA5F58C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-easyim-easyimTests/Pods-easyim-easyimTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-easyim-easyimTests/Pods-easyim-easyimTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-easyim-easyimTests/Pods-easyim-easyimTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7E5A05EDED96C393F19111A4 /* [CP] Check Pods Manifest.lock */ = {
+		04461A58D7976D357E7DC69C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -304,7 +287,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8E7CD4216E350E0563BADFA0 /* [CP] Check Pods Manifest.lock */ = {
+		3EFFADFE41E5B58FA0E0B916 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-easyim-easyimTests/Pods-easyim-easyimTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-easyim-easyimTests/Pods-easyim-easyimTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-easyim-easyimTests/Pods-easyim-easyimTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		44079F8252D0E7BE02CDE31B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -326,24 +326,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A631157511682036BC44D008 /* [CP] Copy Pods Resources */ = {
+		B824B5FB68C04A06AE115F59 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-easyim/Pods-easyim-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-easyim-easyimTests/Pods-easyim-easyimTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-easyim/Pods-easyim-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-easyim-easyimTests/Pods-easyim-easyimTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-easyim/Pods-easyim-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-easyim-easyimTests/Pods-easyim-easyimTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AE6D2628BE63C65A001A34F2 /* [CP] Embed Pods Frameworks */ = {
+		DE1E0B21F45E3D55D2FF005A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -360,21 +360,21 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-easyim/Pods-easyim-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CC77536A2D80831A9E910AD2 /* [CP] Copy Pods Resources */ = {
+		ECD752D9C2E7C503DFAF4DA4 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-easyim-easyimTests/Pods-easyim-easyimTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-easyim/Pods-easyim-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-easyim-easyimTests/Pods-easyim-easyimTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-easyim/Pods-easyim-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-easyim-easyimTests/Pods-easyim-easyimTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-easyim/Pods-easyim-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -393,7 +393,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8088}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -429,7 +429,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5A09C4B2FAFD1A59B7E158B1 /* Pods-easyim-easyimTests.debug.xcconfig */;
+			baseConfigurationReference = 9041ABC8CBD650DA87AC0331 /* Pods-easyim-easyimTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -456,7 +456,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2BB3A7FAF1D2EE3C5F46C374 /* Pods-easyim-easyimTests.release.xcconfig */;
+			baseConfigurationReference = 1C68F10D6FEE94521EEE01A5 /* Pods-easyim-easyimTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -480,7 +480,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 87DA9ED5EDE334BFF67C3CBB /* Pods-easyim.debug.xcconfig */;
+			baseConfigurationReference = 4BDE6C76BFF354C241182CA6 /* Pods-easyim.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -506,7 +506,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A92FB823D2B34E40AF537183 /* Pods-easyim.release.xcconfig */;
+			baseConfigurationReference = 44ADAFA7534672C75C230696 /* Pods-easyim.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -561,7 +561,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -627,7 +627,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
