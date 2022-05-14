@@ -53,7 +53,7 @@ const Login: React.FC<{}> = () => {
   };
 
   const isValid = () => {
-    return isPhoneNumber(+mobile) && password.length >= 5 && password.length <= 18;
+    return isPhoneNumber(+mobile) && password.length >= 6 && password.length <= 18;
   };
 
   return (
@@ -64,7 +64,7 @@ const Login: React.FC<{}> = () => {
           <Image source={require('@/assets/images/logo.png')} style={styles.image} />
         </View>
         <View style={styles.welcome}>
-          <Text style={styles.welcomeText}>欢迎使我用{config.appName}</Text>
+          <Text style={styles.welcomeText}>欢迎使用{config.appName}</Text>
         </View>
         <View style={styles.form}>
           <View style={styles.formItem}>
