@@ -93,7 +93,7 @@ const Recent: React.FC<{}> = () => {
                 <TouchableWithoutFeedback onPress={() => chat2user(user)} key={fid}>
                   <View style={styles.listItem}>
                     <View style={styles.avatar}>
-                      <Image source={{ uri: user.avatar }} style={styles.avatarImage} />
+                      <Image source={{ uri: `${config.cdnUrl}${user.avatar}` }} style={styles.avatarImage} />
                       {unreadNumber > 0 && (
                         <View style={styles.badge}>
                           <Text style={styles.badgeText}>{unreadNumber > 99 ? '99+' : unreadNumber}</Text>

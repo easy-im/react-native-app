@@ -18,6 +18,7 @@ import store from '@/store';
 import { Friend } from '@/types/user';
 import { P_CHAT, P_FRIEND_REQUEST, ScreenProp } from '@/core/constant';
 import { rpx } from '@/utils/screen';
+import config from '@/config';
 
 const AddressBook: React.FC<{}> = () => {
   const navigation = useNavigation<ScreenProp>();
@@ -98,7 +99,7 @@ const AddressBook: React.FC<{}> = () => {
                         <TouchableWithoutFeedback key={index} onPress={() => chat2user(friend)}>
                           <View style={styles.listItem}>
                             <View style={styles.avatar}>
-                              <Image source={{ uri: friend?.avatar }} style={styles.avatarImage} />
+                              <Image source={{ uri: `${config.cdnUrl}${friend?.avatar}` }} style={styles.avatarImage} />
                             </View>
                             <View style={[styles.userName, index === 0 && styles.firstUserName]}>
                               <Text style={styles.userNameText}>{friend?.remark || friend?.nickname}</Text>

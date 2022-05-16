@@ -20,6 +20,7 @@ import Chat from '@/socket/chat';
 import store from '@/store';
 import { PageContainer } from '@/router';
 import { MAX_CHAT_INPUT_HEIGHT, P_CHAT } from '@/core/constant';
+import config from '@/config';
 
 const ChatPage: React.FC<{}> = () => {
   const $scroll = useRef<ScrollView | null>(null);
@@ -138,7 +139,7 @@ const ChatPage: React.FC<{}> = () => {
             >
               <View style={[styles.chatAvatar, is_owner ? styles.chatMineAvatar : false]}>
                 <Image
-                  source={{ uri: is_owner ? userInfo?.avatar : friendInfo.avatar }}
+                  source={{ uri: `${config.cdnUrl}${is_owner ? userInfo?.avatar : friendInfo.avatar}` }}
                   style={styles.chatAvatarImage}
                 />
               </View>

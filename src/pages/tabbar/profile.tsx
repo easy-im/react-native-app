@@ -8,6 +8,7 @@ import { rpx } from '@/utils/screen';
 import { useNavigation } from '@react-navigation/native';
 import { P_LOGIN, ScreenProp } from '@/core/constant';
 import store from '@/store';
+import config from '@/config';
 
 const Profile: React.FC<{}> = () => {
   const navigation = useNavigation<ScreenProp>();
@@ -55,7 +56,9 @@ const Profile: React.FC<{}> = () => {
         <View style={styles.info}>
           <View style={styles.avatar}>
             <Image
-              source={{ uri: `${userInfo.avatar}?imageView2/1/w/150/h/150/format/jpg/interlace/1/q/75` }}
+              source={{
+                uri: `${config.cdnUrl}${userInfo.avatar}?imageView2/1/w/150/h/150/format/jpg/interlace/1/q/75`,
+              }}
               style={styles.avatarImage}
             />
           </View>

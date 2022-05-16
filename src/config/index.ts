@@ -9,6 +9,7 @@ type Config = {
     host: string;
     namespace: string;
   };
+  cdnUrl: string;
 };
 
 const env: EnvType = (process.env.NODE_ENV as EnvType) || 'local';
@@ -21,11 +22,12 @@ const configMap = {
 
 const defaults = {
   appName: 'KitIM',
-  baseUrl: 'http://10.12.166.76:8360/api',
+  baseUrl: 'http://10.12.165.232:8360/api',
   ws: {
-    host: 'http://10.12.166.76:8360',
+    host: 'http://10.12.165.232:8360',
     namespace: 'chat',
   },
+  cdnUrl: 'https://img.qiuzhihu.cn',
 };
 
 const config: Config = {

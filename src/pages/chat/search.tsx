@@ -12,6 +12,7 @@ import { UserSearch } from '@/service';
 import { P_APPLY_TO_FRIEND, P_SEARCH, ScreenProp } from '@/core/constant';
 import { SearchUser } from '@/types/user';
 import { PageContainer } from '@/router';
+import config from '@/config';
 
 const Search: React.FC<{}> = () => {
   const [userData, setUserData] = useState<SearchUser | null | undefined>(undefined);
@@ -64,7 +65,7 @@ const Search: React.FC<{}> = () => {
       {userData && (
         <View style={styles.result}>
           <View style={styles.item}>
-            <Image source={{ uri: userData.avatar }} style={styles.avatar} />
+            <Image source={{ uri: `${config.cdnUrl}${userData.avatar}` }} style={styles.avatar} />
             <View style={styles.content}>
               <View>
                 <Text style={[styles.contentText, styles.name]}>{userData.nickname}</Text>

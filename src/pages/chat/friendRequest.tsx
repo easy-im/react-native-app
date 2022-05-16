@@ -11,6 +11,7 @@ import { UserFriendRequest } from '@/types/user';
 import store from '@/store';
 import { PageContainer } from '@/router';
 import { Toast } from 'react-native-ui-view';
+import config from '@/config';
 
 // 好友申请
 const RequestList: React.FC<{}> = () => {
@@ -60,7 +61,7 @@ const RequestList: React.FC<{}> = () => {
           {userFriendRequest.map((item, index) => {
             return (
               <View style={styles.item} key={index}>
-                <Image source={{ uri: item.avatar }} style={styles.avatar} />
+                <Image source={{ uri: `${config.cdnUrl}${item.avatar}` }} style={styles.avatar} />
                 <View style={styles.contentWrap}>
                   <View style={styles.content}>
                     <View>
