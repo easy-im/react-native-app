@@ -22,9 +22,9 @@ const configMap = {
 
 const defaults = {
   appName: 'KitIM',
-  baseUrl: 'http://10.12.165.232:8360/api',
+  baseUrl: 'http://10.12.115.195:8360/api',
   ws: {
-    host: 'http://10.12.165.232:8360',
+    host: 'http://10.12.115.195:8360',
     namespace: 'chat',
   },
   cdnUrl: 'https://img.qiuzhihu.cn',

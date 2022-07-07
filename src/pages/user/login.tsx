@@ -17,8 +17,6 @@ import { observer } from 'mobx-react-lite';
 import { Toast, Button } from 'react-native-ui-view';
 import COLORS from '@/core/color';
 import { isPhoneNumber } from '@/utils';
-import Socket from '@/socket/chat';
-
 import { P_HOME, P_LOGIN, P_REGISTER, ScreenProp } from '@/core/constant';
 import { rpx } from '@/utils/screen';
 import store from '@/store';
